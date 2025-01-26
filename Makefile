@@ -1,7 +1,7 @@
 NAME := minishell
 CC := cc
 INCDIR := ./includes/
-C_FLAGS := -Wall -Wextra 
+C_FLAGS := -Wall -Wextra -Werror
 LIBFT_DIR := libft/
 LIBFT_ARCH := $(addsuffix libft.a, $(LIBFT_DIR))
 
