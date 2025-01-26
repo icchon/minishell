@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "pipex.h"
+#include "minishell.h"
 
 static void	process_edges(char **args, size_t *i, size_t arg_len, char **out)
 {

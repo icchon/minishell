@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "pipex.h"
+#include "minishell.h"
 
 static char	*process_heredoc(char *limiter)
 {
@@ -24,7 +24,7 @@ static char	*process_heredoc(char *limiter)
 	grobal_tmpfile(SET, input_file);
 	while (1)
 	{
-		ft_printf("heredoc> ");
+		ft_putstr_fd("heredoc> ", STDOUT_FILENO);
 		ft_bzero(tmp, BUFFER_SIZE);
 		read(STDIN_FILENO, tmp, BUFFER_SIZE);
 		tmp[ft_strlen(tmp) - 1] = '\0';
@@ -34,7 +34,7 @@ static char	*process_heredoc(char *limiter)
 		ft_strlcat(buff, "\n", BUFFER_SIZE);
 	}
 	fd = open(input_file, O_WRONLY);
-	ft_dprintf(fd, buff);
+	ft_putstr_fd(buff, fd);
 	close(fd);
 	return (input_file);
 }

@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "pipex.h"
+#include "minishell.h"
 
 void	*xsafe(void (*g)(void), t_fvoid f, int argn, ...)
 {

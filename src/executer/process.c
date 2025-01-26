@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "pipex.h"
+#include "minishell.h"
 
 static void	handle_io(t_token *redirect)
 {
@@ -69,9 +69,9 @@ static void	child_process(int pipes[2], t_token *redirect, t_astnode *node)
 	if (!res)
 	{
 		if (is_command(node->cmd->data))
-			ft_dprintf(2, "%s: command not found\n", node->cmd->data);
+			dprintf(2, "%s: command not found\n", node->cmd->data);
 		else
-			ft_dprintf(2, "bash: %s: No such file or directory\n",
+			dprintf(2, "bash: %s: No such file or directory\n",
 				node->cmd->data);
 	}
 	exit(EXIT_FAILURE);
