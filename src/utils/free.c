@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "pipex.h"
+#include "minishell.h"
 
 void	ft_free_arrs(int **arr)
 {
@@ -32,7 +32,7 @@ void	ft_free_str3(char ***strs)
 	i = 0;
 	while (strs[i])
 	{
-		ft_free_strs(strs[i]);
+		ft_2darraydel(strs[i]);
 		i++;
 	}
 	free(strs);

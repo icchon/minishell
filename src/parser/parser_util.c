@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "pipex.h"
+#include "minishell.h"
 
 static void	handle_token(t_token **redirects, t_token **args, t_astnode *node,
 		t_token **token)

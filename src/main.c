@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "pipex.h"
+#include "minishell.h"
 
 void	end(void)
 {
@@ -48,13 +48,14 @@ int	main(int argc, char *argv[], char **env)
 	grobal_token(SET, tokens);
 	tree = parser(tokens);
 	grobal_asttree(SET, tree);
+	print_ast(tree);
 	check_fds(tree);
 	executer(tree);
 	if (tree)
 	{
 		ft_bzero(buff, BUFFER_SIZE);
 		read(STDIN_FILENO, buff, BUFFER_SIZE);
-		ft_dprintf(STDOUT_FILENO, "%s", buff);
+		ft_putstr_fd(buff, STDOUT_FILENO);
 	}
 	end();
 	return (0);

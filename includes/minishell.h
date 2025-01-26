@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pipex.h                                            :+:      :+:    :+:   */
+/*   minishell.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kaisobe <kaisobe@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -10,18 +10,11 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PIPEX_H
-# define PIPEX_H
+#ifndef MINISHELL_H
+# define MINISHELL_H
 
 # include "libft.h"
-# include <fcntl.h>
-# include <limits.h>
 # include <stdio.h>
-# include <stdlib.h>
-# include <sys/stat.h>
-# include <sys/types.h>
-# include <sys/wait.h>
-# include <unistd.h>
 
 # define INPUT 0
 # define OUTPUT 1
@@ -31,6 +24,8 @@
 # define PARENT_PID 1
 # define GET 0
 # define SET 1
+# define BUFFER_SIZE 1000
+# define ASCII_SIZE 128
 
 typedef enum e_token_type
 {
@@ -98,8 +93,8 @@ char					**grobal_env(int get_or_set, char **env);
 t_token					*lexer(char *line);
 t_token					*new_token(t_token_type type, char *data);
 t_token					*last_token(t_token *token);
-void					addback_token(t_token **token, t_token *new);
-void					addfront_token(t_token **token, t_token *new);
+void					addback_token(t_token **token, t_token *newtoken);
+void					addfront_token(t_token **token, t_token *newtoken);
 t_token					*head_token(t_token *token);
 size_t					size_token(t_token *token);
 void					delone_token(t_token *token, void (*del)(void *));
