@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tkitago <tkitago@student.42tokyo.jp>       +#+  +:+       +#+        */
+/*   By: kaisobe <kaisobe@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/16 13:11:02 by tkitago           #+#    #+#             */
-/*   Updated: 2025/01/26 16:42:09 by tkitago          ###   ########.fr       */
+/*   Updated: 2025/01/27 17:55:23 by kaisobe          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,13 +115,13 @@ int					ft_llstdel(void *lst_ptr, size_t size, int index,
 						void *dst);
 void				*ft_llst2array(void *lst, size_t size, size_t *__len);
 void				ft_llstclear(void *lst_ptr, size_t size);
-int					ft_llstappend(void *lst_ptr, size_t size, void *new);
+int					ft_llstappend(void *lst_ptr, size_t size, void *newlst);
 char				*ft_readline(t_bufferio *io);
 char				*ft_joinpath(char *base, char *path);
 t_list				*ft_lstlast(t_list *lst);
 void				ft_lstdelone(t_list *lst, void (*del)(void *));
 void				ft_lstclear(t_list **lst, void (*del)(void *));
-void				ft_lstadd_back(t_list **lst, t_list *new);
+void				ft_lstadd_back(t_list **lst, t_list *newlst);
 t_list				*ft_lstnew(void *content);
 
 // functions added by icchon
