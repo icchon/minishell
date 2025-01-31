@@ -13,6 +13,7 @@ all: $(NAME)
 
 $(NAME): $(OBJS) $(LIBFT_ARCH)
 	$(CC) $(C_FLAGS) $(INC_FLAGS) $(OBJS) $(LIBFT_ARCH) -o $@
+	mkdir -p ../bin
 	mv $@ ../bin/
 
 $(LIBFT_ARCH):

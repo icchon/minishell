@@ -11,7 +11,8 @@ all: $(NAME)
 
 $(NAME): $(OBJS) libmsh.a
 	g++ $(FLAGS) -I $(INCDIR) -I $(SRC_DIR)/includes/ -I ../../libft/ $(OBJS) libmsh.a -o $@
-	mv $(NAME) ../../bin/
+	mkdir -p ../../bin
+	
 
 libmsh.a: $(shell find $(SRC_DIR) -name "*.c" -not -name "main.c")
 	$(MK_MSH)
@@ -25,6 +26,7 @@ $(CACHEDIR)/%.cpp.o: %.cpp
 	g++ $(FLAGS) -I $(INCDIR) -I $(SRC_DIR)/includes/ -I ../../libft/ -o $@ -c $<
 
 test: $(NAME) 
+	mv $(NAME) ../../bin
 	../../bin/$(NAME)
 
 clean: 
