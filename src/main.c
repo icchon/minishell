@@ -6,7 +6,7 @@
 /*   By: kaisobe <kaisobe@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/02 15:48:19 by kaisobe           #+#    #+#             */
-/*   Updated: 2025/01/24 14:37:15 by kaisobe          ###   ########.fr       */
+/*   Updated: 2025/02/01 17:52:42 by kaisobe          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,35 +28,33 @@ void	end(void)
 		free(grobal_tmpfile(GET, NULL));
 	}
 	free(grobal_bashinput(GET, NULL));
-	exit(EXIT_SUCCESS);
 	return ;
 }
 
 int	main(int argc, char *argv[], char **env)
 {
-	char		*input;
+	char		*line;
 	t_token		*tokens;
 	t_astnode	*tree;
-	char		buff[BUFFER_SIZE];
 
-	if (argc < 5)
-		return (0);
+	(void)argc;
+	(void)argv;
+	line = NULL;
 	grobal_env(SET, env);
-	input = translate_like_bash(&argv[1]);
-	grobal_bashinput(SET, input);
-	tokens = lexer((char *)input);
-	grobal_token(SET, tokens);
-	tree = parser(tokens);
-	grobal_asttree(SET, tree);
-	print_ast(tree);
-	check_fds(tree);
-	executer(tree);
-	if (tree)
+	while (1)
 	{
-		ft_bzero(buff, BUFFER_SIZE);
-		read(STDIN_FILENO, buff, BUFFER_SIZE);
-		ft_putstr_fd(buff, STDOUT_FILENO);
+		line = readline("minishell > ");
+		add_history(line);
+		if (!line)
+		{
+			if (!line)
+				dprintf(2, "line is null\n");
+			free(line);
+			continue ;
+		}
+		tokens = lexer((char *)line);
+		tree = parser(tokens);
+		executer(tree);
 	}
-	end();
 	return (0);
 }

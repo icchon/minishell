@@ -6,7 +6,7 @@
 /*   By: kaisobe <kaisobe@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/05 13:44:16 by kaisobe           #+#    #+#             */
-/*   Updated: 2025/01/13 10:54:38 by kaisobe          ###   ########.fr       */
+/*   Updated: 2025/02/01 17:47:02 by kaisobe          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,4 +49,14 @@ int	is_directory(char *str)
 int	is_command(char *str)
 {
 	return (!is_directory(str));
+}
+
+void	read_and_print(void)
+{
+	char	buff[BUFFER_SIZE];
+
+	ft_bzero(buff, BUFFER_SIZE);
+	read(STDIN_FILENO, buff, BUFFER_SIZE);
+	ft_putstr_fd(buff, STDOUT_FILENO);
+	return ;
 }

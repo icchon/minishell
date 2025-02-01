@@ -6,7 +6,7 @@
 /*   By: kaisobe <kaisobe@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/13 13:28:59 by kaisobe           #+#    #+#             */
-/*   Updated: 2025/01/24 14:08:30 by kaisobe          ###   ########.fr       */
+/*   Updated: 2025/02/01 09:46:59 by kaisobe          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -138,7 +138,7 @@ static void	print_ast_node(t_astnode *node, int depth)
 
 void	print_ast(t_astnode *root)
 {
-	printf("AST Structure: ");
+	printf("AST Structure: \n");
 	if (!root)
 		printf("NULL\n");
 	print_ast_node(root, 0);

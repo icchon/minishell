@@ -14,6 +14,8 @@
 # define MINISHELL_H
 
 # include "libft.h"
+# include <readline/history.h>
+# include <readline/readline.h>
 # include <stdio.h>
 
 # define INPUT 0
@@ -85,9 +87,15 @@ typedef struct s_astnode
 	struct s_astnode	*right;
 }						t_astnode;
 
-t_astnode				*executer(t_astnode *root);
+typedef struct s_pids
+{
+	pid_t				pid;
+	struct s_pids		*next;
+}						t_pids;
+
+void					executer(t_astnode *root);
 void					exec_heredoc(t_astnode *node);
-int						exec_command(t_astnode *node);
+pid_t					exec_command(t_astnode *node);
 void					expander(t_astnode *node);
 char					**grobal_env(int get_or_set, char **env);
 t_token					*lexer(char *line);
@@ -107,7 +115,6 @@ void					add_astnode(t_astnode **root, t_astnode *left,
 							t_astnode *right);
 void					print_ast(t_astnode *root);
 t_astnode				*parser(t_token *token);
-char					*translate_like_bash(char **args);
 void					ft_free_arrs(int **arr);
 void					ft_free_str3(char ***strs);
 int						is_directory(char *str);
@@ -123,7 +130,7 @@ void					end(void);
 t_token					*grobal_token(int get_or_set, t_token *token);
 t_astnode				*parse_or_and(t_token **token);
 char					*grobal_tmpfile(int get_or_set, char *tmpfile);
-void					*xsafe(void (*g)(void), t_fvoid f, int argn, ...);
 void					check_fds(t_astnode *tree);
+void					read_and_print(void);
 
 #endif

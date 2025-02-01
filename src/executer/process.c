@@ -6,7 +6,7 @@
 /*   By: kaisobe <kaisobe@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/05 13:41:39 by kaisobe           #+#    #+#             */
-/*   Updated: 2025/01/24 12:44:49 by kaisobe          ###   ########.fr       */
+/*   Updated: 2025/02/01 17:50:49 by kaisobe          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ static void	handle_io(t_token *redirect)
 					S_IRGRP | S_IROTH | S_IWUSR | S_IRUSR);
 			dup2(fd, STDOUT_FILENO);
 		}
+		close(fd);
 		redirect = redirect->next;
 	}
 }
@@ -64,6 +65,7 @@ static void	child_process(int pipes[2], t_token *redirect, t_astnode *node)
 
 	close(pipes[READ]);
 	dup2(pipes[WRITE], STDOUT_FILENO);
+	close(pipes[WRITE]);
 	handle_io(redirect);
 	res = try_command(node->cmd->data, node->arg_strs, grobal_env(GET, NULL));
 	if (!res)
@@ -74,16 +76,16 @@ static void	child_process(int pipes[2], t_token *redirect, t_astnode *node)
 			dprintf(2, "bash: %s: No such file or directory\n",
 				node->cmd->data);
 	}
-	exit(EXIT_FAILURE);
 }
 
-int	exec_command(t_astnode *node)
+pid_t	exec_command(t_astnode *node)
 {
 	int			pipes[2];
-	int			status;
 	t_redirect	*redirect;
 	pid_t		pid;
 
+	// char		buff[BUFFER_SIZE];
+	// int			status;
 	redirect = node->redirects;
 	pipe(pipes);
 	pid = fork();
@@ -91,11 +93,11 @@ int	exec_command(t_astnode *node)
 	{
 		child_process(pipes, redirect, node);
 	}
-	wait(&status);
-	close(pipes[WRITE]);
-	dup2(pipes[READ], STDIN_FILENO);
-	close(pipes[READ]);
-	if (status != EXIT_SUCCESS)
-		return (0);
-	return (1);
+	else
+	{
+		close(pipes[WRITE]);
+		dup2(pipes[READ], STDIN_FILENO);
+		close(pipes[READ]);
+	}
+	return (pid);
 }

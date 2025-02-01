@@ -6,7 +6,7 @@
 /*   By: kaisobe <kaisobe@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/05 13:39:35 by kaisobe           #+#    #+#             */
-/*   Updated: 2025/01/24 14:07:48 by kaisobe          ###   ########.fr       */
+/*   Updated: 2025/02/01 09:11:10 by kaisobe          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,15 +26,14 @@ char	*replace_env_vars(char *str, char **env)
 		if (str[i] == '$')
 		{
 			len = ft_calc_next_str(&str[++i], "\t\n\v\f\r $");
-			key = xsafe(end, (t_fvoid)ft_substr, 3, &str[i], 0, len);
-			out = xsafe(end, (t_fvoid)ft_strjoin_safe, 4, out, ft_get_env(key,
+			key = ft_substr(&str[i], 0, len);
+			out = ft_strjoin_safe(out, ft_get_env(key,
 						env), 1, (free(key), 0));
 		}
 		else
 		{
 			len = ft_calc_next_chr(&str[i], '$');
-			out = xsafe(end, (t_fvoid)ft_strjoin_safe, 4, out, xsafe(end,
-						(t_fvoid)ft_substr, 3, &str[i], 0, len), 1, 1);
+			out = ft_strjoin_safe(out, ft_substr(&str[i], 0, len), 1, 1);
 		}
 		i += len;
 	}
@@ -47,8 +46,8 @@ static void	process_single_quate(char *str, size_t *i, char **out)
 	char	*part;
 
 	len = ft_calc_next_chr(&str[*i + 1], '\'');
-	part = xsafe(end, (t_fvoid)ft_substr, 3, &str[*i], 0, len + 2);
-	*out = xsafe(end, (t_fvoid)ft_strjoin_safe, 4, *out, part, 1, 1);
+	part = ft_substr(&str[*i], 0, len + 2);
+	*out = ft_strjoin_safe(*out, part, 1, 1);
 	(*i) += len + 2;
 }
 
@@ -67,10 +66,10 @@ static char	*replace_env_vars_quate(char *str, char **env)
 		process_single_quate(str, &i, &out);
 	while (len > 0)
 	{
-		tmp = xsafe(end, (t_fvoid)ft_substr, 3, &str[i], 0, len);
+		tmp = ft_substr(&str[i], 0, len);
 		part = replace_env_vars(tmp, env);
 		free(tmp);
-		out = xsafe(end, (t_fvoid)ft_strjoin_safe, 4, out, part, 1, 1);
+		out = ft_strjoin_safe(out, part, 1, 1);
 		i += len;
 		if (str[i] == '\'')
 			process_single_quate(str, &i, &out);
