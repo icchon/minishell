@@ -6,12 +6,36 @@
 /*   By: kaisobe <kaisobe@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/05 13:41:39 by kaisobe           #+#    #+#             */
-/*   Updated: 2025/02/01 17:50:49 by kaisobe          ###   ########.fr       */
+/*   Updated: 2025/02/02 20:59:24 by kaisobe          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
+static void	print_arr(int *arr, int n)
+{
+	int	i;
+
+	i = 0;
+	while (i < n)
+	{
+		dprintf(2, "%d ", arr[i]);
+		i++;
+	}
+	dprintf(2, "\n");
+}
+
+// static void	print_arrs(int **arrs)
+// {
+// 	int	i;
+
+// 	i = 0;
+// 	while (arrs[i])
+// 	{
+// 		print_arr(arrs[i], 2);
+// 		i++;
+// 	}
+// }
 static void	handle_io(t_token *redirect)
 {
 	int	fd;
@@ -56,16 +80,32 @@ static int	try_command(char *cmd, char **arg, char **env)
 		return (0);
 	}
 	execve(path, arg, env);
-	return (0);
+	return (EXIT_FAILURE);
 }
 
-static void	child_process(int pipes[2], t_token *redirect, t_astnode *node)
+static void	child_process(int old_pipes[2], int new_pipes[2], t_token *redirect,
+		t_astnode *node)
 {
 	int	res;
 
-	close(pipes[READ]);
-	dup2(pipes[WRITE], STDOUT_FILENO);
-	close(pipes[WRITE]);
+	if (!node->is_first_cmd)
+	{
+		close(old_pipes[WRITE]);
+		dup2(old_pipes[READ], STDIN_FILENO);
+		close(old_pipes[READ]);
+	}
+	
+	if (!node->is_last_cmd)
+	{
+		close(new_pipes[READ]);
+		dup2(new_pipes[WRITE], STDOUT_FILENO);
+		close(new_pipes[WRITE]);
+	}
+	
+	dprintf(2, "cmd : %s\n", node->cmd->data);
+	print_arr(old_pipes, 2);
+	print_arr(new_pipes, 2);
+	dprintf(2, "--------------\n");
 	handle_io(redirect);
 	res = try_command(node->cmd->data, node->arg_strs, grobal_env(GET, NULL));
 	if (!res)
@@ -78,26 +118,14 @@ static void	child_process(int pipes[2], t_token *redirect, t_astnode *node)
 	}
 }
 
-pid_t	exec_command(t_astnode *node)
+pid_t	fork_and_exec_child(t_astnode *node, int old_pipes[2], int new_pipes[2])
 {
-	int			pipes[2];
-	t_redirect	*redirect;
-	pid_t		pid;
+	pid_t	pid;
 
-	// char		buff[BUFFER_SIZE];
-	// int			status;
-	redirect = node->redirects;
-	pipe(pipes);
 	pid = fork();
 	if (pid == CHILD_PID)
 	{
-		child_process(pipes, redirect, node);
-	}
-	else
-	{
-		close(pipes[WRITE]);
-		dup2(pipes[READ], STDIN_FILENO);
-		close(pipes[READ]);
+		child_process(old_pipes, new_pipes, node->redirects, node);
 	}
 	return (pid);
 }

@@ -1,28 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstadd_back.c                                   :+:      :+:    :+:   */
+/*   ft_print_strs.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kaisobe <kaisobe@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/11/22 20:40:41 by tkitago           #+#    #+#             */
-/*   Updated: 2025/02/02 14:21:02 by kaisobe          ###   ########.fr       */
+/*   Created: 2025/02/02 10:22:53 by kaisobe           #+#    #+#             */
+/*   Updated: 2025/02/02 10:24:05 by kaisobe          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	ft_lstadd_back(t_list **lst, t_list *new)
+void	print_strs(char **strs)
 {
-	t_list	*last;
+	int	i;
 
-	last = ft_lstlast(*lst);
-	if (!last)
+	i = 0;
+	while (strs && strs[i])
 	{
-		*lst = new;
-	}
-	else
-	{
-		last->next = new;
+		ft_putstr_fd(strs[i], 2);
+		ft_putstr_fd("\n", 2);
+		i++;
 	}
 }
