@@ -6,7 +6,7 @@
 /*   By: kaisobe <kaisobe@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/05 13:40:34 by kaisobe           #+#    #+#             */
-/*   Updated: 2025/02/01 09:11:36 by kaisobe          ###   ########.fr       */
+/*   Updated: 2025/02/03 08:14:13 by kaisobe          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,7 +103,7 @@ t_token	*lexer(char *line)
 		{
 			offset = ft_calc_next_chr(&line[i + 1], line[i]);
 			update_lexer_status(status, (t_lexer_status)line[i]);
-			data = xsafe(end, (t_fvoid)ft_substr, 3, &line[i], 0, offset + 2);
+			data = ft_substr(&line[i], 0, offset + 2);
 			addback_token(&head, new_token(TK_UNDEFINED, data));
 			i += (offset + 2);
 		}
