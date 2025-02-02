@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   pwd.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tkitago <tkitago@student.42tokyo.jp>       +#+  +:+       +#+        */
+/*   By: kaisobe <kaisobe@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/01 15:10:15 by tkitago           #+#    #+#             */
 /*   Updated: 2025/02/01 19:29:39 by tkitago          ###   ########.fr       */
@@ -12,6 +12,7 @@
 
 #include "libft.h"
 #include <error.h>
+#include <stdio.h>
 
 static int	valid_pwd(char *pwd)
 {
@@ -24,7 +25,7 @@ static int	valid_pwd(char *pwd)
 		return (EXIT_FAILURE);
 	if (!(tmp_pwd = ft_strdup(pwd)))
 		return (EXIT_FAILURE);
-	if (!(component = ft_split(tmp_pwd, "/")))
+	if (!(component = ft_split(tmp_pwd, '/')))
 	{
 		free(tmp_pwd);
 		return (EXIT_FAILURE);

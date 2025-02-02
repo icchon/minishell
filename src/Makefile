@@ -12,7 +12,7 @@ OBJS = $(SRCS:.c=.o)
 all: $(NAME)
 
 $(NAME): $(OBJS) $(LIBFT_ARCH)
-	$(CC) $(C_FLAGS) $(INC_FLAGS) $(OBJS) $(LIBFT_ARCH) -o $@
+	$(CC) $(C_FLAGS) $(INC_FLAGS) $(OBJS) $(LIBFT_ARCH) -o $@ -l readline
 	mkdir -p ../bin
 	mv $@ ../bin/
 
@@ -20,7 +20,7 @@ $(LIBFT_ARCH):
 	@make -C $(LIBFT_DIR) all
 
 .c.o: 
-	$(CC) $(C_FLAGS) $(INC_FLAGS) -c $< -o $@
+	$(CC) $(C_FLAGS) $(INC_FLAGS) -c $< -o $@ -l readline
 
 clean: 
 	rm -f $(OBJS) 

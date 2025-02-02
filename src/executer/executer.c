@@ -6,72 +6,93 @@
 /*   By: kaisobe <kaisobe@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/05 13:45:25 by kaisobe           #+#    #+#             */
-/*   Updated: 2025/01/24 12:15:02 by kaisobe          ###   ########.fr       */
+/*   Updated: 2025/02/03 06:39:40 by kaisobe          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static char	**create_args(t_astnode *node)
-{
-	char	**out;
-	t_arg	*arg;
-	size_t	arg_len;
-	size_t	i;
-
-	if (!node)
-		return (NULL);
-	arg_len = size_token(node->args);
-	i = 1;
-	arg = node->args;
-	out = (char **)malloc(sizeof(char *) * (arg_len + 2));
-	if (!out)
-		return (NULL);
-	out[0] = node->cmd->data;
-	while (arg)
-	{
-		out[i++] = arg->data;
-		arg = arg->next;
-	}
-	out[arg_len + 1] = NULL;
-	return (out);
-}
-
-static void	set_exec(t_astnode *node)
-{
-	if (!node)
-		return ;
-	if (node->args)
-	{
-		node->arg_cnt = size_token(node->args);
-		node->arg_strs = xsafe(end, (t_fvoid)create_args, 1, node);
-	}
-	return ;
-}
-
-t_astnode	*executer(t_astnode *root)
+pid_t	execute_command(t_astnode *root, int old_pipes[2], int new_pipes[2])
 {
 	t_astnode_type	type;
-	t_astnode		*left;
+	pid_t			pid;
 
 	if (!root)
-		return (NULL);
+		return (dprintf(2, "root is null\n"), -1);
 	type = root->type;
-	if (type == ASTND_CMD)
+	if (type != ASTND_CMD)
+		return (dprintf(2, "NOT ASTND_CMD\n"), -1);
+	expander(root);
+	set_arginfo(root);
+	pid = fork_and_exec_child(root, old_pipes, new_pipes);
+	return (pid);
+}
+
+int	execute_commands(t_list *cmds)
+{
+	t_astnode	*cmd;
+	t_list		*node;
+	pid_t		*pids;
+	int			status;
+	int			i;
+	int			**pipes;
+
+	pids = create_pids(ft_lstsize(cmds));
+	pipes = create_pipes(ft_lstsize(cmds));
+	status = 1;
+	node = cmds;
+	i = 0;
+	while (node)
 	{
-		if (!(expander(root), set_exec(root), exec_command(root)))
-			return (NULL);
-		return (root);
+		cmd = (t_astnode *)node->content;
+		pipe(pipes[i + 1]);
+		pids[i] = execute_command(cmd, pipes[i], pipes[i + 1]);
+		if (!cmd->is_first_cmd)
+		{
+			close(pipes[i][READ]);
+			close(pipes[i][WRITE]);
+		}
+		node = node->next;
+		i++;
 	}
-	else if (type == ASTND_PIPE)
-		return (executer(root->left), executer(root->right), NULL);
+	i = 0;
+	while (i < ft_lstsize(cmds))
+	{
+		waitpid(pids[i++], &status, 0);
+	}
+	return (status);
+}
+
+int	executer(t_ex_astnode *root)
+{
+	t_ex_astnode_type	type;
+	int					left_status;
+
+	if (!root)
+		return (EXIT_FAILURE);
+	type = root->type;
+	if (type == EX_ASTND_PIPETOP)
+	{
+		return (execute_commands(root->cmds));
+	}
 	else
 	{
-		left = executer(root->left);
-		if (type == ASTND_AND && left)
-			executer(root->right);
-		else if (type == ASTND_OR && !left)
-			executer(root->right);
+		left_status = executer(root->left);
+		if (type == EX_ASTND_AND)
+		{
+			if (left_status == EXIT_SUCCESS)
+			{
+				executer(root->right);
+			}
+		}
+		if (type == EX_ASTND_OR)
+		{
+			if (left_status == EXIT_FAILURE)
+			{
+				executer(root->right);
+			}
+		}
 	}
-	return (NULL);
+	executer(root->left);
+	return (executer(root->right));
 }

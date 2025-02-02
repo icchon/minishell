@@ -14,6 +14,8 @@
 # define MINISHELL_H
 
 # include "libft.h"
+# include <readline/history.h>
+# include <readline/readline.h>
 # include <stdio.h>
 
 # define INPUT 0
@@ -68,6 +70,21 @@ typedef enum e_astnode_type
 	ASTND_UNDEFINED,
 }						t_astnode_type;
 
+typedef enum e_ex_astnode_type
+{
+	EX_ASTND_OR,
+	EX_ASTND_AND,
+	EX_ASTND_PIPETOP,
+}						t_ex_astnode_type;
+
+typedef struct s_ex_astnode
+{
+	t_ex_astnode_type	type;
+	t_list				*cmds;
+	struct s_ex_astnode	*left;
+	struct s_ex_astnode	*right;
+}						t_ex_astnode;
+
 typedef t_token			t_redirect;
 typedef t_token			t_arg;
 typedef t_token			t_cmd;
@@ -77,6 +94,8 @@ typedef struct s_astnode
 {
 	t_astnode_type		type;
 	t_cmd				*cmd;
+	int					is_last_cmd;
+	int					is_first_cmd;
 	char				**arg_strs;
 	t_arg				*args;
 	t_redirect			*redirects;
@@ -85,9 +104,16 @@ typedef struct s_astnode
 	struct s_astnode	*right;
 }						t_astnode;
 
-t_astnode				*executer(t_astnode *root);
+typedef struct s_pids
+{
+	pid_t				pid;
+	struct s_pids		*next;
+}						t_pids;
+
+int						executer(t_ex_astnode *root);
 void					exec_heredoc(t_astnode *node);
-int						exec_command(t_astnode *node);
+pid_t					fork_and_exec_child(t_astnode *node, int old_pipes[2],
+							int new_pipes[2]);
 void					expander(t_astnode *node);
 char					**grobal_env(int get_or_set, char **env);
 t_token					*lexer(char *line);
@@ -105,9 +131,8 @@ int						tokenizer(t_token **token_ptr);
 t_astnode				*new_astnode(void);
 void					add_astnode(t_astnode **root, t_astnode *left,
 							t_astnode *right);
-void					print_ast(t_astnode *root);
+void					print_tree(t_astnode *root);
 t_astnode				*parser(t_token *token);
-char					*translate_like_bash(char **args);
 void					ft_free_arrs(int **arr);
 void					ft_free_str3(char ***strs);
 int						is_directory(char *str);
@@ -123,7 +148,19 @@ void					end(void);
 t_token					*grobal_token(int get_or_set, t_token *token);
 t_astnode				*parse_or_and(t_token **token);
 char					*grobal_tmpfile(int get_or_set, char *tmpfile);
-void					*xsafe(void (*g)(void), t_fvoid f, int argn, ...);
 void					check_fds(t_astnode *tree);
+void					read_and_print(void);
+t_pids					*new_pids(pid_t pid);
+void					print_pids(t_pids *pids);
+t_pids					*last_pid(t_pids *lst);
+void					addback_pid(t_pids **lst, t_pids *newpid);
+char					**create_args(t_astnode *node);
+void					set_arginfo(t_astnode *node);
+t_ex_astnode			*semantic_analyzer(t_astnode *root);
+void					print_cmd(t_astnode *cmd_node, int depth);
+void					print_ex_tree(t_ex_astnode *root);
+t_ex_astnode			*new_ex_astnode(t_ex_astnode_type type);
+pid_t					*create_pids(int n);
+int						**create_pipes(int n);
 
 #endif

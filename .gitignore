@@ -52,4 +52,5 @@ Mkfile.old
 dkms.conf
 
 minishell
-*/.vscode/*
+.vscode
+typescript

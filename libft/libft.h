@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tkitago <tkitago@student.42tokyo.jp>       +#+  +:+       +#+        */
+/*   By: kaisobe <kaisobe@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/16 13:11:02 by tkitago           #+#    #+#             */
-/*   Updated: 2025/01/31 18:18:34 by tkitago          ###   ########.fr       */
+/*   Updated: 2025/02/02 18:23:03 by kaisobe          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,6 +123,7 @@ void				ft_lstdelone(t_list *lst, void (*del)(void *));
 void				ft_lstclear(t_list **lst, void (*del)(void *));
 void				ft_lstadd_back(t_list **lst, t_list *newlst);
 t_list				*ft_lstnew(void *content);
+int					ft_lstsize(t_list *lst);
 
 // functions added by icchon
 int					ft_calc_next_chr(char *str, char c);
@@ -147,5 +148,6 @@ char				*ft_chr_to_str(char c);
 int					ft_isequal(char *s1, char *s2);
 int					ft_ismatch(int x, int argn, ...);
 size_t				ft_strslen(const char **strs);
+void				ft_print_strs(char **strs);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: kaisobe <kaisobe@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/13 13:28:59 by kaisobe           #+#    #+#             */
-/*   Updated: 2025/01/24 14:08:30 by kaisobe          ###   ########.fr       */
+/*   Updated: 2025/02/02 18:44:36 by kaisobe          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,8 @@ t_astnode	*new_astnode(void)
 	node->type = ASTND_UNDEFINED;
 	node->redirects = NULL;
 	node->arg_strs = NULL;
+	node->is_last_cmd = 0;
+	node->is_first_cmd = 0;
 	return (node);
 }
 
@@ -73,73 +75,68 @@ void	add_astnode(t_astnode **root, t_astnode *left, t_astnode *right)
 	return ;
 }
 
-static void	print_ast_node(t_astnode *node, int depth)
+void	print_cmd(t_astnode *cmd_node, int depth)
 {
 	t_arg		*arg;
 	t_redirect	*red;
 	int			i;
 
-	if (!node)
+	dprintf(2, "CMD: %s\n", cmd_node->cmd->data);
+	arg = cmd_node->args;
+	while (arg)
 	{
-		return ;
+		i = 0;
+		while (i++ < depth+2)
+			dprintf(2, "  ");
+		dprintf(2, "ARG: %s\n", arg->data);
+		arg = arg->next;
 	}
-	i = 0;
-	while (i < depth)
+	red = cmd_node->redirects;
+	while (red)
 	{
-		printf("  ");
-		i++;
+		i = 0;
+		while (i++ < depth)
+			dprintf(2, "  ");
+		if (red->type == TK_INPUT_FILE)
+			dprintf(2, "  REDIRECT < %s\n", red->data);
+		else if (red->type == TK_OUTPUT_FILE)
+			dprintf(2, "  REDIRECT > %s\n", red->data);
+		else if (red->type == TK_LIMITER)
+			dprintf(2, "  HERE_DOC LIMITER : %s\n", red->data);
+		else
+			dprintf(2, "  REDIRECT >> %s\n", red->data);
+		red = red->next;
 	}
-	if (node->type == ASTND_PIPE)
-		printf("PIPE\n");
-	else if (node->type == ASTND_OR)
-		printf("OR\n");
-	else if (node->type == ASTND_AND)
-		printf("AND\n");
-	else if (node->type == ASTND_CMD)
-	{
-		printf("CMD: %s\n", node->cmd->data);
-		arg = node->args;
-		while (arg)
-		{
-			i = 0;
-			while (i < depth)
-			{
-				printf("  ");
-				i++;
-			}
-			printf("ARG: %s\n", arg->data);
-			arg = arg->next;
-		}
-		red = node->redirects;
-		while (red)
-		{
-			i = 0;
-			while (i < depth)
-			{
-				printf("  ");
-				i++;
-			}
-			if (red->type == TK_INPUT_FILE)
-				printf("REDIRECT < %s\n", red->data);
-			else if (red->type == TK_OUTPUT_FILE)
-				printf("REDIRECT > %s\n", red->data);
-			else if (red->type == TK_LIMITER)
-				printf("HERE_DOC LIMITER : %s\n", red->data);
-			else
-				printf("REDIRECT >> %s\n", red->data);
-			red = red->next;
-		}
-	}
-	else
-		printf("UNDEFINED\n");
-	print_ast_node(node->left, depth + 1);
-	print_ast_node(node->right, depth + 1);
 }
 
-void	print_ast(t_astnode *root)
+static void	print_astnode(t_astnode *node, int depth)
 {
-	printf("AST Structure: ");
+	int	i;
+
+	if (!node)
+		return ;
+	i = 0;
+	while (i++ < depth)
+		dprintf(2, "  ");
+	if (node->type == ASTND_PIPE)
+		dprintf(2, "PIPE\n");
+	else if (node->type == ASTND_OR)
+		dprintf(2, "OR\n");
+	else if (node->type == ASTND_AND)
+		dprintf(2, "AND\n");
+	else if (node->type == ASTND_CMD)
+		print_cmd(node, depth);
+	else
+		dprintf(2, "UNDEFINED\n");
+	print_astnode(node->left, depth + 1);
+	print_astnode(node->right, depth + 1);
+}
+
+void	print_tree(t_astnode *root)
+{
+	dprintf(2, "\n[AST TREE]\n");
 	if (!root)
-		printf("NULL\n");
-	print_ast_node(root, 0);
+		dprintf(2, "NULL\n");
+	print_astnode(root, 0);
+	dprintf(2, "\n");
 }
