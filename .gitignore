@@ -54,3 +54,4 @@ dkms.conf
 minishell
 .vscode
 typescript
+.script_lock
