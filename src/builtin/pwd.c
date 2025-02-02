@@ -6,7 +6,7 @@
 /*   By: tkitago <tkitago@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/01 15:10:15 by tkitago           #+#    #+#             */
-/*   Updated: 2025/02/01 15:10:16 by tkitago          ###   ########.fr       */
+/*   Updated: 2025/02/01 19:29:39 by tkitago          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,7 @@ int	builtin_pwd(void)
 	if (getcwd(cwd, sizeof(cwd)))
 	{
 		ft_putendl_fd(cwd, STDOUT_FILENO);
+        free(cwd);
 		return (EXIT_SUCCESS);
 	}
 	else
@@ -69,3 +70,4 @@ int	builtin_pwd(void)
 // -Lだとシンボリック関係なくPWD環境変数に基づいて絶対パス表示
 // シンボリックリンクはlstatで取れそうだけどどういうときに-Pになるかわからないし
 // 沼だからやらない
+// getcwd 引数ない(NULL)のときmallocで領域確保
