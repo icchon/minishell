@@ -6,7 +6,7 @@
 /*   By: kaisobe <kaisobe@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/02 10:28:56 by kaisobe           #+#    #+#             */
-/*   Updated: 2025/02/02 20:35:56 by kaisobe          ###   ########.fr       */
+/*   Updated: 2025/02/03 06:17:43 by kaisobe          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,8 +86,6 @@ int	**create_pipes(int n)
 		}
 		out[i][READ] = -42;
 		out[i][WRITE] = -42;
-		if(1 <= i && i <= n - 1)
-			pipe(out[i]);
 		i++;
 	}
 	out[i] = NULL;

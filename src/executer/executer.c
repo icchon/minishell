@@ -6,36 +6,11 @@
 /*   By: kaisobe <kaisobe@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/05 13:45:25 by kaisobe           #+#    #+#             */
-/*   Updated: 2025/02/02 20:46:43 by kaisobe          ###   ########.fr       */
+/*   Updated: 2025/02/03 06:39:40 by kaisobe          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-// static void	print_arr(int *arr, int n)
-// {
-// 	int	i;
-
-// 	i = 0;
-// 	while (i < n)
-// 	{
-// 		dprintf(2, "%d ", arr[i]);
-// 		i++;
-// 	}
-// 	dprintf(2, "\n");
-// }
-
-// static void	print_arrs(int **arrs)
-// {
-// 	int	i;
-
-// 	i = 0;
-// 	while (arrs[i])
-// 	{
-// 		print_arr(arrs[i], 2);
-// 		i++;
-// 	}
-// }
 
 pid_t	execute_command(t_astnode *root, int old_pipes[2], int new_pipes[2])
 {
@@ -70,12 +45,12 @@ int	execute_commands(t_list *cmds)
 	while (node)
 	{
 		cmd = (t_astnode *)node->content;
+		pipe(pipes[i + 1]);
 		pids[i] = execute_command(cmd, pipes[i], pipes[i + 1]);
-		if (!cmd->is_last_cmd)
+		if (!cmd->is_first_cmd)
 		{
-			close(pipes[i + 1][WRITE]);
-			dup2(pipes[i + 1][READ], STDIN_FILENO);
-			close(pipes[i + 1][READ]);
+			close(pipes[i][READ]);
+			close(pipes[i][WRITE]);
 		}
 		node = node->next;
 		i++;

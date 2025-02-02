@@ -6,7 +6,7 @@
 /*   By: kaisobe <kaisobe@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/02 13:16:14 by kaisobe           #+#    #+#             */
-/*   Updated: 2025/02/02 17:54:23 by kaisobe          ###   ########.fr       */
+/*   Updated: 2025/02/03 06:36:38 by kaisobe          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ t_ex_astnode	*semantic_analyzer(t_astnode *root)
 		}
 		if (node->cmds)
 		{
-			edge = (t_astnode *)node->cmds;
+			edge = (t_astnode *)node->cmds->content;
 			edge->is_first_cmd = 1;
 		}
 	}

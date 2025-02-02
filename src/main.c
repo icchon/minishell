@@ -6,7 +6,7 @@
 /*   By: kaisobe <kaisobe@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/02 15:48:19 by kaisobe           #+#    #+#             */
-/*   Updated: 2025/02/02 20:44:36 by kaisobe          ###   ########.fr       */
+/*   Updated: 2025/02/03 06:37:49 by kaisobe          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,9 +65,9 @@ int	main(int argc, char *argv[], char **env)
 		// print_tokens(tokens);
 		tree = parser(tokens);
 		check_fds(tree);
-		print_tree(tree);
+		//print_tree(tree);
 		ex_tree = semantic_analyzer(tree);
-		print_ex_tree(ex_tree);
+		//print_ex_tree(ex_tree);
 		executer(ex_tree);
 	}
 	return (0);
