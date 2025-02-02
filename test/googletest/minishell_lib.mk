@@ -12,20 +12,20 @@ OBJS     = $(subst ./,,$(subst ../,,$(SRC:%=$(CACHEDIR)/%.o)))
 all: $(NAME)
 
 clean:
-	make -C $(SRC_DIR) clean
+	@make -C $(SRC_DIR) clean
 
 fclean: clean
-	make -C $(SRC_DIR) fclean
-	rm -rf $(NAME)
+	@make -C $(SRC_DIR) fclean
+	@rm -rf $(NAME)
 
 re: fclean all
 
 $(NAME): $(OBJS) 
-	ar rcs $@ $(filter %.o,$^)
+	@ar rcs $@ $(filter %.o,$^)
 
 $(CACHEDIR)/%.c.o: $(PROJECT_DIR)/%.c
-	mkdir -p $(@D)
-	$(CC) $(CFLAGS) -o $@ -c $<
+	@mkdir -p $(@D)
+	@$(CC) $(CFLAGS) -o $@ -c $<
 
 libft.a: 
-	make -C ../../libft 
+	@make -C ../../libft 
