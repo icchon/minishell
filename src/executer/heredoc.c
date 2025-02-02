@@ -6,7 +6,7 @@
 /*   By: kaisobe <kaisobe@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/13 13:23:02 by kaisobe           #+#    #+#             */
-/*   Updated: 2025/01/13 22:01:00 by kaisobe          ###   ########.fr       */
+/*   Updated: 2025/02/01 09:09:38 by kaisobe          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ static char	*process_heredoc(char *limiter)
 	int		fd;
 
 	ft_bzero(buff, BUFFER_SIZE);
-	input_file = xsafe(end, (t_fvoid)ft_create_random_file, 1, ".tmp");
+	input_file = ft_create_random_file(".tmp");
 	grobal_tmpfile(SET, input_file);
 	while (1)
 	{
@@ -55,8 +55,8 @@ void	exec_heredoc(t_astnode *node)
 		{
 			limiter = redirect->data;
 			redirect->data = process_heredoc(limiter);
-			redirect->data = xsafe(end, (t_fvoid)replace_env_vars, 2,
-					redirect->data, grobal_env(GET, NULL));
+			redirect->data = replace_env_vars(redirect->data, grobal_env(GET,
+						NULL));
 			redirect->type = TK_INPUT_FILE;
 			free(limiter);
 		}

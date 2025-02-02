@@ -6,7 +6,7 @@
 /*   By: kaisobe <kaisobe@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/05 13:40:34 by kaisobe           #+#    #+#             */
-/*   Updated: 2025/01/13 17:58:48 by kaisobe          ###   ########.fr       */
+/*   Updated: 2025/02/01 09:11:36 by kaisobe          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ static void	add_token(char *line, size_t *i, t_token **head, size_t len)
 	char	*data;
 	t_token	*token;
 
-	data = xsafe(end, (t_fvoid)ft_substr, 3, &line[*i], 0, len);
+	data = ft_substr(&line[*i], 0, len);
 	token = new_token(TK_UNDEFINED, data);
 	if (!token)
 	{
@@ -77,7 +77,7 @@ static int	process_in_normal_status(int *status, char *line, size_t *i,
 			* ft_strncmp(&line[*i], "||", 2) * ft_strncmp(&line[*i], "&&",
 				2) == 0)
 			return (add_token(line, i, head, 2), 1);
-		data = xsafe(end, (t_fvoid)ft_chr_to_str, 1, line[*i]);
+		data = ft_chr_to_str(line[*i]);
 		addback_token(head, new_token(TK_UNDEFINED, data));
 		(*i)++;
 	}

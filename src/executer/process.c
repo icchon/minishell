@@ -6,7 +6,7 @@
 /*   By: kaisobe <kaisobe@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/05 13:41:39 by kaisobe           #+#    #+#             */
-/*   Updated: 2025/01/24 12:44:49 by kaisobe          ###   ########.fr       */
+/*   Updated: 2025/02/03 06:39:47 by kaisobe          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ static void	handle_io(t_token *redirect)
 					S_IRGRP | S_IROTH | S_IWUSR | S_IRUSR);
 			dup2(fd, STDOUT_FILENO);
 		}
+		close(fd);
 		redirect = redirect->next;
 	}
 }
@@ -55,15 +56,26 @@ static int	try_command(char *cmd, char **arg, char **env)
 		return (0);
 	}
 	execve(path, arg, env);
-	return (0);
+	return (EXIT_FAILURE);
 }
 
-static void	child_process(int pipes[2], t_token *redirect, t_astnode *node)
+static void	child_process(int old_pipes[2], int new_pipes[2], t_token *redirect,
+		t_astnode *node)
 {
 	int	res;
 
-	close(pipes[READ]);
-	dup2(pipes[WRITE], STDOUT_FILENO);
+	close(old_pipes[WRITE]);
+	if (!node->is_first_cmd)
+	{
+		dup2(old_pipes[READ], STDIN_FILENO);
+	}
+	close(old_pipes[READ]);
+	close(new_pipes[READ]);
+	if (!node->is_last_cmd)
+	{
+		dup2(new_pipes[WRITE], STDOUT_FILENO);
+	}
+	close(new_pipes[WRITE]);
 	handle_io(redirect);
 	res = try_command(node->cmd->data, node->arg_strs, grobal_env(GET, NULL));
 	if (!res)
@@ -74,28 +86,16 @@ static void	child_process(int pipes[2], t_token *redirect, t_astnode *node)
 			dprintf(2, "bash: %s: No such file or directory\n",
 				node->cmd->data);
 	}
-	exit(EXIT_FAILURE);
 }
 
-int	exec_command(t_astnode *node)
+pid_t	fork_and_exec_child(t_astnode *node, int old_pipes[2], int new_pipes[2])
 {
-	int			pipes[2];
-	int			status;
-	t_redirect	*redirect;
-	pid_t		pid;
+	pid_t	pid;
 
-	redirect = node->redirects;
-	pipe(pipes);
 	pid = fork();
 	if (pid == CHILD_PID)
 	{
-		child_process(pipes, redirect, node);
+		child_process(old_pipes, new_pipes, node->redirects, node);
 	}
-	wait(&status);
-	close(pipes[WRITE]);
-	dup2(pipes[READ], STDIN_FILENO);
-	close(pipes[READ]);
-	if (status != EXIT_SUCCESS)
-		return (0);
-	return (1);
+	return (pid);
 }

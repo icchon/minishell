@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: tkitago <tkitago@student.42tokyo.jp>       +#+  +:+       +#+         #
+#    By: kaisobe <kaisobe@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/16 13:07:01 by tkitago           #+#    #+#              #
-#    Updated: 2025/01/26 16:44:07 by tkitago          ###   ########.fr        #
+#    Updated: 2025/02/02 10:24:27 by kaisobe          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,7 +26,8 @@ SRCS			=	ft_isalnum.c ft_isprint.c ft_memcmp.c  ft_putchar_fd.c ft_split.c ft_at
 					ft_calc_next_chr.c ft_calc_next_str.c ft_contain.c ft_create_file.c ft_create_random_file.c\
 					ft_generate_seed.c ft_get_absolute_path.c ft_get_env.c ft_get_expanded_env.c\
         			ft_get_expanded_path.c ft_max.c ft_min.c ft_path_exist.c ft_rand_u32.c ft_strjoin_safe.c\
-					ft_get_digit_cnt.c ft_utoa.c ft_chr_to_str.c ft_isequal.c ft_ismatch.c ft_strslen.c
+					ft_get_digit_cnt.c ft_utoa.c ft_chr_to_str.c ft_isequal.c ft_ismatch.c ft_strslen.c\
+					ft_print_strs.c
 OBJS_DIR = ./objs
 
 OBJS			= $(addprefix $(OBJS_DIR)/, $(SRCS:.c=.o))
