@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pwd.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kaisobe <kaisobe@student.42.fr>            +#+  +:+       +#+        */
+/*   By: tkitago <tkitago@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/01 15:10:15 by tkitago           #+#    #+#             */
-/*   Updated: 2025/02/01 19:29:39 by tkitago          ###   ########.fr       */
+/*   Updated: 2025/02/03 08:47:03 by tkitago          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,6 @@ int	builtin_pwd(void)
 	if (getcwd(cwd, sizeof(cwd)))
 	{
 		ft_putendl_fd(cwd, STDOUT_FILENO);
-        free(cwd);
 		return (EXIT_SUCCESS);
 	}
 	else

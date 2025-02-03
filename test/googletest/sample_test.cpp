@@ -10,11 +10,12 @@ extern "C"
 
 };
 
+TEST(ExpanderTest, TRUE)
+{
+	char	**argv;
+	int		argc;
 
-
-TEST(ExpanderTest, TRUE){
-	char *res;
-	res = replace_env_vars("\"$HOME\"", __environ);
-	dprintf(2, "res : %s\n", res);
-	ASSERT_TRUE(ft_isequal(res, "/root"));
+	argv = __environ;
+	argc = ft_strslen((const char **)argv);
+	builtin_exit((int)argc, argv, 0);
 }
