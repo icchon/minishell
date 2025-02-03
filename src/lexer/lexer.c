@@ -6,7 +6,7 @@
 /*   By: kaisobe <kaisobe@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/05 13:40:34 by kaisobe           #+#    #+#             */
-/*   Updated: 2025/02/03 08:14:13 by kaisobe          ###   ########.fr       */
+/*   Updated: 2025/02/03 12:34:07 by kaisobe          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,7 +95,7 @@ t_token	*lexer(char *line)
 	init_lexer_status(status);
 	head = NULL;
 	i = 0;
-	while (line[i])
+	while (i < ft_strlen(line))
 	{
 		if (status[NORMAL])
 			process_in_normal_status(status, line, &i, &head);
