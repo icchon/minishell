@@ -6,7 +6,7 @@
 /*   By: kaisobe <kaisobe@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/02 14:47:48 by kaisobe           #+#    #+#             */
-/*   Updated: 2025/02/02 14:54:14 by kaisobe          ###   ########.fr       */
+/*   Updated: 2025/02/03 12:25:20 by kaisobe          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,31 @@ t_ex_astnode	*new_ex_astnode(t_ex_astnode_type type)
 	ex_astnode->left = NULL;
 	ex_astnode->right = NULL;
 	return (ex_astnode);
+}
+
+void	free_cmds(t_list *cmds)
+{
+	t_list	*tmp;
+	t_list	*node;
+
+	node = cmds;
+	while (node)
+	{
+		tmp = node->next;
+		free(node);
+		node = tmp;
+	}
+}
+
+void	free_ex_asttree(t_ex_astnode *node)
+{
+	if (!node)
+		return ;
+	free_ex_asttree(node->left);
+	free_ex_asttree(node->right);
+	free_cmds(node->cmds);
+	node->cmds = NULL;
+	free(node);
 }
 
 static void	print_ex_astnode(t_ex_astnode *node, int depth)

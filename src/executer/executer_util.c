@@ -6,7 +6,7 @@
 /*   By: kaisobe <kaisobe@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/02 10:28:56 by kaisobe           #+#    #+#             */
-/*   Updated: 2025/02/03 06:17:43 by kaisobe          ###   ########.fr       */
+/*   Updated: 2025/02/03 12:19:07 by kaisobe          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ int	**create_pipes(int n)
 	int	**out;
 	int	i;
 
-	out = (int **)malloc(sizeof(int) * (n + 2));
+	out = (int **)malloc(sizeof(int *) * (n + 2));
 	if (!out)
 		return (NULL);
 	i = 0;
@@ -81,7 +81,7 @@ int	**create_pipes(int n)
 		out[i] = (int *)malloc(sizeof(int) * 2);
 		if (!out[i])
 		{
-			ft_free_arrs(out);
+			ft_2darraydel(out);
 			return (NULL);
 		}
 		out[i][READ] = -42;

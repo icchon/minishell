@@ -6,7 +6,7 @@
 /*   By: kaisobe <kaisobe@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/05 13:45:25 by kaisobe           #+#    #+#             */
-/*   Updated: 2025/02/03 07:37:10 by kaisobe          ###   ########.fr       */
+/*   Updated: 2025/02/03 12:44:22 by kaisobe          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,8 @@ int	execute_commands(t_list *cmds)
 	{
 		waitpid(pids[i++], &status, 0);
 	}
+	ft_2darraydel(pipes);
+	free(pids);
 	return (status);
 }
 
@@ -95,6 +97,5 @@ int	executer(t_ex_astnode *root)
 			return (left_status);
 		}
 	}
-	executer(root->left);
-	return (executer(root->right));
+	return (EXIT_FAILURE);
 }
