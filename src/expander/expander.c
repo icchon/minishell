@@ -6,7 +6,7 @@
 /*   By: kaisobe <kaisobe@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/05 13:39:35 by kaisobe           #+#    #+#             */
-/*   Updated: 2025/02/03 08:29:47 by kaisobe          ###   ########.fr       */
+/*   Updated: 2025/02/04 17:36:01 by kaisobe          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,8 @@ char	*replace_env_vars(char *str, char **env)
 		{
 			len = ft_calc_next_str(&str[++i], "\t\n\v\f\r \"$");
 			key = ft_substr(&str[i], 0, len);
+			if (ft_isequal(key, "?"))
+				out = ft_strjoin_safe(out, ft_itoa(grobal_status(GET)), 1, 1);
 			out = ft_strjoin_safe(out, ft_get_env(key, env), 1, 0);
 			free(key);
 		}
@@ -101,7 +103,7 @@ void	expander(t_astnode *node)
 		while (token)
 		{
 			tmp = token->data;
-			token->data = replace_env_vars_quate(tmp, grobal_env(GET, NULL));
+			token->data = replace_env_vars_quate(tmp, grobal_env(GET));
 			token = token->next;
 			free(tmp);
 		}

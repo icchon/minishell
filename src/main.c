@@ -6,7 +6,7 @@
 /*   By: kaisobe <kaisobe@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/02 15:48:19 by kaisobe           #+#    #+#             */
-/*   Updated: 2025/02/04 15:55:58 by kaisobe          ###   ########.fr       */
+/*   Updated: 2025/02/04 17:31:43 by kaisobe          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,10 +23,10 @@ void	free_all_memory(t_all *all)
 		free_asttree(all->tree);
 		free_ex_asttree(all->ex_tree);
 	}
-	if (grobal_tmpfile(GET, NULL))
+	if (grobal_tmpfile(GET))
 	{
-		unlink(grobal_tmpfile(GET, NULL));
-		free(grobal_tmpfile(GET, NULL));
+		unlink(grobal_tmpfile(GET));
+		free(grobal_tmpfile(GET));
 	}
 	free(all->line);
 	return ;

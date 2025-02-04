@@ -123,10 +123,10 @@ int	builtin_unset(int ac, char *av[], char **envp)
 	return (EXIT_SUCCESS);
 }
 
-int	main(int argc, char *argv[], char **envp)
-{
-	builtin_unset(argc, argv, envp);
-}
+// int	main(int argc, char *argv[], char **envp)
+// {
+// 	builtin_unset(argc, argv, envp);
+// }
 
 // ↑複数できる、　$対応できてない, export消せる
 // shell変数はexportすれば子プロセスに環境が引き継がれるからとれる

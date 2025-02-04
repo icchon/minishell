@@ -119,12 +119,14 @@ typedef struct s_all
 	t_ex_astnode		*ex_tree;
 }						t_all;
 
-int						executer(t_ex_astnode *root);
+typedef unsigned char	t_status;
+
+t_status						executer(t_ex_astnode *root);
 void					exec_heredoc(t_astnode *node);
 pid_t					fork_and_exec_child(t_astnode *node, int old_pipes[2],
 							int new_pipes[2]);
 void					expander(t_astnode *node);
-char					**grobal_env(int get_or_set, char **env);
+char					**grobal_env(int get_or_set, ...);
 t_token					*lexer(char *line);
 t_token					*new_token(t_token_type type, char *data);
 t_token					*last_token(t_token *token);
@@ -150,7 +152,7 @@ void					free_astnode(t_astnode *root);
 void					free_tokens(t_token *token);
 void					free_asttree(t_astnode *root);
 t_astnode				*parse_or_and(t_token **token);
-char					*grobal_tmpfile(int get_or_set, char *tmpfile);
+char					*grobal_tmpfile(int get_or_set, ...);
 void					check_fds(t_astnode *tree);
 void					read_and_print(void);
 t_pids					*new_pids(pid_t pid);
@@ -169,5 +171,6 @@ void					free_ex_asttree(t_ex_astnode *node);
 int						builtin_pwd(void);
 char					*get_shell_prompt(void);
 char					*trim_space(char *line);
+t_status						grobal_status(int get_or_set, ...);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: kaisobe <kaisobe@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/05 13:45:25 by kaisobe           #+#    #+#             */
-/*   Updated: 2025/02/03 12:44:22 by kaisobe          ###   ########.fr       */
+/*   Updated: 2025/02/04 17:54:46 by kaisobe          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ int	execute_commands(t_list *cmds)
 	t_astnode	*cmd;
 	t_list		*node;
 	pid_t		*pids;
-	int			status;
+	t_status	status;
 	int			i;
 	int			**pipes;
 
@@ -58,17 +58,18 @@ int	execute_commands(t_list *cmds)
 	i = 0;
 	while (i < ft_lstsize(cmds))
 	{
-		waitpid(pids[i++], &status, 0);
+		waitpid(pids[i++], (int *)&(status), 0);
+		grobal_status(SET, status);
 	}
 	ft_2darraydel(pipes);
 	free(pids);
 	return (status);
 }
 
-int	executer(t_ex_astnode *root)
+t_status	executer(t_ex_astnode *root)
 {
 	t_ex_astnode_type	type;
-	int					left_status;
+	t_status			left_status;
 
 	if (!root)
 		return (EXIT_FAILURE);

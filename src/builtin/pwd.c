@@ -6,11 +6,11 @@
 /*   By: kaisobe <kaisobe@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/01 15:10:15 by tkitago           #+#    #+#             */
-/*   Updated: 2025/02/01 19:29:39 by tkitago          ###   ########.fr       */
+/*   Updated: 2025/02/03 07:32:33 by kaisobe          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "minishell.h"
 #include <error.h>
 #include <stdio.h>
 
@@ -57,7 +57,6 @@ int	builtin_pwd(void)
 	if (getcwd(cwd, sizeof(cwd)))
 	{
 		ft_putendl_fd(cwd, STDOUT_FILENO);
-        free(cwd);
 		return (EXIT_SUCCESS);
 	}
 	else

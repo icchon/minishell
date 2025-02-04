@@ -6,7 +6,7 @@
 /*   By: kaisobe <kaisobe@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/13 13:23:02 by kaisobe           #+#    #+#             */
-/*   Updated: 2025/02/04 15:47:25 by kaisobe          ###   ########.fr       */
+/*   Updated: 2025/02/04 17:32:01 by kaisobe          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,8 +55,7 @@ void	exec_heredoc(t_astnode *node)
 		{
 			limiter = redirect->data;
 			redirect->data = process_heredoc(limiter);
-			redirect->data = replace_env_vars(redirect->data, grobal_env(GET,
-						NULL));
+			redirect->data = replace_env_vars(redirect->data, grobal_env(GET));
 			redirect->type = TK_INPUT_FILE;
 			free(limiter);
 		}
