@@ -17,5 +17,5 @@ TEST(ExpanderTest, TRUE)
 
 	argv = __environ;
 	argc = ft_strslen((const char **)argv);
-	builtin_exit((int)argc, argv, 0);
+	builtin_echo((int)argc, argv, 0);
 }
