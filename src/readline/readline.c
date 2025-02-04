@@ -1,25 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   free.c                                             :+:      :+:    :+:   */
+/*   readline.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kaisobe <kaisobe@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/01/05 13:44:16 by kaisobe           #+#    #+#             */
-/*   Updated: 2025/02/03 11:26:59 by kaisobe          ###   ########.fr       */
+/*   Created: 2025/02/04 15:55:26 by kaisobe           #+#    #+#             */
+/*   Updated: 2025/02/04 15:55:51 by kaisobe          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	is_directory(char *str)
+char	*get_shell_prompt(void)
 {
-	if (ft_strchr(str, '/'))
-		return (1);
-	return (0);
+	char	*prompt;
+	char	*prefix;
+
+	prompt = getenv("PWD");
+	prefix = "minishell :\x1b[32m";
+	prompt = ft_strjoin(prefix, prompt);
+	prompt = ft_strjoin_safe(prompt, "\x1b[39m \n % ", 1, 0);
+	return (prompt);
 }
 
-int	is_command(char *str)
+char	*trim_space(char *line)
 {
-	return (!is_directory(str));
+	char	*tmp;
+
+	tmp = line;
+	line = ft_strtrim(line, " \t\n\v\f\r");
+	free(tmp);
+	return (line);
 }
