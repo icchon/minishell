@@ -119,6 +119,17 @@ typedef struct s_all
 	t_ex_astnode		*ex_tree;
 }						t_all;
 
+typedef struct s_env
+{
+	char				*value;
+	struct s_env		*next;
+}						t_env;
+
+int						builtin_env(char **envp);
+int						builtin_pwd(void);
+int						builtin_unset(int ac, char *av[], char **envp);
+int						builtin_echo(int ac, char *av[]);
+int						builtin_exit(int argc, char *argv[], int last_status);
 int						executer(t_ex_astnode *root);
 void					exec_heredoc(t_astnode *node);
 pid_t					fork_and_exec_child(t_astnode *node, int old_pipes[2],

@@ -3,9 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kaisobe <kaisobe@student.42.fr>            +#+  +:+       +#+        */
+/*   By: tkitago <tkitago@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/16 13:11:02 by tkitago           #+#    #+#             */
+/*  
 /*   Updated: 2025/02/03 11:44:38 by kaisobe          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
@@ -19,6 +20,7 @@
 # include <stdarg.h>
 # include <stddef.h>
 # include <stdint.h>
+# include <stdio.h>
 # include <stdlib.h>
 # include <sys/stat.h>
 # include <sys/types.h>
@@ -150,5 +152,7 @@ int					ft_isequal(char *s1, char *s2);
 int					ft_ismatch(int x, int argn, ...);
 size_t				ft_strslen(const char **strs);
 void				ft_print_strs(char **strs);
+int					ft_isint(const char *nptr);
+int					ft_issign(int c);
 
 #endif
