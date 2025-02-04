@@ -47,7 +47,7 @@ static t_astnode	*parse_cmd(t_token **token)
 		return (NULL);
 	node = new_astnode();
 	if (!node)
-		end();
+		return (NULL);
 	redirects = NULL;
 	args = NULL;
 	create_prop(&redirects, &args, node, token);
@@ -70,7 +70,7 @@ static t_astnode	*parse_pipe(t_token **token)
 	{
 		root = new_astnode();
 		if (!root)
-			end();
+			return NULL;
 		root->type = ASTND_PIPE;
 		to_delete = (*token);
 		(*token) = (*token)->next;
@@ -96,7 +96,7 @@ t_astnode	*parse_or_and(t_token **token)
 	{
 		root = new_astnode();
 		if (!root)
-			end();
+			return NULL;
 		if ((*token)->type == TK_OR)
 			root->type = ASTND_OR;
 		else

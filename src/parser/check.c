@@ -21,7 +21,7 @@ void	check_fds(t_astnode *tree)
 		if (fd == -1)
 		{
 			perror(redirect->data);
-			end();
+			return ;
 		}
 		redirect = (close(fd), redirect->next);
 	}

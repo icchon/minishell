@@ -40,7 +40,7 @@ static void	add_token(char *line, size_t *i, t_token **head, size_t len)
 	if (!token)
 	{
 		free(data);
-		end();
+		return ;
 	}
 	addback_token(head, token);
 	*i += len;
