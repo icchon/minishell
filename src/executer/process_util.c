@@ -1,45 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   grobal_vars.c                                      :+:      :+:    :+:   */
+/*   process_util.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kaisobe <kaisobe@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/01/13 16:53:46 by kaisobe           #+#    #+#             */
-/*   Updated: 2025/02/04 15:30:43 by kaisobe          ###   ########.fr       */
+/*   Created: 2025/02/04 15:03:20 by kaisobe           #+#    #+#             */
+/*   Updated: 2025/02/04 15:03:31 by kaisobe          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-char	**grobal_env(int get_or_set, char **env)
+int	is_directory(char *str)
 {
-	static char	**g_env = NULL;
-
-	if (get_or_set == GET)
-	{
-		return (g_env);
-	}
-	else
-	{
-		g_env = env;
-	}
-	return (g_env);
+	if (ft_strchr(str, '/'))
+		return (1);
+	return (0);
 }
 
-
-
-char	*grobal_tmpfile(int get_or_set, char *tmpfile)
+int	is_command(char *str)
 {
-	static char	*g_tmpfile = NULL;
-
-	if (get_or_set == GET)
-	{
-		return (g_tmpfile);
-	}
-	else
-	{
-		g_tmpfile = tmpfile;
-	}
-	return (g_tmpfile);
+	return (!is_directory(str));
 }

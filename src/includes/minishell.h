@@ -110,6 +110,15 @@ typedef struct s_pids
 	struct s_pids		*next;
 }						t_pids;
 
+typedef struct s_all
+{
+	char				*line;
+	char				**env;
+	t_token				*tokens;
+	t_astnode			*tree;
+	t_ex_astnode		*ex_tree;
+}						t_all;
+
 typedef struct s_env
 {
 	char				*value;
@@ -127,8 +136,6 @@ pid_t					fork_and_exec_child(t_astnode *node, int old_pipes[2],
 							int new_pipes[2]);
 void					expander(t_astnode *node);
 char					**grobal_env(int get_or_set, char **env);
-t_ex_astnode			*grobal_ex_asttree(int get_or_set,
-							t_ex_astnode *ex_tree);
 t_token					*lexer(char *line);
 t_token					*new_token(t_token_type type, char *data);
 t_token					*last_token(t_token *token);
@@ -146,7 +153,6 @@ void					add_astnode(t_astnode **root, t_astnode *left,
 							t_astnode *right);
 void					print_tree(t_astnode *root);
 t_astnode				*parser(t_token *token);
-
 int						is_directory(char *str);
 int						is_command(char *str);
 char					*replace_env_vars(char *str, char **env);
@@ -154,10 +160,6 @@ char					*replace_env_vars_quate(char *str, char **env);
 void					free_astnode(t_astnode *root);
 void					free_tokens(t_token *token);
 void					free_asttree(t_astnode *root);
-t_astnode				*grobal_asttree(int get_or_set, t_astnode *tree);
-char					*grobal_bashinput(int get_or_set, char *bashinput);
-void					end(void);
-t_token					*grobal_token(int get_or_set, t_token *token);
 t_astnode				*parse_or_and(t_token **token);
 char					*grobal_tmpfile(int get_or_set, char *tmpfile);
 void					check_fds(t_astnode *tree);
@@ -175,5 +177,8 @@ t_ex_astnode			*new_ex_astnode(t_ex_astnode_type type);
 pid_t					*create_pids(int n);
 int						**create_pipes(int n);
 void					free_ex_asttree(t_ex_astnode *node);
+int						builtin_pwd(void);
+char					*get_shell_prompt(void);
+char					*trim_space(char *line);
 
 #endif
