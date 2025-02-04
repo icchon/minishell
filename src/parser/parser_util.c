@@ -1,15 +1,3 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   parser_util.c                                      :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: kaisobe <kaisobe@student.42.fr>            +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/01/13 18:29:16 by kaisobe           #+#    #+#             */
-/*   Updated: 2025/02/02 09:43:07 by kaisobe          ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include "minishell.h"
 
 static void	handle_token(t_token **redirects, t_token **args, t_astnode *node,
@@ -59,7 +47,7 @@ static t_astnode	*parse_cmd(t_token **token)
 		return (NULL);
 	node = new_astnode();
 	if (!node)
-		end();
+		return (NULL);
 	redirects = NULL;
 	args = NULL;
 	create_prop(&redirects, &args, node, token);
@@ -82,7 +70,7 @@ static t_astnode	*parse_pipe(t_token **token)
 	{
 		root = new_astnode();
 		if (!root)
-			end();
+			return NULL;
 		root->type = ASTND_PIPE;
 		to_delete = (*token);
 		(*token) = (*token)->next;
@@ -108,7 +96,7 @@ t_astnode	*parse_or_and(t_token **token)
 	{
 		root = new_astnode();
 		if (!root)
-			end();
+			return NULL;
 		if ((*token)->type == TK_OR)
 			root->type = ASTND_OR;
 		else

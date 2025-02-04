@@ -1,15 +1,3 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   check.c                                            :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: kaisobe <kaisobe@student.42.fr>            +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/01/13 22:40:53 by kaisobe           #+#    #+#             */
-/*   Updated: 2025/01/13 22:41:26 by kaisobe          ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include "minishell.h"
 
 void	check_fds(t_astnode *tree)
@@ -33,7 +21,7 @@ void	check_fds(t_astnode *tree)
 		if (fd == -1)
 		{
 			perror(redirect->data);
-			end();
+			return ;
 		}
 		redirect = (close(fd), redirect->next);
 	}

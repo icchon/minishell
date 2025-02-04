@@ -1,15 +1,3 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   lexer.c                                            :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: kaisobe <kaisobe@student.42.fr>            +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/01/05 13:40:34 by kaisobe           #+#    #+#             */
-/*   Updated: 2025/02/03 12:34:07 by kaisobe          ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include "minishell.h"
 
 static void	init_lexer_status(int status[ASCII_SIZE])
@@ -52,7 +40,7 @@ static void	add_token(char *line, size_t *i, t_token **head, size_t len)
 	if (!token)
 	{
 		free(data);
-		end();
+		return ;
 	}
 	addback_token(head, token);
 	*i += len;
