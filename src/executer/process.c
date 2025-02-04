@@ -6,7 +6,7 @@
 /*   By: kaisobe <kaisobe@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/05 13:41:39 by kaisobe           #+#    #+#             */
-/*   Updated: 2025/02/03 06:39:47 by kaisobe          ###   ########.fr       */
+/*   Updated: 2025/02/03 12:52:38 by kaisobe          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,15 +45,15 @@ static int	try_command(char *cmd, char **arg, char **env)
 	char	*path;
 
 	path = ft_get_absolute_path(cmd, env);
-	if (!is_directory(path) || !path)
+	if (!(path && is_directory(path)))
 	{
 		free(path);
-		return (0);
+		return (EXIT_FAILURE);
 	}
 	if (access(path, X_OK) != 0)
 	{
 		free(path);
-		return (0);
+		return (EXIT_FAILURE);
 	}
 	execve(path, arg, env);
 	return (EXIT_FAILURE);
@@ -64,21 +64,21 @@ static void	child_process(int old_pipes[2], int new_pipes[2], t_token *redirect,
 {
 	int	res;
 
-	close(old_pipes[WRITE]);
 	if (!node->is_first_cmd)
 	{
+		close(old_pipes[WRITE]);
 		dup2(old_pipes[READ], STDIN_FILENO);
+		close(old_pipes[READ]);
 	}
-	close(old_pipes[READ]);
-	close(new_pipes[READ]);
 	if (!node->is_last_cmd)
 	{
+		close(new_pipes[READ]);
 		dup2(new_pipes[WRITE], STDOUT_FILENO);
+		close(new_pipes[WRITE]);
 	}
-	close(new_pipes[WRITE]);
 	handle_io(redirect);
 	res = try_command(node->cmd->data, node->arg_strs, grobal_env(GET, NULL));
-	if (!res)
+	if (res == EXIT_FAILURE)
 	{
 		if (is_command(node->cmd->data))
 			dprintf(2, "%s: command not found\n", node->cmd->data);

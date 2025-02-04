@@ -127,6 +127,8 @@ pid_t					fork_and_exec_child(t_astnode *node, int old_pipes[2],
 							int new_pipes[2]);
 void					expander(t_astnode *node);
 char					**grobal_env(int get_or_set, char **env);
+t_ex_astnode			*grobal_ex_asttree(int get_or_set,
+							t_ex_astnode *ex_tree);
 t_token					*lexer(char *line);
 t_token					*new_token(t_token_type type, char *data);
 t_token					*last_token(t_token *token);
@@ -144,8 +146,7 @@ void					add_astnode(t_astnode **root, t_astnode *left,
 							t_astnode *right);
 void					print_tree(t_astnode *root);
 t_astnode				*parser(t_token *token);
-void					ft_free_arrs(int **arr);
-void					ft_free_str3(char ***strs);
+
 int						is_directory(char *str);
 int						is_command(char *str);
 char					*replace_env_vars(char *str, char **env);
@@ -173,5 +174,6 @@ void					print_ex_tree(t_ex_astnode *root);
 t_ex_astnode			*new_ex_astnode(t_ex_astnode_type type);
 pid_t					*create_pids(int n);
 int						**create_pipes(int n);
+void					free_ex_asttree(t_ex_astnode *node);
 
 #endif

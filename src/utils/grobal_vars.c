@@ -6,7 +6,7 @@
 /*   By: kaisobe <kaisobe@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/13 16:53:46 by kaisobe           #+#    #+#             */
-/*   Updated: 2025/01/13 20:29:12 by kaisobe          ###   ########.fr       */
+/*   Updated: 2025/02/03 11:31:01 by kaisobe          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,21 @@ t_astnode	*grobal_asttree(int get_or_set, t_astnode *tree)
 		g_tree = tree;
 	}
 	return (g_tree);
+}
+
+t_ex_astnode	*grobal_ex_asttree(int get_or_set, t_ex_astnode *ex_tree)
+{
+	static t_ex_astnode	*g_ex_tree = NULL;
+
+	if (get_or_set == GET)
+	{
+		return (g_ex_tree);
+	}
+	else
+	{
+		g_ex_tree = ex_tree;
+	}
+	return (g_ex_tree);
 }
 
 char	*grobal_bashinput(int get_or_set, char *bashinput)

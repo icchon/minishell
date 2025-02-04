@@ -6,7 +6,8 @@
 /*   By: tkitago <tkitago@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/16 13:11:02 by tkitago           #+#    #+#             */
-/*   Updated: 2025/02/03 08:43:42 by tkitago          ###   ########.fr       */
+/*  
+/*   Updated: 2025/02/03 11:44:38 by kaisobe          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,6 +121,7 @@ int					ft_llstappend(void *lst_ptr, size_t size, void *newlst);
 char				*ft_readline(t_bufferio *io);
 char				*ft_joinpath(char *base, char *path);
 t_list				*ft_lstlast(t_list *lst);
+void				ft_lstiter(t_list *lst, void (*f)(void *));
 void				ft_lstdelone(t_list *lst, void (*del)(void *));
 void				ft_lstclear(t_list **lst, void (*del)(void *));
 void				ft_lstadd_back(t_list **lst, t_list *newlst);
