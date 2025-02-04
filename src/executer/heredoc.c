@@ -43,8 +43,7 @@ void	exec_heredoc(t_astnode *node)
 		{
 			limiter = redirect->data;
 			redirect->data = process_heredoc(limiter);
-			redirect->data = replace_env_vars(redirect->data, grobal_env(GET,
-						NULL));
+			redirect->data = replace_env_vars(redirect->data, grobal_env(GET));
 			redirect->type = TK_INPUT_FILE;
 			free(limiter);
 		}

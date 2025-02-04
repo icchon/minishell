@@ -1,5 +1,6 @@
 #include "minishell.h"
-
+#include <error.h>
+#include <stdio.h>
 
 static int	valid_pwd(char *pwd)
 {

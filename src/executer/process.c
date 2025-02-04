@@ -50,8 +50,6 @@ static int	try_command(char *cmd, char **arg, char **env)
 static void	child_process(int old_pipes[2], int new_pipes[2], t_token *redirect,
 		t_astnode *node)
 {
-	int	res;
-
 	if (!node->is_first_cmd)
 	{
 		close(old_pipes[WRITE]);
@@ -65,15 +63,11 @@ static void	child_process(int old_pipes[2], int new_pipes[2], t_token *redirect,
 		close(new_pipes[WRITE]);
 	}
 	handle_io(redirect);
-	res = try_command(node->cmd->data, node->arg_strs, grobal_env(GET, NULL));
-	if (res == EXIT_FAILURE)
-	{
-		if (is_command(node->cmd->data))
-			dprintf(2, "%s: command not found\n", node->cmd->data);
-		else
-			dprintf(2, "bash: %s: No such file or directory\n",
-				node->cmd->data);
-	}
+	try_command(node->cmd->data, node->arg_strs, grobal_env(GET));
+	if (is_command(node->cmd->data))
+		dprintf(2, "%s: command not found\n", node->cmd->data);
+	else
+		dprintf(2, "bash: %s: No such file or directory\n", node->cmd->data);
 }
 
 pid_t	fork_and_exec_child(t_astnode *node, int old_pipes[2], int new_pipes[2])

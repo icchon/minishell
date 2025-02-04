@@ -15,6 +15,8 @@ char	*replace_env_vars(char *str, char **env)
 		{
 			len = ft_calc_next_str(&str[++i], "\t\n\v\f\r \"$");
 			key = ft_substr(&str[i], 0, len);
+			if (ft_isequal(key, "?"))
+				out = ft_strjoin_safe(out, ft_itoa(grobal_status(GET)), 1, 1);
 			out = ft_strjoin_safe(out, ft_get_env(key, env), 1, 0);
 			free(key);
 		}
@@ -89,7 +91,7 @@ void	expander(t_astnode *node)
 		while (token)
 		{
 			tmp = token->data;
-			token->data = replace_env_vars_quate(tmp, grobal_env(GET, NULL));
+			token->data = replace_env_vars_quate(tmp, grobal_env(GET));
 			token = token->next;
 			free(tmp);
 		}

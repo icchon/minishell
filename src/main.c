@@ -11,10 +11,10 @@ void	free_all_memory(t_all *all)
 		free_asttree(all->tree);
 		free_ex_asttree(all->ex_tree);
 	}
-	if (grobal_tmpfile(GET, NULL))
+	if (grobal_tmpfile(GET))
 	{
-		unlink(grobal_tmpfile(GET, NULL));
-		free(grobal_tmpfile(GET, NULL));
+		unlink(grobal_tmpfile(GET));
+		free(grobal_tmpfile(GET));
 	}
 	free(all->line);
 	return ;
