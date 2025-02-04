@@ -3,16 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   pwd.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kaisobe <kaisobe@student.42.fr>            +#+  +:+       +#+        */
+/*   By: tkitago <tkitago@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/01 15:10:15 by tkitago           #+#    #+#             */
-/*   Updated: 2025/02/01 19:29:39 by tkitago          ###   ########.fr       */
+/*   Updated: 2025/02/04 15:34:39 by tkitago          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
-#include <error.h>
-#include <stdio.h>
+#include "minishell.h"
+
 
 static int	valid_pwd(char *pwd)
 {
@@ -57,7 +56,6 @@ int	builtin_pwd(void)
 	if (getcwd(cwd, sizeof(cwd)))
 	{
 		ft_putendl_fd(cwd, STDOUT_FILENO);
-        free(cwd);
 		return (EXIT_SUCCESS);
 	}
 	else

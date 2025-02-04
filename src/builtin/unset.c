@@ -1,13 +1,6 @@
 
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
+#include "minishell.h"
 
-typedef struct s_env
-{
-	char			*value;
-	struct s_env	*next;
-}					t_env;
 
 t_env	*new_env_node(const char *env)
 {
@@ -16,7 +9,7 @@ t_env	*new_env_node(const char *env)
 	node = malloc(sizeof(t_env));
 	if (!node)
 		exit(EXIT_FAILURE);
-	node->value = strdup(env);
+	node->value = ft_strdup(env);
 	if (!node->value)
 	{
 		free(node);
@@ -74,7 +67,7 @@ void	free_env_list(t_env *env_list)
 	}
 }
 
-int	unset_env(t_env **env_list, const char *varname)
+static int	unset_env(t_env **env_list, const char *varname)
 {
 	size_t	name_len;
 	t_env	*curr;
@@ -123,10 +116,10 @@ int	builtin_unset(int ac, char *av[], char **envp)
 	return (EXIT_SUCCESS);
 }
 
-int	main(int argc, char *argv[], char **envp)
-{
-	builtin_unset(argc, argv, envp);
-}
+// int	main(int argc, char *argv[], char **envp)
+// {
+// 	builtin_unset(argc, argv, envp);
+// }
 
 // ↑複数できる、　$対応できてない, export消せる
 // shell変数はexportすれば子プロセスに環境が引き継がれるからとれる
