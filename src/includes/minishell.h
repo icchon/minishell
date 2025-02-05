@@ -172,5 +172,7 @@ int						builtin_pwd(void);
 char					*get_shell_prompt(void);
 char					*trim_space(char *line);
 t_status				grobal_status(int get_or_set, ...);
+t_status				builtin(char *av[]);
+int						is_builtin(char *cmd);
 
 #endif
