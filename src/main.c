@@ -50,11 +50,13 @@ int	main(int argc, char *argv[], char **env)
 		prompt = get_shell_prompt();
 		line = readline(prompt);
 		all->line = ft_strtrim(line, " \t\n\v\f\r");
-		add_history(line);
+		add_history(all->line);
 		if (!all->line)
 			break ;
 		all->tokens = lexer((char *)all->line);
+
 		all->tree = parser(all->tokens);
+
 		check_fds(all->tree);
 		all->ex_tree = semantic_analyzer(all->tree);
 		executer(all->ex_tree);

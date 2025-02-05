@@ -6,13 +6,13 @@
 /*   By: kaisobe <kaisobe@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/02 10:22:53 by kaisobe           #+#    #+#             */
-/*   Updated: 2025/02/02 10:24:05 by kaisobe          ###   ########.fr       */
+/*   Updated: 2025/02/05 17:28:06 by kaisobe          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	print_strs(char **strs)
+void	ft_print_strs(char **strs)
 {
 	int	i;
 

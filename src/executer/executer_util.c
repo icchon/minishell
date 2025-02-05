@@ -32,8 +32,8 @@ void	set_arginfo(t_astnode *node)
 	if (node->args)
 	{
 		node->arg_cnt = size_token(node->args);
-		node->arg_strs = create_args(node);
 	}
+	node->arg_strs = create_args(node);
 	return ;
 }
 
