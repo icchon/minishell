@@ -7,6 +7,7 @@ char	*replace_env_vars(char *str, char **env)
 	char	*out;
 	size_t	len;
 
+	// int		in_double_quate;
 	out = NULL;
 	i = 0;
 	while (str[i])
@@ -23,8 +24,10 @@ char	*replace_env_vars(char *str, char **env)
 		else
 		{
 			if (str[i] == '\'' || str[i] == '\"')
+			{
 				i++;
-			len = ft_calc_next_chr(&str[i], '$');
+			}
+			len = ft_calc_next_str(&str[i], "$\"");
 			out = ft_strjoin_safe(out, ft_substr(&str[i], 0, len), 1, 1);
 		}
 		i += len;
