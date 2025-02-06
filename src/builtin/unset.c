@@ -1,72 +1,6 @@
 
 #include "minishell.h"
 
-
-t_env	*new_env_node(const char *env)
-{
-	t_env	*node;
-
-	node = malloc(sizeof(t_env));
-	if (!node)
-		exit(EXIT_FAILURE);
-	node->value = ft_strdup(env);
-	if (!node->value)
-	{
-		free(node);
-		exit(EXIT_FAILURE);
-	}
-	node->next = NULL;
-	return (node);
-}
-
-t_env	*create_env_list(char **envp)
-{
-	t_env	*head;
-	t_env	*tail;
-	t_env	*node;
-
-	head = NULL;
-	tail = NULL;
-	while (*envp)
-	{
-		node = new_env_node(*envp);
-		if (!head)
-		{
-			head = node;
-			tail = node;
-		}
-		else
-		{
-			tail->next = node;
-			tail = node;
-		}
-		envp++;
-	}
-	return (head);
-}
-
-void	print_env_list(t_env *env_list)
-{
-	while (env_list)
-	{
-		printf("%s\n", env_list->value);
-		env_list = env_list->next;
-	}
-}
-
-void	free_env_list(t_env *env_list)
-{
-	t_env	*tmp;
-
-	while (env_list)
-	{
-		tmp = env_list;
-		env_list = env_list->next;
-		free(tmp->value);
-		free(tmp);
-	}
-}
-
 static int	unset_env(t_env **env_list, const char *varname)
 {
 	size_t	name_len;
@@ -95,24 +29,17 @@ static int	unset_env(t_env **env_list, const char *varname)
 	return (0);
 }
 
-int	builtin_unset(int ac, char *av[], char **envp)
+int	builtin_unset(int ac, char *av[], t_env *env_list)
 {
-	t_env	*env_list;
-	int		i;
+	int	i;
 
 	i = 1;
-	env_list = create_env_list(envp);
-	printf("Before unset:\n");
-	print_env_list(env_list);
 	while (i < ac)
 	{
 		if (!unset_env(&env_list, av[i]))
 			printf("[DEBUG] Unset variable: %s\n", av[i]);
 		i++;
 	}
-	printf("\nAfter unset:\n");
-	print_env_list(env_list);
-	free_env_list(env_list);
 	return (EXIT_SUCCESS);
 }
 

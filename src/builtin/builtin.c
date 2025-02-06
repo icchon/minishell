@@ -36,6 +36,6 @@ t_status	builtin(char *av[])
 		return (builtin_pwd());
 	if (ft_isequal(av[0], "unset"))
 		return (builtin_unset(ft_strslen((const char **)av), av,
-				grobal_env(GET)));
+				grobal_envlist(GET)));
 	return (EXIT_FAILURE);
 }

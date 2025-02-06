@@ -60,6 +60,7 @@ void	shell_loop(void)
 		check_fds(all->tree);
 		all->ex_tree = semantic_analyzer(all->tree);
 		executer(all->ex_tree);
+		update_grobal_env();
 		free_all_memory(all);
 		free(prompt);
 	}
@@ -69,7 +70,8 @@ int	main(int argc, char *argv[], char **env)
 {
 	(void)argc;
 	(void)argv;
-	grobal_env(SET, env);
+	grobal_env(SET, ft_strsdup(env));
+	update_grobal_envlist();
 	set_signal();
 	shell_loop();
 	return (0);
