@@ -4,6 +4,7 @@
 # include "libft.h"
 # include <readline/history.h>
 # include <readline/readline.h>
+# include <signal.h>
 # include <stdio.h>
 
 # define INPUT 0
@@ -16,6 +17,8 @@
 # define SET 1
 # define BUFFER_SIZE 1000
 # define ASCII_SIZE 128
+
+extern int				g_signal;
 
 typedef enum e_token_type
 {
@@ -169,7 +172,7 @@ pid_t					*create_pids(int n);
 int						**create_pipes(int n);
 void					free_ex_asttree(t_ex_astnode *node);
 int						builtin_pwd(void);
-char					*get_shell_prompt(void);
+char					*get_shell_prompt(int exist_nl);
 char					*trim_space(char *line);
 t_status				grobal_status(int get_or_set, ...);
 t_status				builtin(char *av[]);
