@@ -6,7 +6,7 @@
 /*   By: kaisobe <kaisobe@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/16 13:11:02 by tkitago           #+#    #+#             */
-/*   Updated: 2025/02/04 16:01:41 by kaisobe          ###   ########.fr       */
+/*   Updated: 2025/02/06 16:45:49 by kaisobe          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -153,5 +153,6 @@ size_t				ft_strslen(const char **strs);
 void				ft_print_strs(char **strs);
 int					ft_isint(const char *nptr);
 int					ft_issign(int c);
+char				**ft_strsdup(char **strs);
 
 #endif
