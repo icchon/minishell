@@ -1,4 +1,4 @@
-#include "minishell.h"
+#include "readline.h"
 
 char	*get_shell_prompt(int exist_nl)
 {

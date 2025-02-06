@@ -72,6 +72,8 @@ static void	child_process(int old_pipes[2], int new_pipes[2], t_token *redirect,
 	if (is_builtin(node->cmd->data))
 	{
 		status = builtin(node->arg_strs);
+		grobal_status(SET, status);
+		return ;
 	}
 	else
 	{
