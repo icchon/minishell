@@ -31,6 +31,7 @@ void	exec_heredoc(t_astnode *node)
 {
 	t_redirect	*redirect;
 	char		*limiter;
+	char		*input_file;
 
 	if (!node)
 	{
@@ -42,8 +43,9 @@ void	exec_heredoc(t_astnode *node)
 		if (redirect->type == TK_LIMITER)
 		{
 			limiter = redirect->data;
-			redirect->data = process_heredoc(limiter);
-			redirect->data = replace_env_vars(redirect->data, grobal_env(GET));
+			input_file = process_heredoc(limiter);
+			grobal_tmpfile(SET, input_file);
+			redirect->data = replace_env_vars(input_file, grobal_env(GET));
 			redirect->type = TK_INPUT_FILE;
 			free(limiter);
 		}

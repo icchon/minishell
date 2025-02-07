@@ -154,40 +154,41 @@ void	expander(t_astnode *node)
 {
 	t_token	*token;
 	char	*tmp;
-	size_t	cnt;
 	t_token	*new_tokens;
 	t_token	*to_add;
 
-	cnt = 0;
 	if (!node)
 		return ;
 	token = node->args;
 	node->args = NULL;
-	while (cnt < 2)
+	while (token)
 	{
-		while (token)
+		if (token->type == TK_VALIABLE)
 		{
-			if (token->type == TK_VALIABLE)
-			{
-				new_tokens = token_variable_split(&token);
-				addback_tokens(&node->args, new_tokens);
-				token = token->next;
-			}
-			else
-			{
-				tmp = token->data;
-				token->data = replace_env_vars_quate(tmp, grobal_env(GET));
-				to_add = token;
-				token = token->next;
-				addback_token(&node->args, to_add);
-				free(tmp);
-			}
+			new_tokens = token_variable_split(&token);
+			addback_tokens(&node->args, new_tokens);
+			token = token->next;
 		}
-		cnt++;
-		if (cnt == 1)
+		else
 		{
-			token = node->redirects;
+			tmp = token->data;
+			token->data = replace_env_vars_quate(tmp, grobal_env(GET));
+			to_add = token;
+			token = token->next;
+			addback_token(&node->args, to_add);
+			free(tmp);
 		}
+	}
+	token = node->redirects;
+	node->redirects = NULL;
+	while (token)
+	{
+		tmp = token->data;
+		token->data = replace_env_vars_quate(tmp, grobal_env(GET));
+		to_add = token;
+		token = token->next;
+		addback_token(&node->redirects, to_add);
+		free(tmp);
 	}
 	expander(node->left);
 	expander(node->right);
