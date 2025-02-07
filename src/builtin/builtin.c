@@ -22,7 +22,7 @@ int	is_builtin(char *cmd)
 t_status	builtin(char *av[])
 {
 	if (ft_isequal(av[0], "cd"))
-		return (EXIT_FAILURE);
+		return (builtin_cd(ft_strslen((const char **)av), av));
 	if (ft_isequal(av[0], "echo"))
 		return (builtin_echo(ft_strslen((const char **)av), av));
 	if (ft_isequal(av[0], "env"))
