@@ -39,12 +39,8 @@ void	free_asttree(t_astnode *root)
 	left = root->left;
 	right = root->right;
 	free_astnode(root);
-	if (left)
-	{
-		free_asttree(left);
-	}
-	if (right)
-		free_asttree(right);
+	free_asttree(left);
+	free_asttree(right);
 	return ;
 }
 
@@ -72,7 +68,7 @@ void	print_cmd(t_astnode *cmd_node, int depth)
 	while (arg)
 	{
 		i = 0;
-		while (i++ < depth+2)
+		while (i++ < depth + 2)
 			dprintf(2, "  ");
 		dprintf(2, "ARG: %s\n", arg->data);
 		arg = arg->next;

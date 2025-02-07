@@ -1,4 +1,4 @@
-#include "util.h"
+#include "minishell.h"
 
 char	**grobal_env(int get_or_set, ...)
 {
