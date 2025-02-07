@@ -10,18 +10,17 @@ char	**create_args(t_astnode *node)
 	if (!node)
 		return (NULL);
 	arg_len = size_token(node->args);
-	i = 1;
+	i = 0;
 	arg = node->args;
-	out = (char **)malloc(sizeof(char *) * (arg_len + 2));
+	out = (char **)malloc(sizeof(char *) * (arg_len + 1));
 	if (!out)
 		return (NULL);
-	out[0] = node->cmd->data;
 	while (arg)
 	{
 		out[i++] = arg->data;
 		arg = arg->next;
 	}
-	out[arg_len + 1] = NULL;
+	out[arg_len] = NULL;
 	return (out);
 }
 
@@ -31,7 +30,7 @@ void	set_arginfo(t_astnode *node)
 		return ;
 	if (node->args)
 	{
-		node->arg_cnt = size_token(node->args);
+		node->arg_cnt = size_token(node->args) - 1;
 	}
 	node->arg_strs = create_args(node);
 	return ;

@@ -31,7 +31,6 @@ typedef struct s_ex_astnode
 typedef struct s_astnode
 {
 	t_astnode_type		type;
-	t_cmd				*cmd;
 	int					is_last_cmd;
 	int					is_first_cmd;
 	char				**arg_strs;

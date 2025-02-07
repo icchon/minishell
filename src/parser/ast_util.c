@@ -7,7 +7,6 @@ t_astnode	*new_astnode(void)
 	node = (t_astnode *)malloc(sizeof(t_astnode));
 	if (!node)
 		return (NULL);
-	node->cmd = NULL;
 	node->arg_cnt = 0;
 	node->args = NULL;
 	node->left = NULL;
@@ -24,7 +23,6 @@ void	free_astnode(t_astnode *node)
 {
 	if (!node)
 		return ;
-	free_tokens(node->cmd);
 	free_tokens(node->args);
 	free_tokens(node->redirects);
 	free(node->arg_strs);
@@ -69,7 +67,7 @@ void	print_cmd(t_astnode *cmd_node, int depth)
 	t_redirect	*red;
 	int			i;
 
-	dprintf(2, "CMD: %s\n", cmd_node->cmd->data);
+	dprintf(2, "CMD: %s\n", cmd_node->args->data);
 	arg = cmd_node->args;
 	while (arg)
 	{

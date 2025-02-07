@@ -69,7 +69,7 @@ static void	child_process(int old_pipes[2], int new_pipes[2], t_token *redirect,
 		close(new_pipes[WRITE]);
 	}
 	handle_io(redirect);
-	if (is_builtin(node->cmd->data))
+	if (is_builtin(node->args->data))
 	{
 		status = builtin(node->arg_strs);
 		grobal_status(SET, status);
@@ -77,7 +77,7 @@ static void	child_process(int old_pipes[2], int new_pipes[2], t_token *redirect,
 	}
 	else
 	{
-		status = try_command(node->cmd->data, node->arg_strs, grobal_env(GET));
+		status = try_command(node->args->data, node->arg_strs, grobal_env(GET));
 	}
 	exit(status);
 }

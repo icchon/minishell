@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_split.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tkitago <tkitago@student.42tokyo.jp>       +#+  +:+       +#+        */
+/*   By: kaisobe <kaisobe@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/27 18:19:45 by tkitago           #+#    #+#             */
-/*   Updated: 2024/11/22 18:17:27 by tkitago          ###   ########.fr       */
+/*   Updated: 2025/02/07 15:36:46 by kaisobe          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ static size_t	count_word(char const *s, char c)
 {
 	size_t	count;
 
-	if (!*s)
+	if (!s || !*s)
 		return (0);
 	count = 0;
 	while (*s)

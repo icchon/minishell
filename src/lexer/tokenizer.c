@@ -5,10 +5,14 @@ static void	set_tokens(t_token *current, t_token_type type1, t_token *next,
 {
 	if (current)
 	{
+		if (type1 == TK_WORD && current->data && current->data[0] == '$')
+			type1 = TK_VALIABLE;
 		current->type = type1;
 	}
 	if (next)
 	{
+		if (type2 == TK_WORD && next->data && next->data[0] == '$')
+			type2 = TK_VALIABLE;
 		next->type = type2;
 	}
 	return ;
@@ -98,6 +102,8 @@ void	print_token(t_token *token)
 		printf("type : TK_REDIRECT_IN\n");
 	else if (type == TK_UNDEFINED)
 		printf("type == TK_UNDEFINED\n");
+	else if (type == TK_VALIABLE)
+		printf("type == TK_VALIABLE\n");
 	else
 	{
 		printf("type : error\n");
