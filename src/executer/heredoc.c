@@ -47,7 +47,7 @@ void	exec_heredoc(t_astnode *node)
 	{
 		return ;
 	}
-	redirect = node->redirects;			printf("limiter : [%s]\n", limiter);
+	redirect = node->redirects;
 	while (redirect)
 	{
 		if (redirect->type == TK_LIMITER)
