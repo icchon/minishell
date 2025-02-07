@@ -5,6 +5,7 @@ static char	*process_heredoc(char *limiter)
 	char	*input_file;
 	char	buff[BUFFER_SIZE];
 	char	tmp[BUFFER_SIZE];
+	char	*enved;
 	int		fd;
 
 	ft_bzero(buff, BUFFER_SIZE);
@@ -22,7 +23,9 @@ static char	*process_heredoc(char *limiter)
 		ft_strlcat(buff, "\n", BUFFER_SIZE);
 	}
 	fd = open(input_file, O_WRONLY);
-	ft_putstr_fd(buff, fd);
+	enved = replace_env_vars_quate(buff, grobal_env(GET));
+	ft_putstr_fd(enved, fd);
+	free(enved);
 	close(fd);
 	return (input_file);
 }
@@ -45,7 +48,7 @@ void	exec_heredoc(t_astnode *node)
 			limiter = redirect->data;
 			input_file = process_heredoc(limiter);
 			grobal_tmpfile(SET, input_file);
-			redirect->data = replace_env_vars(input_file, grobal_env(GET));
+			redirect->data = ft_strdup(input_file);
 			redirect->type = TK_INPUT_FILE;
 			free(limiter);
 		}

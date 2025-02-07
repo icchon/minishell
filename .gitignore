@@ -55,3 +55,4 @@ minishell
 .vscode
 typescript
 .script_lock
+*.tmp
