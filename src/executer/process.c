@@ -42,11 +42,6 @@ static int	try_command(char *cmd, char **arg, char **env)
 			printf("bash: %s: No such file or directory\n", cmd);
 		return (127);
 	}
-	// if (access(path, X_OK) != 0)
-	// {
-	// 	free(path);
-	// 	return (126);
-	// }
 	execve(path, arg, env);
 	return (EXIT_FAILURE);
 }
@@ -72,8 +67,6 @@ static void	child_process(int old_pipes[2], int new_pipes[2], t_token *redirect,
 	if (is_builtin(node->args->data))
 	{
 		status = builtin(node->arg_strs);
-		grobal_status(SET, status);
-		return ;
 	}
 	else
 	{
