@@ -26,7 +26,7 @@ static char	*process_heredoc(char *limiter)
 		ft_bzero(tmp, BUFFER_SIZE);
 		read(STDIN_FILENO, tmp, BUFFER_SIZE);
 		tmp[ft_strlen(tmp) - 1] = '\0';
-		if (ft_isequal(limiter, tmp) || !*tmp)
+		if (ft_isequal(limiter, tmp) || !tmp[0])
 			break ;
 		ft_strlcat(buff, tmp, BUFFER_SIZE);
 		ft_strlcat(buff, "\n", BUFFER_SIZE);
@@ -47,7 +47,7 @@ void	exec_heredoc(t_astnode *node)
 	{
 		return ;
 	}
-	redirect = node->redirects;			printf("limiter : [%s]\n", limiter);
+	redirect = node->redirects;
 	while (redirect)
 	{
 		if (redirect->type == TK_LIMITER)
