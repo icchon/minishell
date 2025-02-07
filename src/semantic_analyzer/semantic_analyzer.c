@@ -22,41 +22,27 @@ t_ex_astnode	*semantic_analyzer(t_astnode *root)
 	type = root->type;
 	if (type == ASTND_PIPE || type == ASTND_CMD)
 	{
-
 		node = new_ex_astnode(EX_ASTND_PIPETOP);
 		create_cmds(root, &(node->cmds));
-	
 		if (ft_lstlast(node->cmds))
 		{
 			edge = (t_astnode *)ft_lstlast(node->cmds)->content;
 			edge->is_last_cmd = 1;
 		}
-	
 		if (node->cmds)
 		{
 			edge = (t_astnode *)node->cmds->content;
 			edge->is_first_cmd = 1;
 		}
-
 	}
 	else
 	{
 		if (type == ASTND_OR)
-		{
 			node = new_ex_astnode(EX_ASTND_OR);
-		}
 		else if (type == ASTND_AND)
-		{
 			node = new_ex_astnode(EX_ASTND_AND);
-		}
-		else
-		{
-			dprintf(2, "Un Hundled Error\n");
-			return (NULL);
-		}
 		node->left = semantic_analyzer(root->left);
 		node->right = semantic_analyzer(root->right);
 	}
-
 	return (node);
 }

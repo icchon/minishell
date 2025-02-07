@@ -23,25 +23,16 @@ t_status	execute_one_builtin(t_astnode *root)
 	return (builtin(root->arg_strs));
 }
 
-int	execute_commands(t_list *cmds)
+t_status	execute_fork_commands(t_list *cmds)
 {
 	t_astnode	*cmd;
 	t_list		*node;
 	pid_t		*pids;
-	t_status	status;
 	int			i;
 	int			**pipes;
 
-	cmd = (t_astnode *)cmds->content;
-	if (ft_lstsize(cmds) == 1 && is_builtin(cmd->args->data))
-	{
-		status = execute_one_builtin(cmd);
-		grobal_status(SET, status);
-		return (status);
-	}
 	pids = create_pids(ft_lstsize(cmds));
 	pipes = create_pipes(ft_lstsize(cmds));
-	status = 1;
 	node = cmds;
 	i = 0;
 	while (node)
@@ -57,15 +48,26 @@ int	execute_commands(t_list *cmds)
 		node = node->next;
 		i++;
 	}
-	i = 0;
-	while (i < ft_lstsize(cmds))
+	waitpids(cmds, pids);
+	return (ft_2darraydel(pipes), free(pids), grobal_status(GET));
+}
+
+t_status	execute_commands(t_list *cmds)
+{
+	t_astnode	*cmd;
+	t_status	status;
+
+	cmd = (t_astnode *)cmds->content;
+	if (ft_lstsize(cmds) == 1 && is_builtin(cmd->args->data))
 	{
-		waitpid(pids[i++], (int *)&(status), 0);
+		status = execute_one_builtin(cmd);
 		grobal_status(SET, status);
+		return (status);
 	}
-	ft_2darraydel(pipes);
-	free(pids);
-	return (status);
+	else
+	{
+		return (execute_fork_commands(cmds));
+	}
 }
 
 t_status	executer(t_ex_astnode *root)
@@ -77,26 +79,20 @@ t_status	executer(t_ex_astnode *root)
 		return (EXIT_FAILURE);
 	type = root->type;
 	if (type == EX_ASTND_PIPETOP)
-	{
 		return (execute_commands(root->cmds));
-	}
 	else
 	{
 		left_status = executer(root->left);
 		if (type == EX_ASTND_AND)
 		{
 			if (left_status == EXIT_SUCCESS)
-			{
 				return (executer(root->right));
-			}
 			return (left_status);
 		}
 		if (type == EX_ASTND_OR)
 		{
 			if (left_status == EXIT_FAILURE)
-			{
 				return (executer(root->right));
-			}
 			return (left_status);
 		}
 	}

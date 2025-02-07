@@ -53,5 +53,7 @@ void				print_tokens(t_token *token);
 void				print_token(t_token *token);
 int					tokenizer(t_token **token_ptr);
 void				free_tokens(t_token *token);
+void				addback_tokens(t_token **token, t_token *new);
+void				insert_token(t_token **dst, t_token *src);
 
 #endif

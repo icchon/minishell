@@ -25,9 +25,7 @@ static char	*process_heredoc(char *limiter)
 	fd = open(input_file, O_WRONLY);
 	enved = replace_env_vars_quate(buff, grobal_env(GET));
 	ft_putstr_fd(enved, fd);
-	free(enved);
-	close(fd);
-	return (input_file);
+	return (free(enved), close(fd), input_file);
 }
 
 void	exec_heredoc(t_astnode *node)

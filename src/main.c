@@ -57,12 +57,9 @@ void	shell_loop(void)
 		}
 		all->tokens = lexer((char *)all->line);
 		all->tree = parser(all->tokens);
-		// print_tree(all->tree);
 		check_fds(all->tree);
 		all->ex_tree = semantic_analyzer(all->tree);
-		// print_ex_tree(all->ex_tree);
 		executer(all->ex_tree);
-		// print_ex_tree(all->ex_tree);
 		update_grobal_env();
 		free_all_memory(all);
 		free(prompt);
