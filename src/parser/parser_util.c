@@ -1,58 +1,48 @@
 #include "minishell.h"
 
-static void	handle_token(t_token **redirects, t_token **args, t_astnode *node,
-		t_token **token)
+static void	handle_token(t_astnode *node, t_token **token)
 {
 	t_token	*to_delete;
 	t_token	*to_add;
 
-	if ((*token)->type != TK_WORD)
+	if (!ft_ismatch((*token)->type, 2, TK_WORD, TK_VALIABLE))
 	{
 		to_delete = (*token);
 		(*token) = (*token)->next;
 		cut_token(token, to_delete);
 		to_add = (*token);
 		(*token) = (*token)->next;
-		addback_token(redirects, to_add);
+		addback_token(&node->redirects, to_add);
 		return ;
 	}
 	to_add = (*token);
 	(*token) = (*token)->next;
-	if (node->type == ASTND_UNDEFINED)
-	{
-		node->type = ASTND_CMD;
-		addback_token(&(node->cmd), to_add);
-	}
-	else
-		addback_token(args, to_add);
+	node->type = ASTND_CMD;
+	addback_token(&node->args, to_add);
 }
 
-static void	create_prop(t_token **redirects, t_token **args, t_astnode *node,
-		t_token **token)
+static void	create_node_prop(t_astnode *node, t_token **token)
 {
-	while (*token && ft_ismatch((*token)->type, 5, TK_WORD, TK_REDIRECT_IN,
-			TK_HERE_DOC, TK_REDIRECT_OUT, TK_REDIRECT_OUT_APPEND))
+	while (*token && ft_ismatch((*token)->type, 6, TK_WORD, TK_VALIABLE,
+			TK_REDIRECT_IN, TK_HERE_DOC, TK_REDIRECT_OUT,
+			TK_REDIRECT_OUT_APPEND))
 	{
-		handle_token(redirects, args, node, token);
+		handle_token(node, token);
 	}
 }
 
 static t_astnode	*parse_cmd(t_token **token)
 {
 	t_astnode	*node;
-	t_token		*redirects;
-	t_token		*args;
 
 	if (!*token)
 		return (NULL);
 	node = new_astnode();
 	if (!node)
 		return (NULL);
-	redirects = NULL;
-	args = NULL;
-	create_prop(&redirects, &args, node, token);
-	node->args = args;
-	node->redirects = redirects;
+
+	create_node_prop(node, token);
+
 	return (node);
 }
 
@@ -70,7 +60,7 @@ static t_astnode	*parse_pipe(t_token **token)
 	{
 		root = new_astnode();
 		if (!root)
-			return NULL;
+			return (NULL);
 		root->type = ASTND_PIPE;
 		to_delete = (*token);
 		(*token) = (*token)->next;
@@ -96,7 +86,7 @@ t_astnode	*parse_or_and(t_token **token)
 	{
 		root = new_astnode();
 		if (!root)
-			return NULL;
+			return (NULL);
 		if ((*token)->type == TK_OR)
 			root->type = ASTND_OR;
 		else

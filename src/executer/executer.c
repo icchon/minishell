@@ -16,6 +16,13 @@ pid_t	execute_command(t_astnode *root, int old_pipes[2], int new_pipes[2])
 	return (pid);
 }
 
+t_status	execute_one_builtin(t_astnode *root)
+{
+	expander(root);
+	set_arginfo(root);
+	return (builtin(root->arg_strs));
+}
+
 int	execute_commands(t_list *cmds)
 {
 	t_astnode	*cmd;
@@ -25,6 +32,13 @@ int	execute_commands(t_list *cmds)
 	int			i;
 	int			**pipes;
 
+	cmd = (t_astnode *)cmds->content;
+	if (ft_lstsize(cmds) == 1 && is_builtin(cmd->args->data))
+	{
+		status = execute_one_builtin(cmd);
+		grobal_status(SET, status);
+		return (status);
+	}
 	pids = create_pids(ft_lstsize(cmds));
 	pipes = create_pipes(ft_lstsize(cmds));
 	status = 1;
