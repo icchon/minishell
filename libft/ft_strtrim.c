@@ -6,7 +6,7 @@
 /*   By: kaisobe <kaisobe@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/27 18:20:49 by tkitago           #+#    #+#             */
-/*   Updated: 2025/02/05 15:32:34 by kaisobe          ###   ########.fr       */
+/*   Updated: 2025/02/07 21:18:59 by kaisobe          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ char	*ft_strtrim(char const *s1, char const *set)
 	char	*str;
 
 	str = NULL;
-	if ((ft_strlen(s1) > 0) || (ft_strlen(set) > 0))
+	if (!((ft_strlen(s1) > 0) || (ft_strlen(set) > 0)))
 	{
 		return (ft_strdup(s1));
 	}
