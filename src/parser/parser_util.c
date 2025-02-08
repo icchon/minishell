@@ -38,11 +38,7 @@ static t_astnode	*parse_cmd(t_token **token)
 	if (!*token)
 		return (NULL);
 	node = new_astnode();
-	if (!node)
-		return (NULL);
-
 	create_node_prop(node, token);
-
 	return (node);
 }
 
@@ -59,8 +55,6 @@ static t_astnode	*parse_pipe(t_token **token)
 	while (*token && ((*token)->type == TK_PIPE))
 	{
 		root = new_astnode();
-		if (!root)
-			return (NULL);
 		root->type = ASTND_PIPE;
 		to_delete = (*token);
 		(*token) = (*token)->next;
@@ -85,8 +79,6 @@ t_astnode	*parse_or_and(t_token **token)
 	while (*token && ((*token)->type == TK_OR || (*token)->type == TK_AND))
 	{
 		root = new_astnode();
-		if (!root)
-			return (NULL);
 		if ((*token)->type == TK_OR)
 			root->type = ASTND_OR;
 		else

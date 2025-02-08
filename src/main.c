@@ -20,6 +20,7 @@ void	free_all_memory(t_all *all)
 		grobal_tmpfile(SET, NULL);
 	}
 	free(all->line);
+	free(all->prompt);
 	return ;
 }
 
@@ -34,6 +35,7 @@ t_all	*init_all(void)
 	all->tokens = NULL;
 	all->tree = NULL;
 	all->ex_tree = NULL;
+	all->prompt = NULL;
 	return (all);
 }
 
@@ -46,9 +48,8 @@ void	shell_loop(void)
 	all = init_all();
 	while (1)
 	{
-		prompt = get_shell_prompt(1);
-		line = readline(prompt);
-		all->line = line;
+		all->prompt = get_shell_prompt(1);
+		all->line = readline(prompt);
 		if (ft_strlen(all->line) > 0)
 			add_history(all->line);
 		if (!all->line)
@@ -57,15 +58,12 @@ void	shell_loop(void)
 			break ;
 		}
 		all->tokens = lexer((char *)all->line);
-		// print_tokens(all->tokens);
 		all->tree = parser(all->tokens);
-		// print_tree(all->tree);
 		check_fds(all->tree);
 		all->ex_tree = semantic_analyzer(all->tree);
 		executer(all->ex_tree);
 		update_grobal_env();
 		free_all_memory(all);
-		free(prompt);
 	}
 }
 

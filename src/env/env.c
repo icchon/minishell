@@ -5,14 +5,7 @@ t_env	*new_env_node(const char *env)
 	t_env	*node;
 
 	node = xmalloc(sizeof(t_env));
-	if (!node)
-		exit(EXIT_FAILURE);
 	node->value = ft_strdup(env);
-	if (!node->value)
-	{
-		free(node);
-		exit(EXIT_FAILURE);
-	}
 	node->next = NULL;
 	return (node);
 }

@@ -5,8 +5,6 @@ t_token	*new_token(t_token_type type, char *data)
 	t_token	*token;
 
 	token = (t_token *)xmalloc(sizeof(t_token));
-	if (!token)
-		return (NULL);
 	token->type = type;
 	token->data = data;
 	token->prev = NULL;
@@ -27,7 +25,6 @@ t_token	*last_token(t_token *token)
 	}
 	return (node);
 }
-
 
 void	addback_token(t_token **token, t_token *new)
 {

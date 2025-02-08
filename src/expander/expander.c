@@ -10,14 +10,12 @@ t_token	*token_variable_split(t_token **token)
 
 	if (!(*token && (*token)->type == TK_VALIABLE))
 		return (NULL);
-	expanded = replace_env_vars_quate((*token)->data, grobal_env(GET));
+	expanded = replace_env_vars_quate((*token)->data);
 	splited = ft_split(expanded, ' ');
 	free(expanded);
-	if (!splited)
-		return (NULL);
 	i = 0;
 	new_tokens = NULL;
-	while (splited[i])
+	while (splited && splited[i])
 	{
 		new = new_token(TK_WORD, splited[i]);
 		addback_token(&new_tokens, new);
@@ -46,7 +44,7 @@ void	expand_args(t_astnode *node)
 		else
 		{
 			tmp = token->data;
-			token->data = replace_env_vars_quate(tmp, grobal_env(GET));
+			token->data = replace_env_vars_quate(tmp);
 			to_add = token;
 			token = token->next;
 			addback_token(&node->args, to_add);
@@ -66,7 +64,7 @@ void	expande_redirects(t_astnode *node)
 	while (token)
 	{
 		tmp = token->data;
-		token->data = replace_env_vars_quate(tmp, grobal_env(GET));
+		token->data = replace_env_vars_quate(tmp);
 		to_add = token;
 		token = token->next;
 		addback_token(&node->redirects, to_add);

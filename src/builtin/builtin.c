@@ -33,7 +33,12 @@ t_status	builtin(char *av[])
 	if (ft_isequal(av[0], "export"))
 		return (EXIT_FAILURE);
 	if (ft_isequal(av[0], "pwd"))
-		return (builtin_pwd());
+	{
+		printf("pwd start\n");
+		builtin_pwd();
+		printf("pwd end\n");
+		return (EXIT_SUCCESS);
+	}
 	if (ft_isequal(av[0], "unset"))
 		return (builtin_unset(ft_strslen((const char **)av), av,
 				grobal_envlist(GET)));

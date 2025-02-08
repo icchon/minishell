@@ -5,8 +5,6 @@ t_astnode	*new_astnode(void)
 	t_astnode	*node;
 
 	node = (t_astnode *)xmalloc(sizeof(t_astnode));
-	if (!node)
-		return (NULL);
 	node->arg_cnt = 0;
 	node->args = NULL;
 	node->left = NULL;

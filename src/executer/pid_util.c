@@ -5,11 +5,8 @@ t_pids	*new_pids(pid_t pid)
 	t_pids	*lst;
 
 	lst = (t_pids *)xmalloc(sizeof(t_pids));
-	if (lst)
-	{
-		lst->pid = pid;
-		lst->next = NULL;
-	}
+	lst->pid = pid;
+	lst->next = NULL;
 	return (lst);
 }
 

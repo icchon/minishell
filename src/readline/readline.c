@@ -16,13 +16,3 @@ char	*get_shell_prompt(int exist_nl)
 	}
 	return (prompt);
 }
-
-char	*trim_space(char *line)
-{
-	char	*tmp;
-
-	tmp = line;
-	line = ft_strtrim(line, " \t\n\v\f\r");
-	free(tmp);
-	return (line);
-}

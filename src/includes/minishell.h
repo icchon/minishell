@@ -30,6 +30,7 @@ extern int			g_signal;
 typedef struct s_all
 {
 	char			*line;
+	char			*prompt;
 	char			**env;
 	t_token			*tokens;
 	t_astnode		*tree;

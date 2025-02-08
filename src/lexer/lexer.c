@@ -37,11 +37,6 @@ static void	add_token(char *line, size_t *i, t_token **head, size_t len)
 
 	data = ft_substr(&line[*i], 0, len);
 	token = new_token(TK_UNDEFINED, data);
-	if (!token)
-	{
-		free(data);
-		return ;
-	}
 	addback_token(head, token);
 	*i += len;
 }

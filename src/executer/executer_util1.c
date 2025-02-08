@@ -13,8 +13,6 @@ char	**create_args(t_astnode *node)
 	i = 0;
 	arg = node->args;
 	out = (char **)xmalloc(sizeof(char *) * (arg_len + 1));
-	if (!out)
-		return (NULL);
 	while (arg)
 	{
 		out[i++] = arg->data;
@@ -66,11 +64,6 @@ int	**create_pipes(int n)
 	while (i < (n + 1))
 	{
 		out[i] = (int *)xmalloc(sizeof(int) * 2);
-		if (!out[i])
-		{
-			ft_2darraydel(out);
-			return (NULL);
-		}
 		out[i][READ] = -42;
 		out[i][WRITE] = -42;
 		i++;
@@ -84,7 +77,5 @@ pid_t	*create_pids(int n)
 	pid_t	*out;
 
 	out = (pid_t *)xmalloc(sizeof(pid_t) * (n + 1));
-	if (!out)
-		return (NULL);
 	return (out);
 }
