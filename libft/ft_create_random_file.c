@@ -6,13 +6,13 @@
 /*   By: kaisobe <kaisobe@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/04 07:38:02 by kaisobe           #+#    #+#             */
-/*   Updated: 2025/01/13 20:56:27 by kaisobe          ###   ########.fr       */
+/*   Updated: 2025/02/08 11:07:14 by kaisobe          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	*ft_create_random_file(char *extension)
+char	*ft_create_random_file(char *prefix, char *extension)
 {
 	char		*out;
 	char		*tmp;
@@ -23,14 +23,12 @@ char	*ft_create_random_file(char *extension)
 	tmp = ft_utoa(rand);
 	if (!tmp)
 		return (NULL);
-	if (extension)
-		out = ft_strjoin_safe(tmp, extension, 1, 0);
-	else
-		out = ft_strdup(tmp);
+	out = ft_strjoin_safe(prefix, tmp, 0, 1);
+	out = ft_strjoin_safe(out, extension, 1, 0);
 	if (ft_path_exist(out))
 	{
 		free(out);
-		return (ft_create_random_file(extension));
+		return (ft_create_random_file(prefix, extension));
 	}
 	fd = ft_create_file(out);
 	if (fd == -1)
