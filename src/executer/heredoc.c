@@ -1,5 +1,101 @@
 #include "minishell.h"
 
+static char	*loop(t_bufferio *stdin, char *delimited);
+static char	*here_doc_read(t_bufferio *stdin, char *delimited, size_t *line);
+static int	check_delimited(t_strgen *strgen, char *str, char *delimited,
+				size_t delimited_len);
+static void	put_error(size_t line, char *delimited);
+
+char	*here_doc(char *delimited)
+{
+	char		*ret;
+	t_bufferio	*stdin;
+
+	stdin = ft_bufferionew(STDIN_FILENO, 0);
+	if (!stdin)
+	{
+		perror("stdin");
+		return (NULL);
+	}
+	ret = loop(stdin, delimited);
+	if (!ret && stdin->strgen->error)
+		perror("here_doc");
+	ft_bufferiodel(stdin, 0);
+	return (ret);
+}
+
+static char	*loop(t_bufferio *stdin, char *delimited)
+{
+	t_strgen	*strgen;
+	size_t		delimited_len;
+	size_t		line;
+	char		*temp;
+
+	delimited_len = ft_strlen(delimited);
+	strgen = ft_strgeninit();
+	if (!strgen)
+		return (NULL);
+	line = 0;
+	while (1)
+	{
+		temp = here_doc_read(stdin, delimited, &line);
+		if (!temp)
+			break ;
+		if (check_delimited(strgen, temp, delimited, delimited_len))
+		{
+			temp = ft_strgencomp(strgen);
+			break ;
+		}
+	}
+	ft_strgendel(strgen);
+	return (temp);
+}
+
+static char	*here_doc_read(t_bufferio *stdin, char *delimited, size_t *line)
+{
+	char	*temp;
+
+	ft_putstr_fd("> ", STDOUT_FILENO);
+	temp = ft_readline(stdin);
+	if (!temp)
+		put_error(*line, delimited);
+	(*line)++;
+	return (temp);
+}
+
+static int	check_delimited(t_strgen *strgen, char *str, char *delimited,
+		size_t delimited_len)
+{
+	if (!ft_strncmp(str, delimited, delimited_len)
+		&& str[delimited_len] == '\n')
+	{
+		free(str);
+		return (1);
+	}
+	else
+	{
+		ft_strgenstr(strgen, str);
+		free(str);
+		return (0);
+	}
+}
+
+static void	put_error(size_t line, char *delimited)
+{
+	if (line)
+	{
+		ft_putstr_fd("line ", STDERR_FILENO);
+		ft_putnbr_fd(line, STDERR_FILENO);
+		ft_putstr_fd(": ", STDERR_FILENO);
+	}
+	ft_putstr_fd("warning: ", STDERR_FILENO);
+	ft_putstr_fd("here-document at line 0 delimited by end-of-file ",
+		STDERR_FILENO);
+	ft_putstr_fd("(wanted `", STDERR_FILENO);
+	ft_putstr_fd(delimited, STDERR_FILENO);
+	ft_putstr_fd("')\n", STDERR_FILENO);
+}
+
 static char	*trim_quate(char *limiter)
 {
 	char	*out;
@@ -11,30 +107,17 @@ static char	*trim_quate(char *limiter)
 
 static char	*process_heredoc(char *limiter)
 {
+	char	*res;
 	char	*input_file;
-	char	buff[BUFFER_SIZE];
-	char	tmp[BUFFER_SIZE];
-	char	*enved;
 	int		fd;
 
-	ft_bzero(buff, BUFFER_SIZE);
-	input_file = ft_create_random_file(".tmp");
-	grobal_tmpfile(SET, input_file);
-	while (1)
-	{
-		ft_putstr_fd("heredoc> ", STDOUT_FILENO);
-		ft_bzero(tmp, BUFFER_SIZE);
-		read(STDIN_FILENO, tmp, BUFFER_SIZE);
-		tmp[ft_strlen(tmp) - 1] = '\0';
-		if (ft_isequal(limiter, tmp) || !tmp[0])
-			break ;
-		ft_strlcat(buff, tmp, BUFFER_SIZE);
-		ft_strlcat(buff, "\n", BUFFER_SIZE);
-	}
-	fd = open(input_file, O_WRONLY);
-	enved = replace_env_vars_quate(buff, grobal_env(GET));
-	ft_putstr_fd(enved, fd);
-	return (free(enved), close(fd), input_file);
+	res = here_doc(limiter);
+	input_file = ft_create_random_file(".", ".tmp");
+	fd = open(input_file, O_WRONLY | O_APPEND | O_CREAT,
+			S_IRGRP | S_IROTH | S_IWUSR | S_IRUSR);
+	ft_putstr_fd(res, fd);
+	close(fd);
+	return (input_file);
 }
 
 void	exec_heredoc(t_astnode *node)

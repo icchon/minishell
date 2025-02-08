@@ -6,7 +6,7 @@
 /*   By: kaisobe <kaisobe@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/16 13:11:02 by tkitago           #+#    #+#             */
-/*   Updated: 2025/02/06 16:45:49 by kaisobe          ###   ########.fr       */
+/*   Updated: 2025/02/08 10:57:36 by kaisobe          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -132,7 +132,7 @@ int					ft_calc_next_chr(char *str, char c);
 int					ft_calc_next_str(char *src, char *set);
 int					ft_contain(char *str, char c);
 int					ft_create_file(char *filename);
-char				*ft_create_random_file(char *extension);
+char				*ft_create_random_file(char *prefix, char *extension);
 uint32_t			ft_generate_seed(void);
 char				*ft_get_absolute_path(char *relative_path, char **env);
 char				*ft_get_env(char *key, char **env);

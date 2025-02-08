@@ -39,7 +39,7 @@ t_ex_astnode	*semantic_analyzer(t_astnode *root)
 	{
 		if (type == ASTND_OR)
 			node = new_ex_astnode(EX_ASTND_OR);
-		else if (type == ASTND_AND)
+		else
 			node = new_ex_astnode(EX_ASTND_AND);
 		node->left = semantic_analyzer(root->left);
 		node->right = semantic_analyzer(root->right);
