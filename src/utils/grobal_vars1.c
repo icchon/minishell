@@ -20,7 +20,7 @@ char	**grobal_env(int get_or_set, ...)
 	return (g_env);
 }
 
-t_env	*grobal_envlist(int get_or_set, ...)
+t_env	**grobal_envlist(int get_or_set, ...)
 {
 	va_list			ap;
 	static t_env	*g_env = NULL;
@@ -31,13 +31,13 @@ t_env	*grobal_envlist(int get_or_set, ...)
 	va_end(ap);
 	if (get_or_set == GET)
 	{
-		return (g_env);
+		return (&g_env);
 	}
 	else
 	{
 		g_env = env;
 	}
-	return (g_env);
+	return (&g_env);
 }
 
 char	*grobal_tmpfile(int get_or_set, ...)

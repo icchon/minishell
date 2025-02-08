@@ -3,17 +3,16 @@
 #include <stdlib.h>
 #include <unistd.h>
 
-int	builtin_env(t_env **envp)
+int	builtin_env(t_env *envp)
 {
-	while (*envp)
+	while (envp)
 	{
-		ft_putendl_fd(*envp, STDOUT_FILENO);
-		envp++;
+		ft_putendl_fd(envp->value, STDOUT_FILENO);
+		envp = envp->next;
 	}
 	return (EXIT_SUCCESS);
 }
 //=がない場合は出力させないという処理追加するかも
-
 
 // int	main(int ac, char *av[], char **envp)
 // {

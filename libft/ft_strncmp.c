@@ -6,7 +6,7 @@
 /*   By: tkitago <tkitago@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/27 18:20:19 by tkitago           #+#    #+#             */
-/*   Updated: 2024/12/29 14:39:35 by tkitago          ###   ########.fr       */
+/*   Updated: 2025/02/08 17:19:26 by tkitago          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,10 @@ static int	cmp_char(char c1, char c2)
 
 int	ft_strncmp(const char *s1, const char *s2, size_t n)
 {
+	if (ft_strlen(s1) < n || ft_strlen(s2) < n)
+		return (1);
+	if (!*s1 || !*s2)
+		return (1);
 	while (*s1 && *s2 && n > 0)
 	{
 		if (cmp_char(*s1, *s2))

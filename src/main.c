@@ -57,9 +57,7 @@ void	shell_loop(void)
 			break ;
 		}
 		all->tokens = lexer((char *)all->line);
-		// print_tokens(all->tokens);
 		all->tree = parser(all->tokens);
-		// print_tree(all->tree);
 		check_fds(all->tree);
 		all->ex_tree = semantic_analyzer(all->tree);
 		executer(all->ex_tree);
