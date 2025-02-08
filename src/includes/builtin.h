@@ -12,7 +12,5 @@ int			builtin_exit(int argc, char *argv[], int last_status);
 t_status	builtin(char *av[]);
 int			is_builtin(char *cmd);
 int			builtin_cd(int ac, char *av[]);
-int			util_setenv(t_env ***env_lst, const char *name, const char *value,
-				int append_flg);
 
 #endif
