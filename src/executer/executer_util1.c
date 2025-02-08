@@ -12,7 +12,7 @@ char	**create_args(t_astnode *node)
 	arg_len = size_token(node->args);
 	i = 0;
 	arg = node->args;
-	out = (char **)malloc(sizeof(char *) * (arg_len + 1));
+	out = (char **)xmalloc(sizeof(char *) * (arg_len + 1));
 	if (!out)
 		return (NULL);
 	while (arg)
@@ -59,13 +59,13 @@ int	**create_pipes(int n)
 	int	**out;
 	int	i;
 
-	out = (int **)malloc(sizeof(int *) * (n + 2));
+	out = (int **)xmalloc(sizeof(int *) * (n + 2));
 	if (!out)
 		return (NULL);
 	i = 0;
 	while (i < (n + 1))
 	{
-		out[i] = (int *)malloc(sizeof(int) * 2);
+		out[i] = (int *)xmalloc(sizeof(int) * 2);
 		if (!out[i])
 		{
 			ft_2darraydel(out);
@@ -83,7 +83,7 @@ pid_t	*create_pids(int n)
 {
 	pid_t	*out;
 
-	out = (pid_t *)malloc(sizeof(pid_t) * (n + 1));
+	out = (pid_t *)xmalloc(sizeof(pid_t) * (n + 1));
 	if (!out)
 		return (NULL);
 	return (out);

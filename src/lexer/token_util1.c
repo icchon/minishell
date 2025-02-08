@@ -4,7 +4,7 @@ t_token	*new_token(t_token_type type, char *data)
 {
 	t_token	*token;
 
-	token = (t_token *)malloc(sizeof(t_token));
+	token = (t_token *)xmalloc(sizeof(t_token));
 	if (!token)
 		return (NULL);
 	token->type = type;

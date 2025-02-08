@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_joinpath.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tkitago <tkitago@student.42tokyo.jp>       +#+  +:+       +#+        */
+/*   By: kaisobe <kaisobe@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/16 12:55:23 by tkitago           #+#    #+#             */
-/*   Updated: 2025/01/24 19:35:50 by tkitago          ###   ########.fr       */
+/*   Updated: 2025/02/08 12:56:02 by kaisobe          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ char	*ft_joinpath(char *base, char *add_path)
 	size = ft_strlen(base);
 	separate_flg = base[size - 1] == PATH_SEPARATE;
 	size += ft_strlen(add_path) + 2 - separate_flg;
-	final_path = (char *)malloc(sizeof(char) * size);
+	final_path = (char *)xmalloc(sizeof(char) * size);
 	if (!final_path)
 		return (NULL);
 	ft_strlcpy(final_path, base, size);

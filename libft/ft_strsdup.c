@@ -6,7 +6,7 @@
 /*   By: kaisobe <kaisobe@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/06 16:45:31 by kaisobe           #+#    #+#             */
-/*   Updated: 2025/02/06 16:45:42 by kaisobe          ###   ########.fr       */
+/*   Updated: 2025/02/08 12:57:08 by kaisobe          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ char	**ft_strsdup(char **strs)
 	size_t	i;
 
 	len = ft_strslen((const char **)strs);
-	out = (char **)malloc(sizeof(char *) * (len + 1));
+	out = (char **)xmalloc(sizeof(char *) * (len + 1));
 	if (!out)
 		return (NULL);
 	i = 0;

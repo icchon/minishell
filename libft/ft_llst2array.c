@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_xlst2array.c                                    :+:      :+:    :+:   */
+/*   ft_llst2array.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tkitago <tkitago@student.42tokyo.jp>       +#+  +:+       +#+        */
+/*   By: kaisobe <kaisobe@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/16 12:57:57 by tkitago           #+#    #+#             */
-/*   Updated: 2025/01/26 16:41:18 by tkitago          ###   ########.fr       */
+/*   Updated: 2025/02/08 12:56:09 by kaisobe          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	*ft_llst2array(void *lst, size_t size, size_t *node_num)
 	void	*head;
 
 	len = ft_llstlen(lst, size);
-	array = malloc(len * size);
+	array = xmalloc(len * size);
 	if (!array)
 		return (NULL);
 	head = array;

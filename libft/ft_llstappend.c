@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_xlstappend.c                                    :+:      :+:    :+:   */
+/*   ft_llstappend.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tkitago <tkitago@student.42tokyo.jp>       +#+  +:+       +#+        */
+/*   By: kaisobe <kaisobe@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/16 12:58:06 by tkitago           #+#    #+#             */
-/*   Updated: 2025/01/26 16:41:25 by tkitago          ###   ########.fr       */
+/*   Updated: 2025/02/08 12:56:12 by kaisobe          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ int	ft_llstappend(void *lst_ptr, size_t size, void *new)
 	void	*node;
 	void	*tmp;
 
-	node = malloc(size + sizeof(void *));
+	node = xmalloc(size + sizeof(void *));
 	if (!node)
 		return (-1);
 	ft_memcpy(node, new, size);

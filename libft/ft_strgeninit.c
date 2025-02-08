@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strgeninit.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tkitago <tkitago@student.42tokyo.jp>       +#+  +:+       +#+        */
+/*   By: kaisobe <kaisobe@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/16 12:57:06 by tkitago           #+#    #+#             */
-/*   Updated: 2025/01/24 18:49:27 by tkitago          ###   ########.fr       */
+/*   Updated: 2025/02/08 12:56:42 by kaisobe          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ t_strgen	*ft_strgeninit(void)
 {
 	t_strgen	*strgen;
 
-	strgen = (t_strgen *)malloc(sizeof(t_strgen));
+	strgen = (t_strgen *)xmalloc(sizeof(t_strgen));
 	if (!strgen)
 		return (NULL);
 	strgen->str = NULL;

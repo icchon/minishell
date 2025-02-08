@@ -4,7 +4,7 @@ t_ex_astnode	*new_ex_astnode(t_ex_astnode_type type)
 {
 	t_ex_astnode	*ex_astnode;
 
-	ex_astnode = (t_ex_astnode *)malloc(sizeof(t_ex_astnode));
+	ex_astnode = (t_ex_astnode *)xmalloc(sizeof(t_ex_astnode));
 	if (!ex_astnode)
 		return (NULL);
 	ex_astnode->type = type;

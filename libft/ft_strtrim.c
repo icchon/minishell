@@ -6,7 +6,7 @@
 /*   By: kaisobe <kaisobe@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/27 18:20:49 by tkitago           #+#    #+#             */
-/*   Updated: 2025/02/07 21:18:59 by kaisobe          ###   ########.fr       */
+/*   Updated: 2025/02/08 12:57:14 by kaisobe          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ char	*ft_strtrim(char const *s1, char const *set)
 			i++;
 		while (s1[j - 1] && ft_strchr(set, s1[j - 1]) && j > i)
 			j--;
-		str = (char *)malloc(sizeof(char) * (j - i + 1));
+		str = (char *)xmalloc(sizeof(char) * (j - i + 1));
 		if (!str)
 			return (NULL);
 		if (str)

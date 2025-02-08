@@ -27,7 +27,7 @@ t_all	*init_all(void)
 {
 	t_all	*all;
 
-	all = (t_all *)malloc(sizeof(t_all) * 1);
+	all = (t_all *)xmalloc(sizeof(t_all) * 1);
 	if (!all)
 		return (NULL);
 	all->line = NULL;

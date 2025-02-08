@@ -20,7 +20,7 @@ char	**create_env(t_env *envlist)
 	char	*value;
 
 	len = env_size(envlist);
-	env = (char **)malloc(sizeof(char *) * (len + 1));
+	env = (char **)xmalloc(sizeof(char *) * (len + 1));
 	node = envlist;
 	i = 0;
 	while (i < len)
