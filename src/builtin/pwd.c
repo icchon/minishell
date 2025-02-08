@@ -9,49 +9,41 @@ static int	valid_pwd(char *pwd)
 	int		i;
 
 	i = 0;
-	if (!pwd || pwd[0] != '/' || ft_strlen(pwd) >= PATH_MAX)
-		return (EXIT_FAILURE);
+	if (!pwd || !(pwd && pwd[0] == '/') || ft_strlen(pwd) >= PATH_MAX)
+		return (0);
 	if (!(tmp_pwd = ft_strdup(pwd)))
-		return (EXIT_FAILURE);
+		return (0);
 	if (!(component = ft_split(tmp_pwd, '/')))
 	{
 		free(tmp_pwd);
-		return (EXIT_FAILURE);
+		return (0);
 	}
-	while (component[i++])
+	while (component[i])
 	{
-		if (!ft_strcmp(component[i], ".") || !ft_strcmp(component[i], ".."))
+		if (ft_isequal(component[i], ".") || ft_isequal(component[i], ".."))
 		{
 			free(tmp_pwd);
-			return (EXIT_FAILURE);
+			return (0);
 		}
-		component++;
+		i++;
 	}
 	free(tmp_pwd);
-	return (EXIT_SUCCESS);
+	return (1);
 }
 
-int	builtin_pwd(void)
+int	builtin_pwd(char **envp)
 {
-	char	cwd[PATH_MAX];
 	char	*cwd_env;
 
-	cwd_env = getenv("PWD");
-	if (cwd_env && !valid_pwd(cwd_env))
+	cwd_env = ft_get_env("PWD", envp);
+	if (valid_pwd(cwd_env))
 	{
 		ft_putendl_fd(cwd_env, STDOUT_FILENO);
-		return (EXIT_SUCCESS);
 	}
-	if (getcwd(cwd, sizeof(cwd)))
-	{
-		ft_putendl_fd(cwd, STDOUT_FILENO);
-		return (EXIT_SUCCESS);
-	}
-	else
-	{
-		perror("pwd");
-		return (EXIT_FAILURE);
-	}
+    else{
+        ft_putendl_fd(cwd_env, STDOUT_FILENO);
+    }
+	return (EXIT_SUCCESS);
 }
 // optionなしだと-Lに合わせるっぽい, manとposixで違う
 // https://pubs.opengroup.org/onlinepubs/9699919799/utilities/pwd.html

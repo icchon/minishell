@@ -19,8 +19,7 @@ static int	unset_env(t_env **env_list, const char *varname)
 				*env_list = curr->next;
 			else
 				prev->next = curr->next;
-			free(curr->value);
-			free(curr);
+            free_env_node(curr);
 			return (0);
 		}
 		prev = curr;
@@ -29,15 +28,14 @@ static int	unset_env(t_env **env_list, const char *varname)
 	return (0);
 }
 
-int	builtin_unset(int ac, char *av[], t_env *env_list)
+int	builtin_unset(int ac, char *av[], t_env **env_list)
 {
 	int	i;
 
 	i = 1;
 	while (i < ac)
 	{
-		if (!unset_env(&env_list, av[i]))
-			printf("[DEBUG] Unset variable: %s\n", av[i]);
+		if (!unset_env(env_list, av[i]))
 		i++;
 	}
 	return (EXIT_SUCCESS);

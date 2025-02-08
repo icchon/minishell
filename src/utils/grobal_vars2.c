@@ -2,12 +2,13 @@
 
 void	update_grobal_envlist(void)
 {
-	t_env	*env;
+	t_env	**env;
+    t_env *new;
 
 	env = grobal_envlist(GET);
-	free_env_list(env);
-	env = create_env_list(grobal_env(GET));
-	grobal_envlist(SET, env);
+	free_env_list(*env);
+	new = create_env_list(grobal_env(GET));
+	grobal_envlist(SET, new);
 	return ;
 }
 
@@ -17,7 +18,7 @@ char	**create_env(t_env *envlist)
 	int		len;
 	int		i;
 	t_env	*node;
-	char	*value;
+	char	*line;
 
 	len = env_size(envlist);
 	env = (char **)xmalloc(sizeof(char *) * (len + 1));
@@ -25,8 +26,8 @@ char	**create_env(t_env *envlist)
 	i = 0;
 	while (i < len)
 	{
-		value = node->value;
-		env[i++] = ft_strdup(value);
+		line = node->line;
+		env[i++] = ft_strdup(line);
 		node = node->next;
 	}
 	env[i] = NULL;
@@ -36,10 +37,12 @@ char	**create_env(t_env *envlist)
 void	update_grobal_env(void)
 {
 	char	**env;
+    t_env **env_lst;
 
 	env = grobal_env(GET);
+    env_lst = grobal_envlist(GET);
 	ft_2darraydel(env);
-	env = create_env(grobal_envlist(GET));
+	env = create_env(*env_lst);
 	grobal_env(SET, env);
 	return ;
 }
