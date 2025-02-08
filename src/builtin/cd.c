@@ -21,12 +21,11 @@ static int	go_home(t_env **env_lst)
 	if (!getcwd(new_home_wd, sizeof(new_home_wd)))
 		return (EXIT_FAILURE);
 	// if (setenv("OLDPWD", old_wd, 1))
-	if (util_setenv(&env_lst, "OLDPWD", old_wd, 1))
+	if (util_setenv(env_lst, "OLDPWD", old_wd, 1))
 		return (EXIT_FAILURE);
 	// if (setenv("PWD", new_home_wd, 1))
-	if (util_setenv(&env_lst, "PWD", new_home_wd, 1))
+	if (util_setenv(env_lst, "PWD", new_home_wd, 1))
 		return (EXIT_FAILURE);
-    }
 	return (EXIT_SUCCESS);
 }
 
@@ -53,11 +52,11 @@ int	builtin_cd(int ac, char *av[], t_env **env_lst)
 		return (EXIT_FAILURE);
 	if (!getcwd(new_wd, sizeof(new_wd)))
 		return (EXIT_FAILURE);
-	if (util_setenv(&env_lst, "OLDPWD", old_wd, 1))
+	if (util_setenv(env_lst, "OLDPWD", old_wd, 1))
 		return (EXIT_FAILURE);
 	// if (setenv("OLDPWD", old_wd, 1))
 	// if (setenv("PWD", new_wd, 1))
-	if (util_setenv(&env_lst, "PWD", new_wd, 1))
+	if (util_setenv(env_lst, "PWD", new_wd, 1))
 		return (EXIT_FAILURE);
 	return (EXIT_SUCCESS);
 }

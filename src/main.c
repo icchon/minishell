@@ -42,14 +42,12 @@ t_all	*init_all(void)
 void	shell_loop(void)
 {
 	t_all	*all;
-	char	*prompt;
-	char	*line;
 
 	all = init_all();
 	while (1)
 	{
 		all->prompt = get_shell_prompt(1);
-		all->line = readline(prompt);
+		all->line = readline(all->prompt);
 		if (ft_strlen(all->line) > 0)
 			add_history(all->line);
 		if (!all->line)
