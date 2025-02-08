@@ -3,7 +3,7 @@
 #include <stdlib.h>
 #include <unistd.h>
 
-int	builtin_env(char **envp)
+int	builtin_env(t_env **envp)
 {
 	while (*envp)
 	{
@@ -12,6 +12,8 @@ int	builtin_env(char **envp)
 	}
 	return (EXIT_SUCCESS);
 }
+//=がない場合は出力させないという処理追加するかも
+
 
 // int	main(int ac, char *av[], char **envp)
 // {
