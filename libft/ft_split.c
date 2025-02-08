@@ -6,7 +6,7 @@
 /*   By: kaisobe <kaisobe@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/27 18:19:45 by tkitago           #+#    #+#             */
-/*   Updated: 2025/02/07 15:36:46 by kaisobe          ###   ########.fr       */
+/*   Updated: 2025/02/08 12:56:17 by kaisobe          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ char	**ft_split(char const *s, char c)
 	size_t	word_len;
 	int		i;
 
-	lst = (char **)malloc(sizeof(char *) * (count_word(s, c) + 1));
+	lst = (char **)xmalloc(sizeof(char *) * (count_word(s, c) + 1));
 	if (!s || !lst)
 		return (NULL);
 	i = 0;

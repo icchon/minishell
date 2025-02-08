@@ -4,7 +4,7 @@ t_env	*new_env_node(const char *env)
 {
 	t_env	*node;
 
-	node = malloc(sizeof(t_env));
+	node = xmalloc(sizeof(t_env));
 	if (!node)
 		exit(EXIT_FAILURE);
 	node->value = ft_strdup(env);

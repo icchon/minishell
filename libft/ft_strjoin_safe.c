@@ -6,7 +6,7 @@
 /*   By: kaisobe <kaisobe@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/04 18:35:19 by kaisobe           #+#    #+#             */
-/*   Updated: 2025/01/04 18:37:06 by kaisobe          ###   ########.fr       */
+/*   Updated: 2025/02/08 12:56:49 by kaisobe          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ char	*ft_strjoin_safe(char *s1, char *s2, int is_free1, int is_free2)
 	size_t	i;
 
 	length = ft_strlen(s1) + ft_strlen(s2);
-	res = (char *)malloc(sizeof(char) * (length + 1));
+	res = (char *)xmalloc(sizeof(char) * (length + 1));
 	if (res == NULL)
 		return (NULL);
 	i = 0;
