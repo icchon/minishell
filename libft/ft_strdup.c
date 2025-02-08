@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strdup.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kaisobe <kaisobe@student.42.fr>            +#+  +:+       +#+        */
+/*   By: tkitago <tkitago@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/27 18:19:53 by tkitago           #+#    #+#             */
-/*   Updated: 2025/02/08 12:56:33 by kaisobe          ###   ########.fr       */
+/*   Updated: 2025/02/08 17:16:16 by tkitago          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ char	*ft_strdup(const char *s)
 	if (!str)
 		return (NULL);
 	dest = str;
-	while (*s != '\0')
+	while (s && *s != '\0')
 	{
 		*dest++ = *s++;
 	}

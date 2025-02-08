@@ -21,19 +21,22 @@ int	is_builtin(char *cmd)
 
 t_status	builtin(char *av[])
 {
+    t_env **env_lst;
+    env_lst = grobal_envlist(GET);
 	if (ft_isequal(av[0], "cd"))
-		return (builtin_cd(ft_strslen((const char **)av), av));
+		return (builtin_cd(ft_strslen((const char **)av), av,
+				grobal_envlist(GET)));
 	if (ft_isequal(av[0], "echo"))
 		return (builtin_echo(ft_strslen((const char **)av), av));
 	if (ft_isequal(av[0], "env"))
-		return (builtin_env(grobal_env(GET)));
+		return (builtin_env(*env_lst));
 	if (ft_isequal(av[0], "exit"))
 		return (builtin_exit(ft_strslen((const char **)av), av,
 				grobal_status(GET)));
 	if (ft_isequal(av[0], "export"))
 		return (EXIT_FAILURE);
 	if (ft_isequal(av[0], "pwd"))
-		return (builtin_pwd());
+		return (builtin_pwd(grobal_env(GET)));
 	if (ft_isequal(av[0], "unset"))
 		return (builtin_unset(ft_strslen((const char **)av), av,
 				grobal_envlist(GET)));

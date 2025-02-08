@@ -5,7 +5,7 @@
 # include "type.h"
 
 
-t_env		*grobal_envlist(int get_or_set, ...);
+t_env		**grobal_envlist(int get_or_set, ...);
 void		update_grobal_envlist(void);
 void		update_grobal_env(void);
 t_status	grobal_status(int get_or_set, ...);
