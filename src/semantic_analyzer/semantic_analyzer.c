@@ -32,7 +32,6 @@ t_ex_astnode	*semantic_analyzer(t_astnode *root)
 {
 	t_astnode_type	type;
 	t_ex_astnode	*node;
-	t_astnode		*edge;
 
 	if (!root)
 		return (NULL);
