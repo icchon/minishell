@@ -1,4 +1,3 @@
-
 #include "minishell.h"
 
 static t_env	*find_env(t_env *env_lst, const char *key)

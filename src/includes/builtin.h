@@ -14,5 +14,4 @@ int			is_builtin(char *cmd);
 int			builtin_cd(int ac, char *av[], t_env **env_lst);
 int			util_setenv(t_env **env_lst, const char *name, const char *value,
 				int append_flg);
-
 #endif

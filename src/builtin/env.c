@@ -12,7 +12,6 @@ int	builtin_env(t_env *envp)
 	}
 	return (EXIT_SUCCESS);
 }
-//=がない場合は出力させないという処理追加するかも
 
 // int	main(int ac, char *av[], char **envp)
 // {
