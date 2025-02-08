@@ -6,6 +6,7 @@
 # include "env.h"
 # include "exec.h"
 # include "expander.h"
+# include "heredoc.h"
 # include "libft.h"
 # include "readline.h"
 # include "signals.h"

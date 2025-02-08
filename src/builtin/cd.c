@@ -34,9 +34,11 @@ int	builtin_cd(int ac, char *av[])
 	int		flg_cd;
 
 	if (ac == 1)
+	{
 		flg_cd = go_home();
-	if (flg_cd)
-		return (EXIT_FAILURE);
+		if (flg_cd)
+			return (EXIT_FAILURE);
+	}
 	if (!getcwd(old_wd, sizeof(old_wd)))
 		return (EXIT_FAILURE);
 	if (chdir(av[1]))

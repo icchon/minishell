@@ -10,7 +10,6 @@ typedef struct s_pids
 	struct s_pids	*next;
 }					t_pids;
 
-void				exec_heredoc(t_astnode *node);
 pid_t				fork_and_exec_child(t_astnode *node, int old_pipes[2],
 						int new_pipes[2]);
 t_status			executer(t_ex_astnode *root);
