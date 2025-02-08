@@ -46,15 +46,15 @@ static void	set_type(t_token **current, t_token **next, t_token **prev)
 		set_tokens(*current, TK_WORD, NULL, TK_UNDEFINED);
 }
 
-int	tokenizer(t_token **token_ptr)
+void	tokenizer(t_token **token_ptr)
 {
 	t_token	*current;
 	t_token	*next;
 	t_token	*prev;
 
+	if (!(*token_ptr))
+		return ;
 	current = head_token(*token_ptr);
-	if (!current)
-		return (0);
 	next = current->next;
 	while (next)
 	{
@@ -62,7 +62,7 @@ int	tokenizer(t_token **token_ptr)
 	}
 	if (current->type == TK_UNDEFINED)
 		set_tokens(current, TK_WORD, NULL, TK_UNDEFINED);
-	return (0);
+	return ;
 }
 
 void	print_token(t_token *token)
