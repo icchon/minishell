@@ -1,12 +1,5 @@
 #include "minishell.h"
 
-char	*replace_env_status(char *out, char *key)
-{
-	if (ft_isequal(key, "?"))
-		out = ft_strjoin_safe(out, ft_itoa(grobal_status(GET)), 1, 1);
-	return (out);
-}
-
 static void	process_doller(char *str, size_t *i, char **out)
 {
 	size_t	len;
@@ -14,11 +7,15 @@ static void	process_doller(char *str, size_t *i, char **out)
 
 	if (str[*i] == '$')
 	{
-		len = ft_calc_next_str(&str[++(*i)], "\t\n\v\f\r \"$");
+		len = ft_calc_next_str(&str[++(*i)], "\t\n\v\f\r $");
 		key = ft_substr(&str[*i], 0, len);
-		replace_env_status(*out, key);
-		*out = ft_strjoin_safe(*out, ft_get_env(key, grobal_env(GET)), 1, 0);
+		if (ft_isequal(key, "?"))
+			*out = ft_strjoin_safe(*out, ft_itoa(grobal_status(GET)), 1, 1);
+		else
+			*out = ft_strjoin_safe(*out, ft_get_env(key, grobal_env(GET)), 1,
+					0);
 		free(key);
+		(*i) += len;
 	}
 }
 
@@ -38,51 +35,108 @@ char	*replace_env_vars(char *str)
 		}
 		else
 		{
-			if (str[i] == '\'' || str[i] == '\"')
-				i++;
-			len = ft_calc_next_str(&str[i], "$\"");
+			len = ft_calc_next_str(&str[i], "$");
 			out = ft_strjoin_safe(out, ft_substr(&str[i], 0, len), 1, 1);
+			i += len;
 		}
-		i += len;
 	}
 	return (out);
 }
 
-static void	process_single_quate(char *str, size_t *i, char **out)
+static int	is_single_quate(char *str)
 {
-	char	*part;
-	size_t	len;
-
-	(*i)++;
-	len = ft_calc_next_chr(&str[*i + 1], '\'');
-	part = ft_substr(&str[*i], 0, len + 1);
-	*out = ft_strjoin_safe(*out, part, 1, 1);
-	(*i) += len + 2;
+	if (ft_strlen(str) <= 1)
+		return (0);
+	return ((str[0] == '\'') && (str[ft_strlen(str) - 1] == '\''));
 }
 
-char	*replace_env_vars_quate(char *str)
+static int	is_double_quate(char *str)
 {
-	size_t	i;
+	if (ft_strlen(str) <= 1)
+		return (0);
+	return ((str[0] == '\"') && (str[ft_strlen(str) - 1] == '\"'));
+}
+
+static char	*trim_edge(char *str)
+{
 	char	*out;
-	char	*part;
 	size_t	len;
+	size_t	i;
+
+	len = ft_strlen(str) - 2;
+	if (len < 0)
+		return (NULL);
+	out = (char *)ft_calloc((len + 1), sizeof(char));
+	i = 0;
+	while (i < len)
+	{
+		out[i] = str[i + 1];
+		i++;
+	}
+	return (out);
+}
+
+char	*expand_word(char *str)
+{
+	int		is_single;
+	int		is_double;
+	char	*out;
 	char	*tmp;
 
-	i = 0;
-	out = NULL;
-	len = ft_calc_next_chr(&str[i], '\'');
-	if (str[i] == '\'')
-		process_single_quate(str, &(i), &out);
-	while (len > 0)
+	is_single = is_single_quate(str);
+	is_double = is_double_quate(str);
+	if (is_single)
 	{
-		tmp = ft_substr(&str[i], 0, len);
-		part = replace_env_vars(tmp);
+		out = trim_edge(str);
+	}
+	else if (is_double)
+	{
+		tmp = trim_edge(str);
+		out = replace_env_vars(tmp);
 		free(tmp);
-		out = ft_strjoin_safe(out, part, 1, 1);
-		i += len;
-		if (str[i] == '\'')
-			process_single_quate(str, &i, &out);
-		len = ft_calc_next_chr(&str[i], '\'');
+	}
+	else
+	{
+		out = replace_env_vars(str);
 	}
 	return (out);
 }
+
+// static void	process_single_quate(char *str, size_t *i, char **out)
+// {
+// 	char	*part;
+// 	size_t	len;
+
+// 	(*i)++;
+// 	len = ft_calc_next_chr(&str[*i], '\'');
+// 	part = ft_substr(&str[*i], 0, len);
+// 	*out = ft_strjoin_safe(*out, part, 1, 1);
+// 	(*i) += len + 1;
+// }
+
+// char	*replace_env_vars_quate(char *str)
+// {
+// 	size_t	i;
+// 	char	*out;
+// 	char	*part;
+// 	size_t	len;
+// 	char	*tmp;
+
+// 	i = 0;
+// 	out = NULL;
+// 	len = ft_calc_next_chr(&str[i], '\'');
+// 	if (str[i] == '\'')
+// 		process_single_quate(str, &(i), &out);
+// 	while (len > 0)
+// 	{
+// 		tmp = ft_substr(&str[i], 0, len);
+// 		part = replace_env_vars(tmp);
+// 		free(tmp);
+// 		out = ft_strjoin_safe(out, part, 1, 1);
+// 		i += len;
+// 		if (str[i] == '\'')
+// 			process_single_quate(str, &i, &out);
+// 		len = ft_calc_next_chr(&str[i], '\'');
+// 	}
+// 	return (out);
+// }

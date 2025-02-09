@@ -1,18 +1,13 @@
 #include "minishell.h"
 
-int		g_signal;
+int			g_signal;
 
-void	free_all_memory(t_all *all)
+void	free_all_prop(t_all *all)
 {
-	if (!all->tree)
-	{
-		free_tokens(all->tokens);
-	}
-	else
-	{
-		free_asttree(all->tree);
-		free_ex_asttree(all->ex_tree);
-	}
+	free_asttree(all->tree);
+	all->tree = NULL;
+	free_ex_asttree(all->ex_tree);
+	all->ex_tree = NULL;
 	if (grobal_tmpfile(GET))
 	{
 		unlink(grobal_tmpfile(GET));
@@ -20,7 +15,16 @@ void	free_all_memory(t_all *all)
 		grobal_tmpfile(SET, NULL);
 	}
 	free(all->line);
+	all->line = NULL;
 	free(all->prompt);
+	all->prompt = NULL;
+	return ;
+}
+
+void	free_all(t_all *all)
+{
+	free_all_prop(all);
+	free(all);
 	return ;
 }
 
@@ -39,6 +43,11 @@ t_all	*init_all(void)
 	return (all);
 }
 
+static int	is_interactive(void)
+{
+	return (isatty(STDIN_FILENO) && isatty(STDERR_FILENO));
+}
+
 void	shell_loop(void)
 {
 	t_all	*all;
@@ -47,7 +56,14 @@ void	shell_loop(void)
 	while (1)
 	{
 		all->prompt = get_shell_prompt(1);
-		all->line = readline(all->prompt);
+		if (is_interactive())
+		{
+			all->line = readline(all->prompt);
+		}
+		else
+		{
+			all->line = get_next_line(STDIN_FILENO);
+		}
 		if (ft_strlen(all->line) > 0)
 			add_history(all->line);
 		if (!all->line)
@@ -56,13 +72,17 @@ void	shell_loop(void)
 			break ;
 		}
 		all->tokens = lexer((char *)all->line);
+		//print_tokens(all->tokens);
 		all->tree = parser(all->tokens);
+		//print_tree(all->tree);
 		check_fds(all->tree);
 		all->ex_tree = semantic_analyzer(all->tree);
 		executer(all->ex_tree);
+		//print_ex_tree(all->ex_tree);
 		update_grobal_env();
-		free_all_memory(all);
+		free_all_prop(all);
 	}
+	free_all(all);
 }
 
 int	main(int argc, char *argv[], char **env)
@@ -73,5 +93,7 @@ int	main(int argc, char *argv[], char **env)
 	update_grobal_envlist();
 	set_signal();
 	shell_loop();
-	return (0);
+	ft_2darraydel(grobal_env(GET));
+	rl_clear_history();
+	return (grobal_status(GET));
 }

@@ -37,9 +37,9 @@ static int	try_command(char *cmd, char **arg, char **env)
 	{
 		free(path);
 		if (is_command(cmd))
-			printf("%s: command not found\n", cmd);
+			dprintf(2, "%s: command not found\n", cmd);
 		else
-			printf("bash: %s: No such file or directory\n", cmd);
+			dprintf(2, "bash: %s: No such file or directory\n", cmd);
 		return (127);
 	}
 	execve(path, arg, env);

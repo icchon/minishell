@@ -15,11 +15,11 @@ size_t	size_token(t_token *token)
 	return (cnt);
 }
 
-void	delone_token(t_token *token, void (*del)(void *))
+void	free_token(t_token *token)
 {
 	if (!token)
 		return ;
-	del(token->data);
+	free(token->data);
 	free(token);
 	return ;
 }
@@ -37,7 +37,7 @@ void	cut_token(t_token **token, t_token *to_delete)
 		prev->next = NULL;
 	if (next)
 		next->prev = NULL;
-	delone_token(to_delete, free);
+	free_token(to_delete);
 	if (!prev && !next)
 		*token = NULL;
 	return ;
@@ -48,11 +48,11 @@ void	free_tokens(t_token *token)
 	t_token	*node;
 	t_token	*next;
 
-	node = head_token(token);
+	node = token;
 	while (node)
 	{
 		next = node->next;
-		delone_token(node, free);
+		free_token(node);
 		node = next;
 	}
 	return ;

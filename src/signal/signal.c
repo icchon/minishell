@@ -2,14 +2,18 @@
 
 static void	sig_int_handler(int sig)
 {
+	char	*prompt;
+
 	g_signal = sig;
 	grobal_status(SET, 130);
 	if (sig == SIGINT)
 	{
 		rl_on_new_line();
 		rl_replace_line("", 0);
-		printf("\n%s", get_shell_prompt(0));
+		prompt = get_shell_prompt(0);
+		printf("\n%s", prompt);
 		rl_redisplay();
+		free(prompt);
 	}
 	g_signal = 0;
 	return ;
