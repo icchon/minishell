@@ -6,11 +6,11 @@
 /*   By: kaisobe <kaisobe@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 15:23:20 by kaisobe           #+#    #+#             */
-/*   Updated: 2025/02/10 15:23:21 by kaisobe          ###   ########.fr       */
+/*   Updated: 2025/02/11 07:27:36 by kaisobe          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "util.h"
 
 char	**grobal_env(int get_or_set, ...)
 {

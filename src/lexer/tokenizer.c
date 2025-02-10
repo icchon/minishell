@@ -6,11 +6,11 @@
 /*   By: kaisobe <kaisobe@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 15:20:19 by kaisobe           #+#    #+#             */
-/*   Updated: 2025/02/10 15:20:20 by kaisobe          ###   ########.fr       */
+/*   Updated: 2025/02/11 07:36:21 by kaisobe          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "token.h"
 
 static void	set_tokens(t_token *current, t_token_type type1, t_token *next,
 		t_token_type type2)

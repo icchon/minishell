@@ -6,11 +6,11 @@
 /*   By: kaisobe <kaisobe@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 15:11:33 by kaisobe           #+#    #+#             */
-/*   Updated: 2025/02/10 15:29:47 by kaisobe          ###   ########.fr       */
+/*   Updated: 2025/02/11 07:36:46 by kaisobe          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "expander.h"
 
 static void	process_doller(char *str, size_t *i, char **out)
 {

@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   setenv.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tkitago <tkitago@student.42tokyo.jp>       +#+  +:+       +#+        */
+/*   By: kaisobe <kaisobe@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 20:33:04 by tkitago           #+#    #+#             */
-/*   Updated: 2025/02/10 20:33:05 by tkitago          ###   ########.fr       */
+/*   Updated: 2025/02/11 08:00:58 by kaisobe          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "builtin.h"
 
 t_env	*find_env(t_env *env_lst, const char *key)
 {

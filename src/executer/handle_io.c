@@ -6,11 +6,11 @@
 /*   By: kaisobe <kaisobe@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 15:03:33 by kaisobe           #+#    #+#             */
-/*   Updated: 2025/02/10 15:19:05 by kaisobe          ###   ########.fr       */
+/*   Updated: 2025/02/11 07:41:56 by kaisobe          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "exec.h"
 
 void	handle_io(t_token *redirect)
 {
@@ -45,7 +45,7 @@ static int	check_existance(char *path)
 {
 	if (access(path, F_OK) == -1)
 	{
-		dprintf(2, "bash: %s: No such file or directory\n", path);
+		print_error(path, "No such file or directory", 1);
 		return (0);
 	}
 	return (1);
@@ -69,7 +69,7 @@ t_status	check_fds(t_redirect *redirect)
 				res = access(redirect->data, W_OK);
 			if (res == -1)
 			{
-				dprintf(2, "bash: %s: Permission denied\n", redirect->data);
+				print_error(redirect->data, "Permission denied", 1);
 				status = 126;
 			}
 		}

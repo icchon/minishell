@@ -6,11 +6,11 @@
 /*   By: kaisobe <kaisobe@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 14:58:48 by kaisobe           #+#    #+#             */
-/*   Updated: 2025/02/10 18:09:53 by kaisobe          ###   ########.fr       */
+/*   Updated: 2025/02/11 08:25:11 by kaisobe          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "exec.h"
 
 pid_t	execute_command(t_astnode *root, int old_pipes[2], int new_pipes[2])
 {
@@ -18,10 +18,10 @@ pid_t	execute_command(t_astnode *root, int old_pipes[2], int new_pipes[2])
 	pid_t			pid;
 
 	if (!root)
-		return (dprintf(2, "root is null\n"), -1);
+		return (-1);
 	type = root->type;
 	if (type != ASTND_CMD)
-		return (dprintf(2, "NOT ASTND_CMD\n"), -1);
+		return (-1);
 	expander(root);
 	set_arginfo(root);
 	pid = fork_and_exec_child(root, old_pipes, new_pipes);
@@ -108,7 +108,7 @@ t_status	executer(t_ex_astnode *root)
 		}
 		if (type == EX_ASTND_OR)
 		{
-			if (left_status == EXIT_FAILURE)
+			if (left_status != EXIT_SUCCESS)
 				return (executer(root->right));
 			return (left_status);
 		}

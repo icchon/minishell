@@ -6,7 +6,7 @@
 /*   By: kaisobe <kaisobe@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 15:25:16 by kaisobe           #+#    #+#             */
-/*   Updated: 2025/02/10 15:28:12 by kaisobe          ###   ########.fr       */
+/*   Updated: 2025/02/11 07:42:56 by kaisobe          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 # define EXPANDER_H
 
 # include "ast.h"
+# include "type.h"
+# include "util.h"
 
 void	expander(t_astnode *node);
 char	*replace_env_vars(char *str);

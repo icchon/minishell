@@ -6,11 +6,11 @@
 /*   By: kaisobe <kaisobe@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 15:22:19 by kaisobe           #+#    #+#             */
-/*   Updated: 2025/02/10 18:10:26 by kaisobe          ###   ########.fr       */
+/*   Updated: 2025/02/11 07:34:39 by kaisobe          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "ast.h"
 
 t_astnode	*new_astnode(void)
 {

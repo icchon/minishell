@@ -6,11 +6,11 @@
 /*   By: kaisobe <kaisobe@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 15:19:41 by kaisobe           #+#    #+#             */
-/*   Updated: 2025/02/10 15:19:42 by kaisobe          ###   ########.fr       */
+/*   Updated: 2025/02/11 07:36:31 by kaisobe          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "heredoc.h"
 
 void	put_error(size_t line, char *delimited)
 {

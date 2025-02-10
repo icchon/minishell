@@ -6,11 +6,11 @@
 /*   By: kaisobe <kaisobe@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 15:23:12 by kaisobe           #+#    #+#             */
-/*   Updated: 2025/02/10 15:30:33 by kaisobe          ###   ########.fr       */
+/*   Updated: 2025/02/11 07:33:42 by kaisobe          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "ast.h"
 
 t_ex_astnode	*new_ex_astnode(t_ex_astnode_type type)
 {

@@ -6,14 +6,15 @@
 /*   By: kaisobe <kaisobe@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 15:25:29 by kaisobe           #+#    #+#             */
-/*   Updated: 2025/02/10 15:25:30 by kaisobe          ###   ########.fr       */
+/*   Updated: 2025/02/11 07:43:50 by kaisobe          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef TOKEN_H
 # define TOKEN_H
 
-# include "stddef.h"
+# include "libft.h"
+# include "type.h"
 
 typedef enum e_token_type
 {

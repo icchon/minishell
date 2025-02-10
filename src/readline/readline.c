@@ -6,11 +6,11 @@
 /*   By: kaisobe <kaisobe@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 15:22:55 by kaisobe           #+#    #+#             */
-/*   Updated: 2025/02/10 15:57:39 by kaisobe          ###   ########.fr       */
+/*   Updated: 2025/02/11 07:33:52 by kaisobe          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "readline.h"
 
 char	*get_shell_prompt(int exist_nl)
 {

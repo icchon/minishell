@@ -6,7 +6,7 @@
 /*   By: kaisobe <kaisobe@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 15:25:13 by kaisobe           #+#    #+#             */
-/*   Updated: 2025/02/10 17:57:45 by kaisobe          ###   ########.fr       */
+/*   Updated: 2025/02/11 07:41:38 by kaisobe          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,9 @@
 # define EXEC_H
 
 # include "ast.h"
+# include "builtin.h"
+# include "expander.h"
 # include "type.h"
-# include <fcntl.h>
-# include <sys/stat.h>
-# include <sys/types.h>
 
 typedef struct s_pids
 {

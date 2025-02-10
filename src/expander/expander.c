@@ -6,11 +6,11 @@
 /*   By: kaisobe <kaisobe@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 15:11:40 by kaisobe           #+#    #+#             */
-/*   Updated: 2025/02/10 15:11:40 by kaisobe          ###   ########.fr       */
+/*   Updated: 2025/02/11 07:36:58 by kaisobe          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "expander.h"
 
 char	*expand_word(char *str)
 {
