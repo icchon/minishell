@@ -3,23 +3,20 @@
 
 static int	unset_env(t_env **env_list, const char *varname)
 {
-	size_t	name_len;
 	t_env	*curr;
 	t_env	*prev;
 
-	name_len = strlen(varname);
 	curr = *env_list;
 	prev = NULL;
 	while (curr)
 	{
-		if (strncmp(curr->value, varname, name_len) == 0
-			&& curr->value[name_len] == '=')
+		if (ft_isequal(curr->key, (char *)varname))
 		{
 			if (prev == NULL)
 				*env_list = curr->next;
 			else
 				prev->next = curr->next;
-            free_env_node(curr);
+			free_env_node(curr);
 			return (0);
 		}
 		prev = curr;
@@ -36,7 +33,7 @@ int	builtin_unset(int ac, char *av[], t_env **env_list)
 	while (i < ac)
 	{
 		if (!unset_env(env_list, av[i]))
-		i++;
+			i++;
 	}
 	return (EXIT_SUCCESS);
 }
