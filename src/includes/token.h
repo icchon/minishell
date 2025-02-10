@@ -47,7 +47,7 @@ void				addback_token(t_token **token, t_token *newtoken);
 void				addfront_token(t_token **token, t_token *newtoken);
 t_token				*head_token(t_token *token);
 size_t				size_token(t_token *token);
-void				delone_token(t_token *token, void (*del)(void *));
+void				free_token(t_token *token);
 void				cut_token(t_token **token, t_token *to_delete);
 void				print_tokens(t_token *token);
 void				print_token(t_token *token);

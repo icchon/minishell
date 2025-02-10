@@ -1,34 +1,38 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strrchr.c                                       :+:      :+:    :+:   */
+/*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kaisobe <kaisobe@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/27 18:20:44 by tkitago           #+#    #+#             */
-/*   Updated: 2025/02/09 19:24:48 by kaisobe          ###   ########.fr       */
+/*   Created: 2024/10/25 06:08:59 by icchon            #+#    #+#             */
+/*   Updated: 2025/02/09 16:14:51 by kaisobe          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	*ft_strrchr(const char *s, int c)
+char	*get_next_line(int fd)
 {
-	int	i;
+	char *line;
+	int bytes_read;
+	char c;
+	int i;
 
-	i = 0;
-	if (!s)
+	bytes_read = read(fd, &c, 1);
+	if (bytes_read <= 0)
 		return (NULL);
-	while (s[i] != '\0')
-		i++;
-	if (c == (int)'\0')
-		return ((char *)&s[i]);
-	while (i >= 0)
+	line = (char *)ft_calloc(GNL_BUFFSIZE, sizeof(char));
+	if (line == NULL)
+		return (NULL);
+	i = 0;
+	while (1)
 	{
-		if (s[i] == (char)c)
-			return ((char *)(s + i));
-		i--;
+		if (bytes_read <= 0 || c == '\n')
+			return (line);
+		line[i] = c;
+		i++;
+		bytes_read = read(fd, &c, 1);
 	}
 	return (NULL);
 }
-//指定された文字cが文字列sの中で最後に現れる場所を探し、その位置のポインタを返す

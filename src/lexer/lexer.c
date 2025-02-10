@@ -49,9 +49,15 @@ static int	process_in_normal_status(int *status, char *line, size_t *i,
 
 	while (ft_isspace(line[*i]))
 		(*i)++;
-	offset = ft_calc_next_str(&line[*i], " <>|");
+	offset = ft_calc_next_str(&line[*i], " <>|\"\'");
 	if (offset > 0)
+	{
+		if (line[*i + offset] == '\'' || line[*i + offset] == '\"')
+		{
+			offset = ft_calc_next_str(&line[*i], " <>|");
+		}
 		add_token(line, i, head, offset);
+	}
 	else
 	{
 		if (line[*i] == '\'' || line[*i] == '\"')

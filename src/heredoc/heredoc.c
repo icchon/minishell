@@ -68,6 +68,7 @@ char	*process_heredoc(char *limiter)
 	fd = open(input_file, O_WRONLY | O_APPEND | O_CREAT,
 			S_IRGRP | S_IROTH | S_IWUSR | S_IRUSR);
 	ft_putstr_fd(res, fd);
+	free(res);
 	close(fd);
 	return (input_file);
 }

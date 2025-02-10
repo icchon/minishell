@@ -49,7 +49,6 @@ t_astnode				*parser(t_token *token);
 void					free_astnode(t_astnode *root);
 void					free_asttree(t_astnode *root);
 t_astnode				*parse_or_and(t_token **token);
-void					check_fds(t_astnode *tree);
 t_ex_astnode			*semantic_analyzer(t_astnode *root);
 void					print_cmd(t_astnode *cmd_node, int depth);
 void					print_ex_tree(t_ex_astnode *root);

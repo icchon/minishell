@@ -5,6 +5,6 @@
 
 void	expander(t_astnode *node);
 char	*replace_env_vars(char *str);
-char	*replace_env_vars_quate(char *str);
+char	*expand_word(char *str);
 
 #endif

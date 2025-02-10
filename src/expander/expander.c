@@ -10,17 +10,18 @@ t_token	*token_variable_split(t_token **token)
 
 	if (!(*token && (*token)->type == TK_VALIABLE))
 		return (NULL);
-	expanded = replace_env_vars_quate((*token)->data);
+	expanded = expand_word((*token)->data);
 	splited = ft_split(expanded, ' ');
 	free(expanded);
 	i = 0;
 	new_tokens = NULL;
 	while (splited && splited[i])
 	{
-		new = new_token(TK_WORD, splited[i]);
+		new = new_token(TK_WORD, ft_strdup(splited[i]));
 		addback_token(&new_tokens, new);
 		i++;
 	}
+	ft_2darraydel(splited);
 	return (new_tokens);
 }
 
@@ -30,6 +31,7 @@ void	expand_args(t_astnode *node)
 	char	*tmp;
 	t_token	*new_tokens;
 	t_token	*to_add;
+	t_token	*to_delete;
 
 	token = node->args;
 	node->args = NULL;
@@ -38,13 +40,15 @@ void	expand_args(t_astnode *node)
 		if (token->type == TK_VALIABLE)
 		{
 			new_tokens = token_variable_split(&token);
-			addback_tokens(&node->args, new_tokens);
+			to_delete = token;
 			token = token->next;
+			cut_token(&to_delete, to_delete);
+			addback_tokens(&node->args, new_tokens);
 		}
 		else
 		{
 			tmp = token->data;
-			token->data = replace_env_vars_quate(tmp);
+			token->data = expand_word(tmp);
 			to_add = token;
 			token = token->next;
 			addback_token(&node->args, to_add);
@@ -53,7 +57,7 @@ void	expand_args(t_astnode *node)
 	}
 }
 
-void	expande_redirects(t_astnode *node)
+void	expand_redirects(t_astnode *node)
 {
 	t_token	*token;
 	char	*tmp;
@@ -64,7 +68,7 @@ void	expande_redirects(t_astnode *node)
 	while (token)
 	{
 		tmp = token->data;
-		token->data = replace_env_vars_quate(tmp);
+		token->data = expand_word(tmp);
 		to_add = token;
 		token = token->next;
 		addback_token(&node->redirects, to_add);
@@ -77,7 +81,7 @@ void	expander(t_astnode *node)
 	if (!node)
 		return ;
 	expand_args(node);
-	expande_redirects(node);
+	expand_redirects(node);
 	expander(node->left);
 	expander(node->right);
 }
