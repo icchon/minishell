@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kaisobe <kaisobe@student.42.fr>            +#+  +:+       +#+        */
+/*   By: tkitago <tkitago@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/16 13:11:02 by tkitago           #+#    #+#             */
-/*   Updated: 2025/02/10 14:45:26 by kaisobe          ###   ########.fr       */
+/*   Updated: 2025/02/10 20:19:51 by tkitago          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,6 +127,7 @@ void				ft_lstclear(t_list **lst, void (*del)(void *));
 void				ft_lstadd_back(t_list **lst, t_list *newlst);
 t_list				*ft_lstnew(void *content);
 int					ft_lstsize(t_list *lst);
+char				*ft_strstr(const char *haystack, const char *needle);
 
 // functions added by icchon
 int					ft_calc_next_chr(char *str, char c);

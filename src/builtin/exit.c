@@ -1,3 +1,14 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   exit.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: tkitago <tkitago@student.42tokyo.jp>       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/02/10 20:32:44 by tkitago           #+#    #+#             */
+/*   Updated: 2025/02/10 21:02:51 by tkitago          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "minishell.h"
 
@@ -16,11 +27,13 @@ static int	get_exit_code(char *av)
 	if (exit_code < 0)
 		exit_code &= 0xFF;
 	else
+	{
 		while (tmp_exit_code > 256)
 		{
 			exit_code = tmp_exit_code % 256;
 			tmp_exit_code /= 256;
 		}
+	}
 	return (exit_code);
 }
 
@@ -43,18 +56,4 @@ int	builtin_exit(int ac, char *av[], int last_status)
 	}
 	return (0);
 }
-
-// int	main(int argc, char *argv[], char **envp)
-// {
-// 	(void)envp;
-// 	return (builtin_exit(argc, argv, 0));
-// }
-//、直前の終了状態 last_status を仮に与えています
-
-// exit 引数 複数、マイナス、long_max
-// 終了ステータス#endif
-
-/* NULL-terminated array of "NAME=VALUE" environment variables.  */
-// extern char **__environ;
-// 数字が範囲外、exitする(bash: exit: 222222222222222222222222222222: numeric argument required)
-// exit() を 複数回呼び出した場合の動作は未定義
+// call a couple of time of exit() is undefined
