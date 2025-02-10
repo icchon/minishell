@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   executer.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: kaisobe <kaisobe@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/02/10 14:58:48 by kaisobe           #+#    #+#             */
+/*   Updated: 2025/02/10 15:01:20 by kaisobe          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 
 pid_t	execute_command(t_astnode *root, int old_pipes[2], int new_pipes[2])
@@ -33,19 +45,17 @@ t_status	execute_one_builtin(t_astnode *root)
 t_status	execute_fork_commands(t_list *cmds)
 {
 	t_astnode	*cmd;
-	t_list		*node;
 	pid_t		*pids;
 	int			i;
 	int			**pipes;
 	t_status	status;
 
-	pids = create_pids(ft_lstsize(cmds));
+	pids = (pid_t *)xmalloc(sizeof(pid_t) * (ft_lstsize(cmds) + 1));
 	pipes = create_pipes(ft_lstsize(cmds));
-	node = cmds;
 	i = 0;
-	while (node)
+	while (cmds)
 	{
-		cmd = (t_astnode *)node->content;
+		cmd = (t_astnode *)cmds->content;
 		pipe(pipes[i + 1]);
 		pids[i] = execute_command(cmd, pipes[i], pipes[i + 1]);
 		if (!cmd->is_first_cmd)
@@ -53,7 +63,7 @@ t_status	execute_fork_commands(t_list *cmds)
 			close(pipes[i][READ]);
 			close(pipes[i][WRITE]);
 		}
-		node = node->next;
+		cmds = cmds->next;
 		i++;
 	}
 	status = waitpids(cmds, pids);

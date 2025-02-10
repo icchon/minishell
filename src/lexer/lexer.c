@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   lexer.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: kaisobe <kaisobe@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/02/10 15:20:08 by kaisobe           #+#    #+#             */
+/*   Updated: 2025/02/10 15:24:59 by kaisobe          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 
 static void	init_lexer_status(int status[ASCII_SIZE])
@@ -53,9 +65,7 @@ static int	process_in_normal_status(int *status, char *line, size_t *i,
 	if (offset > 0)
 	{
 		if (line[*i + offset] == '\'' || line[*i + offset] == '\"')
-		{
 			offset = ft_calc_next_str(&line[*i], " <>|");
-		}
 		add_token(line, i, head, offset);
 	}
 	else

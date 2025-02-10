@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   executer_util1.c                                   :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: kaisobe <kaisobe@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/02/10 14:58:37 by kaisobe           #+#    #+#             */
+/*   Updated: 2025/02/10 15:01:34 by kaisobe          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 
 char	**create_args(t_astnode *node)
@@ -72,10 +84,16 @@ int	**create_pipes(int n)
 	return (out);
 }
 
-pid_t	*create_pids(int n)
+t_status	waitpids(t_list *cmds, pid_t *pids)
 {
-	pid_t	*out;
+	int	i;
+	int	status;
 
-	out = (pid_t *)xmalloc(sizeof(pid_t) * (n + 1));
-	return (out);
+	i = 0;
+	while (i < ft_lstsize(cmds))
+	{
+		waitpid(pids[i++], &status, 0);
+		status = WEXITSTATUS(status);
+	}
+	return ((t_status)status);
 }

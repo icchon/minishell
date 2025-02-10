@@ -1,10 +1,21 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   signal.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: kaisobe <kaisobe@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/02/10 15:23:17 by kaisobe           #+#    #+#             */
+/*   Updated: 2025/02/10 15:41:01 by kaisobe          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 
 static void	sig_int_handler(int sig)
 {
 	char	*prompt;
 
-	g_signal = sig;
 	if (sig == SIGINT)
 	{
 		grobal_status(SET, 130);
@@ -15,7 +26,6 @@ static void	sig_int_handler(int sig)
 		rl_redisplay();
 		free(prompt);
 	}
-	g_signal = 0;
 	return ;
 }
 

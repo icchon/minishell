@@ -1,49 +1,16 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   process.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: kaisobe <kaisobe@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/02/10 14:58:58 by kaisobe           #+#    #+#             */
+/*   Updated: 2025/02/10 15:03:57 by kaisobe          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
-
-static void	handle_io(t_token *redirect)
-{
-	int	fd;
-
-	while (redirect)
-	{
-		if (redirect->type == TK_INPUT_FILE)
-		{
-			fd = open(redirect->data, O_RDONLY);
-			dup2(fd, STDIN_FILENO);
-		}
-		else if (redirect->type == TK_OUTPUT_FILE)
-		{
-			fd = open(redirect->data, O_WRONLY | O_TRUNC | O_CREAT,
-					S_IRGRP | S_IROTH | S_IWUSR | S_IRUSR);
-			dup2(fd, STDOUT_FILENO);
-		}
-		else if (redirect->type == TK_OUTPUT_FILE_APPEND)
-		{
-			fd = open(redirect->data, O_WRONLY | O_APPEND | O_CREAT,
-					S_IRGRP | S_IROTH | S_IWUSR | S_IRUSR);
-			dup2(fd, STDOUT_FILENO);
-		}
-		close(fd);
-		redirect = redirect->next;
-	}
-	return ;
-}
-
-static int	is_executable(char *path)
-{
-	int	res;
-
-	res = access(path, X_OK);
-	return (res == 0);
-}
-
-static int	is_directory(char *path)
-{
-	static struct stat	st = {0};
-
-	stat(path, &st);
-	return ((st.st_mode & S_IFMT) == S_IFDIR);
-}
 
 static int	try_command(char *cmd, char **arg, char **env)
 {
