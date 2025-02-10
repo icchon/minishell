@@ -4,7 +4,7 @@ all:
 clean: 
 	make -C ./src clean
 
-fclean: script_clean
+fclean:
 	make -C ./src fclean
 
 re: 
