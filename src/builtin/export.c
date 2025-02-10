@@ -6,7 +6,7 @@
 /*   By: tkitago <tkitago@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 20:32:04 by tkitago           #+#    #+#             */
-/*   Updated: 2025/02/10 20:59:28 by tkitago          ###   ########.fr       */
+/*   Updated: 2025/02/11 08:24:27 by tkitago          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,18 +27,19 @@ void	put_env_export(t_env *env_lst)
 char	*concat_key_value_noequal(const char *key, const char *value)
 {
 	char	*out;
-	size_t	len;
 
-	len = ft_strlen(key) + ft_strlen(value) + 1;
-	out = ft_strjoin_safe((char *)key, (char *)value, 1, 1);
+	out = ft_strjoin((char *)key, (char *)value);
 	return (out);
 }
 
 int	append_env_noequal(t_env **env_lst, const char *name, const char *value)
 {
 	t_env	*new_env;
+	char	*line;
 
-	new_env = new_env_node(concat_key_value_noequal(name, value));
+	line = concat_key_value_noequal(name, value);
+	new_env = new_env_node(line);
+	free(line);
 	addback_env(env_lst, new_env);
 	return (EXIT_SUCCESS);
 }

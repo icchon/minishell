@@ -6,7 +6,7 @@
 /*   By: tkitago <tkitago@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 20:32:51 by tkitago           #+#    #+#             */
-/*   Updated: 2025/02/10 20:38:00 by tkitago          ###   ########.fr       */
+/*   Updated: 2025/02/11 08:21:44 by tkitago          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,10 @@
 
 int	check_export_no_equal(char *line, t_env **env_lst)
 {
-	t_env	tmp;
 
-	if (!find_env(*env_lst, extract_key(line)))
+	if (!find_env(*env_lst, line))
 	{
-		tmp.key = ft_strdup(line);
-		tmp.value = ft_strdup("");
-		append_env_noequal(env_lst, tmp.key, tmp.value);
+		append_env_noequal(env_lst, line, "");
 	}
 	return (0);
 }
