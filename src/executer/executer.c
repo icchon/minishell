@@ -6,7 +6,7 @@
 /*   By: kaisobe <kaisobe@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 14:58:48 by kaisobe           #+#    #+#             */
-/*   Updated: 2025/02/11 07:37:24 by kaisobe          ###   ########.fr       */
+/*   Updated: 2025/02/11 08:25:11 by kaisobe          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,7 +108,7 @@ t_status	executer(t_ex_astnode *root)
 		}
 		if (type == EX_ASTND_OR)
 		{
-			if (left_status == EXIT_FAILURE)
+			if (left_status != EXIT_SUCCESS)
 				return (executer(root->right));
 			return (left_status);
 		}
