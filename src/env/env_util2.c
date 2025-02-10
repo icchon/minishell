@@ -57,9 +57,3 @@ void	addback_env(t_env **env_list, t_env *new_env)
 	}
 	return ;
 }
-
-void	sort_envlst(t_env *envlst)
-{
-	(void)envlst;
-	return ;
-}
