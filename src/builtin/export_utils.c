@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tkitago <tkitago@student.42tokyo.jp>       +#+  +:+       +#+        */
+/*   By: kaisobe <kaisobe@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 20:32:51 by tkitago           #+#    #+#             */
-/*   Updated: 2025/02/11 08:21:44 by tkitago          ###   ########.fr       */
+/*   Updated: 2025/02/11 08:28:19 by kaisobe          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 
 int	check_export_no_equal(char *line, t_env **env_lst)
 {
-
 	if (!find_env(*env_lst, line))
 	{
 		append_env_noequal(env_lst, line, "");
