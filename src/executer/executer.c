@@ -6,7 +6,7 @@
 /*   By: kaisobe <kaisobe@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 14:58:48 by kaisobe           #+#    #+#             */
-/*   Updated: 2025/02/10 15:01:20 by kaisobe          ###   ########.fr       */
+/*   Updated: 2025/02/10 18:09:53 by kaisobe          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,21 +44,21 @@ t_status	execute_one_builtin(t_astnode *root)
 
 t_status	execute_fork_commands(t_list *cmds)
 {
-	t_astnode	*cmd;
 	pid_t		*pids;
 	int			i;
 	int			**pipes;
 	t_status	status;
+	int			len;
 
-	pids = (pid_t *)xmalloc(sizeof(pid_t) * (ft_lstsize(cmds) + 1));
-	pipes = create_pipes(ft_lstsize(cmds));
+	len = ft_lstsize(cmds);
+	pids = (pid_t *)xmalloc(sizeof(pid_t) * len);
+	pipes = create_pipes(len);
 	i = 0;
 	while (cmds)
 	{
-		cmd = (t_astnode *)cmds->content;
 		pipe(pipes[i + 1]);
-		pids[i] = execute_command(cmd, pipes[i], pipes[i + 1]);
-		if (!cmd->is_first_cmd)
+		pids[i] = execute_command(get_val(cmds), pipes[i], pipes[i + 1]);
+		if (!get_val(cmds)->is_first_cmd)
 		{
 			close(pipes[i][READ]);
 			close(pipes[i][WRITE]);
@@ -66,7 +66,7 @@ t_status	execute_fork_commands(t_list *cmds)
 		cmds = cmds->next;
 		i++;
 	}
-	status = waitpids(cmds, pids);
+	status = waitpids(len, pids);
 	return (ft_2darraydel(pipes), free(pids), status);
 }
 

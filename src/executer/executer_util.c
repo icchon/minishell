@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   executer_util1.c                                   :+:      :+:    :+:   */
+/*   executer_util.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kaisobe <kaisobe@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 14:58:37 by kaisobe           #+#    #+#             */
-/*   Updated: 2025/02/10 15:01:34 by kaisobe          ###   ########.fr       */
+/*   Updated: 2025/02/10 17:57:30 by kaisobe          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,13 +84,13 @@ int	**create_pipes(int n)
 	return (out);
 }
 
-t_status	waitpids(t_list *cmds, pid_t *pids)
+t_status	waitpids(int len, pid_t *pids)
 {
 	int	i;
 	int	status;
 
 	i = 0;
-	while (i < ft_lstsize(cmds))
+	while (i < len)
 	{
 		waitpid(pids[i++], &status, 0);
 		status = WEXITSTATUS(status);

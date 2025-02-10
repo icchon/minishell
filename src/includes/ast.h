@@ -6,7 +6,7 @@
 /*   By: kaisobe <kaisobe@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 15:25:07 by kaisobe           #+#    #+#             */
-/*   Updated: 2025/02/10 15:25:08 by kaisobe          ###   ########.fr       */
+/*   Updated: 2025/02/10 18:10:43 by kaisobe          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,5 +66,6 @@ void					print_cmd(t_astnode *cmd_node, int depth);
 void					print_ex_tree(t_ex_astnode *root);
 t_ex_astnode			*new_ex_astnode(t_ex_astnode_type type);
 void					free_ex_asttree(t_ex_astnode *node);
+t_astnode				*get_val(t_list *lst);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: kaisobe <kaisobe@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 15:22:19 by kaisobe           #+#    #+#             */
-/*   Updated: 2025/02/10 15:30:20 by kaisobe          ###   ########.fr       */
+/*   Updated: 2025/02/10 18:10:26 by kaisobe          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,13 @@ void	add_astnode(t_astnode **root, t_astnode *left, t_astnode *right)
 	(*root)->left = left;
 	(*root)->right = right;
 	return ;
+}
+
+t_astnode	*get_val(t_list *lst)
+{
+	if (!lst)
+		return (NULL);
+	return ((t_astnode *)lst->content);
 }
 
 // void	print_cmd(t_astnode *cmd_node, int depth)
