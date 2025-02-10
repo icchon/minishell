@@ -6,7 +6,7 @@
 /*   By: kaisobe <kaisobe@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 15:25:35 by kaisobe           #+#    #+#             */
-/*   Updated: 2025/02/10 15:27:38 by kaisobe          ###   ########.fr       */
+/*   Updated: 2025/02/10 15:53:46 by kaisobe          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,5 +29,6 @@ void				update_grobal_env(void);
 int					contain_backslash(char *str);
 int					is_executable(char *path);
 int					is_directory(char *path);
+void				free_all_grobal_vars(void);
 
 #endif

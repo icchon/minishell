@@ -6,7 +6,7 @@
 /*   By: kaisobe <kaisobe@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 15:23:48 by kaisobe           #+#    #+#             */
-/*   Updated: 2025/02/10 15:39:38 by kaisobe          ###   ########.fr       */
+/*   Updated: 2025/02/10 15:54:25 by kaisobe          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ int	main(int argc, char *argv[], char **env)
 	update_grobal_envlist();
 	set_signal();
 	shell_loop();
-	ft_2darraydel(grobal_env(GET));
+	free_all_grobal_vars();
 	rl_clear_history();
 	return (grobal_status(GET));
 }
