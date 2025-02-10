@@ -45,7 +45,7 @@ char	*concat_key_value_noequal(const char *key, const char *value)
 	size_t	len;
 
 	len = ft_strlen(key) + ft_strlen(value) + 1;
-	out = xmalloc(sizeof(char) * len);
+	// out = xmalloc(sizeof(char) * len);たぶんいらない
 	out = ft_strjoin_safe((char *)key, (char *)value, 1, 1);
 	return (out);
 }
