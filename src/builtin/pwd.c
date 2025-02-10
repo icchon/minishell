@@ -1,34 +1,56 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   pwd.c                                              :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: kaisobe <kaisobe@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/02/10 20:32:59 by tkitago           #+#    #+#             */
+/*   Updated: 2025/02/11 08:00:48 by kaisobe          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "builtin.h"
+
+static int	valid_pwd_util1(char *pwd)
+{
+	if (!pwd || pwd[0] != '/' || ft_strlen(pwd) >= PATH_MAX)
+		return (0);
+	return (1);
+}
+
+static int	valid_pwd_util2(char **component)
+{
+	int	i;
+
+	i = 0;
+	while (component[i])
+	{
+		if (ft_isequal(component[i], ".") || ft_isequal(component[i], ".."))
+			return (0);
+		i++;
+	}
+	return (1);
+}
 
 static int	valid_pwd(char *pwd)
 {
 	char	**component;
 	char	*tmp_pwd;
-	int		i;
 
-	i = 0;
-	if (!pwd || !(pwd && pwd[0] == '/') || ft_strlen(pwd) >= PATH_MAX)
+	if (!valid_pwd_util1(pwd))
 		return (0);
-	if (!(tmp_pwd = ft_strdup(pwd)))
+	tmp_pwd = ft_strdup(pwd);
+	if (!tmp_pwd)
 		return (0);
-	if (!(component = ft_split(tmp_pwd, '/')))
+	component = ft_split(tmp_pwd, '/');
+	free(tmp_pwd);
+	if (!valid_pwd_util2(component))
 	{
-		free(tmp_pwd);
 		ft_2darraydel(component);
 		return (0);
 	}
-	while (component[i])
-	{
-		if (ft_isequal(component[i], ".") || ft_isequal(component[i], ".."))
-		{
-			free(tmp_pwd);
-			ft_2darraydel(component);
-			return (0);
-		}
-		i++;
-	}
-	free(tmp_pwd);
-  ft_2darraydel(component);
+	ft_2darraydel(component);
 	return (1);
 }
 
@@ -47,9 +69,5 @@ int	builtin_pwd(char **envp)
 	}
 	return (EXIT_SUCCESS);
 }
-// optionなしだと-Lに合わせるっぽい, manとposixで違う
-// https://pubs.opengroup.org/onlinepubs/9699919799/utilities/pwd.html
-// -Lだとシンボリック関係なくPWD環境変数に基づいて絶対パス表示
-// シンボリックリンクはlstatで取れそうだけどどういうときに-Pになるかわからないし
-// 沼だからやらない
-// getcwd 引数ない(NULL)のときmallocで領域確保
+// w/option work like -L
+// if (!-L), work like -P

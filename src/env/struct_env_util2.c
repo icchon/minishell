@@ -6,7 +6,7 @@
 /*   By: tkitago <tkitago@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 14:58:24 by kaisobe           #+#    #+#             */
-/*   Updated: 2025/02/10 17:37:07 by tkitago          ###   ########.fr       */
+/*   Updated: 2025/02/10 20:13:39 by tkitago          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,6 @@ t_env	*create_env_list(char **envp)
 			tail->next = node;
 			tail = node;
 		}
-		// free_env_node(node); セグフォ
 		envp++;
 	}
 	return (head);

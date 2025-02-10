@@ -6,7 +6,7 @@
 /*   By: kaisobe <kaisobe@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 14:58:27 by kaisobe           #+#    #+#             */
-/*   Updated: 2025/02/11 07:38:01 by kaisobe          ###   ########.fr       */
+/*   Updated: 2025/02/11 08:01:19 by kaisobe          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,6 @@ char	*extract_value(const char *line)
 
 	len = ft_calc_next_chr((char *)line, '=');
 	return (ft_substr(line, len + 1, ft_strlen(line) - len - 1));
-	// line freeしても変わらず
 }
 
 char	*concat_key_value(const char *key, const char *value)

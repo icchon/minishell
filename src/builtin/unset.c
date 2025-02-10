@@ -1,3 +1,14 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   unset.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: tkitago <tkitago@student.42tokyo.jp>       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/02/10 20:33:08 by tkitago           #+#    #+#             */
+/*   Updated: 2025/02/10 20:33:12 by tkitago          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "builtin.h"
 
@@ -37,11 +48,6 @@ int	builtin_unset(int ac, char *av[], t_env **env_list)
 	}
 	return (EXIT_SUCCESS);
 }
-
-// int	main(int argc, char *argv[], char **envp)
-// {
-// 	builtin_unset(argc, argv, envp);
-// }
 
 // ↑複数できる、　$対応できてない, export消せる
 // shell変数はexportすれば子プロセスに環境が引き継がれるからとれる
