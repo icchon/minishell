@@ -1,6 +1,6 @@
 #include "minishell.h"
 
-static t_env	*find_env(t_env *env_lst, const char *key)
+t_env	*find_env(t_env *env_lst, const char *key)
 {
 	t_env	*node;
 
@@ -16,11 +16,12 @@ static t_env	*find_env(t_env *env_lst, const char *key)
 	return (NULL);
 }
 
-static int	append_env(t_env **env_lst, const char *name, const char *value)
+int	append_env(t_env **env_lst, const char *name, const char *value)
 {
 	t_env	*new_env;
 
-	new_env = new_env_node(concat_key_value(name, value));
+	new_env = new_env_node((const char *)concat_key_value((char *)name,
+				(char *)value));
 	addback_env(env_lst, new_env);
 	return (EXIT_SUCCESS);
 }
@@ -42,9 +43,7 @@ int	util_setenv(t_env **env_lst, const char *name, const char *value,
 	else
 	{
 		if (!append_flg)
-		{
 			target->value = ft_strdup(value);
-		}
 		else
 		{
 			target->value = ft_strjoin_safe(target->value, (char *)value, 1, 0);

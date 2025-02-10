@@ -30,12 +30,13 @@ t_status	builtin(char *av[])
 	if (ft_isequal(av[0], "echo"))
 		return (builtin_echo(ft_strslen((const char **)av), av));
 	if (ft_isequal(av[0], "env"))
-		return (builtin_env(*env_lst));
+		return (builtin_env(*grobal_envlist(GET)));
 	if (ft_isequal(av[0], "exit"))
 		return (builtin_exit(ft_strslen((const char **)av), av,
 				grobal_status(GET)));
 	if (ft_isequal(av[0], "export"))
-		return (EXIT_FAILURE);
+		return (builtin_export(ft_strslen((const char **)av), av,
+				grobal_envlist(GET)));
 	if (ft_isequal(av[0], "pwd"))
 		return (builtin_pwd(grobal_env(GET)));
 	if (ft_isequal(av[0], "unset"))
