@@ -6,7 +6,7 @@
 /*   By: kaisobe <kaisobe@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 15:25:13 by kaisobe           #+#    #+#             */
-/*   Updated: 2025/02/10 15:27:33 by kaisobe          ###   ########.fr       */
+/*   Updated: 2025/02/10 17:57:45 by kaisobe          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ int					**create_pipes(int n);
 int					contain_backslash(char *str);
 t_status			execute_one_builtin(t_astnode *root);
 t_status			execute_fork_commands(t_list *cmds);
-t_status			waitpids(t_list *cmds, pid_t *pids);
+t_status			waitpids(int len, pid_t *pids);
 t_status			check_fds(t_redirect *redirect);
 void				handle_io(t_token *redirect);
 
