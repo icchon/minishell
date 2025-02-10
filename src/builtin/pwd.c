@@ -16,6 +16,7 @@ static int	valid_pwd(char *pwd)
 	if (!(component = ft_split(tmp_pwd, '/')))
 	{
 		free(tmp_pwd);
+        ft_2darraydel(component);
 		return (0);
 	}
 	while (component[i])
@@ -23,11 +24,13 @@ static int	valid_pwd(char *pwd)
 		if (ft_isequal(component[i], ".") || ft_isequal(component[i], ".."))
 		{
 			free(tmp_pwd);
+            ft_2darraydel(component);
 			return (0);
 		}
 		i++;
 	}
 	free(tmp_pwd);
+    ft_2darraydel(component);
 	return (1);
 }
 
