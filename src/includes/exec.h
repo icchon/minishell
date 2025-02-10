@@ -3,6 +3,7 @@
 
 # include "ast.h"
 # include "type.h"
+# include <fcntl.h>
 # include <sys/stat.h>
 # include <sys/types.h>
 
