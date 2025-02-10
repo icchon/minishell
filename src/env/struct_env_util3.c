@@ -6,7 +6,7 @@
 /*   By: tkitago <tkitago@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 14:58:27 by kaisobe           #+#    #+#             */
-/*   Updated: 2025/02/10 17:42:48 by tkitago          ###   ########.fr       */
+/*   Updated: 2025/02/10 20:13:46 by tkitago          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,6 @@ char	*extract_value(const char *line)
 
 	len = ft_calc_next_chr((char *)line, '=');
 	return (ft_substr(line, len + 1, ft_strlen(line) - len - 1));
-	// line freeしても変わらず
 }
 
 char	*concat_key_value(const char *key, const char *value)

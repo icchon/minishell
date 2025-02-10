@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   builtin.h                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: tkitago <tkitago@student.42tokyo.jp>       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/02/10 20:33:26 by tkitago           #+#    #+#             */
+/*   Updated: 2025/02/10 20:59:48 by tkitago          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef BUILTIN_H
 # define BUILTIN_H
 
@@ -15,5 +27,10 @@ int			builtin_cd(int ac, char *av[], t_env **env_lst);
 int			builtin_export(int ac, char *av[], t_env **env_lst);
 int			util_setenv(t_env **env_lst, const char *name, const char *value,
 				int append_flg);
-
+int			check_export_equal(char *line, t_env **env_lst);
+int			check_export_plus(char *line, char *check_plus, t_env **env_lst);
+int			check_export_line(char *line, t_env **env_lst);
+int			check_export_no_equal(char *line, t_env **env_lst);
+int			append_env_noequal(t_env **env_lst, const char *name,
+				const char *value);
 #endif

@@ -1,27 +1,39 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   env.c                                              :+:      :+:    :+:   */
+/*   ft_strstr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tkitago <tkitago@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/02/10 20:32:40 by tkitago           #+#    #+#             */
-/*   Updated: 2025/02/10 20:32:41 by tkitago          ###   ########.fr       */
+/*   Created: 2025/02/10 20:34:19 by tkitago           #+#    #+#             */
+/*   Updated: 2025/02/10 20:34:52 by tkitago          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
-#include <stdio.h>
-#include <stdlib.h>
-#include <unistd.h>
+#include "libft.h"
 
-int	builtin_env(t_env *envp)
+char	*ft_strstr(const char *haystack, const char *needle)
 {
-	while (envp)
+	const char	*h;
+	const char	*n;
+
+	if (!*needle)
+		return ((char *)haystack);
+	while (*haystack)
 	{
-		if (ft_strchr(envp->line, '='))
-			ft_putendl_fd(envp->line, STDOUT_FILENO);
-		envp = envp->next;
+		if (*haystack == *needle)
+		{
+			h = haystack;
+			n = needle;
+			while (*n && (*h == *n))
+			{
+				h++;
+				n++;
+			}
+			if (!*n)
+				return ((char *)haystack);
+		}
+		haystack++;
 	}
-	return (EXIT_SUCCESS);
+	return (NULL);
 }

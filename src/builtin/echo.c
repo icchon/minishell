@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   echo.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: tkitago <tkitago@student.42tokyo.jp>       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/02/10 20:32:35 by tkitago           #+#    #+#             */
+/*   Updated: 2025/02/10 20:35:14 by tkitago          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 
 static int	echo_option(char *av)
@@ -37,7 +49,7 @@ int	builtin_echo(int ac, char *av[])
 	}
 	if (n_flg)
 		printf("\n");
-    return(EXIT_SUCCESS);
+	return (EXIT_SUCCESS);
 }
 
 // int	main(int argc, char *argv[])
