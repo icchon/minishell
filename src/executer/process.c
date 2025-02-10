@@ -26,24 +26,50 @@ static void	handle_io(t_token *redirect)
 		close(fd);
 		redirect = redirect->next;
 	}
+	return ;
+}
+
+static int	is_executable(char *path)
+{
+	int	res;
+
+	res = access(path, X_OK);
+	return (res == 0);
+}
+
+static int	is_directory(char *path)
+{
+	struct stat	st;
+
+	stat(path, &st);
+	return ((st.st_mode & S_IFMT) == S_IFDIR);
 }
 
 static int	try_command(char *cmd, char **arg, char **env)
 {
 	char	*path;
 
+	if (is_directory(cmd) && contain_backslash(cmd))
+	{
+		dprintf(2, "bash: %s: Is a directory\n", cmd);
+		return (126);
+	}
 	path = ft_get_absolute_path(cmd, env);
-	if (!(path && is_directory(path)))
+	if (!(path && contain_backslash(path)))
 	{
 		free(path);
-		if (is_command(cmd))
+		if (!contain_backslash(cmd))
 			dprintf(2, "%s: command not found\n", cmd);
 		else
 			dprintf(2, "bash: %s: No such file or directory\n", cmd);
 		return (127);
 	}
-	execve(path, arg, env);
-	return (EXIT_FAILURE);
+	if (!is_executable(path))
+	{
+		dprintf(2, "bash: %s: Permission denied\n", path);
+		return (126);
+	}
+	return (execve(path, arg, env));
 }
 
 static void	child_process(int old_pipes[2], int new_pipes[2], t_token *redirect,
@@ -63,15 +89,16 @@ static void	child_process(int old_pipes[2], int new_pipes[2], t_token *redirect,
 		dup2(new_pipes[WRITE], STDOUT_FILENO);
 		close(new_pipes[WRITE]);
 	}
+	status = check_fds(redirect);
+	if (status != EXIT_SUCCESS)
+	{
+		exit(EXIT_FAILURE);
+	}
 	handle_io(redirect);
 	if (is_builtin(node->args->data))
-	{
 		status = builtin(node->arg_strs);
-	}
 	else
-	{
 		status = try_command(node->args->data, node->arg_strs, grobal_env(GET));
-	}
 	exit(status);
 }
 

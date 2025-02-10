@@ -50,7 +50,8 @@ static int	is_interactive(void)
 
 void	shell_loop(void)
 {
-	t_all	*all;
+	t_all		*all;
+	t_status	status;
 
 	all = init_all();
 	while (1)
@@ -72,13 +73,13 @@ void	shell_loop(void)
 			break ;
 		}
 		all->tokens = lexer((char *)all->line);
-		//print_tokens(all->tokens);
+		// print_tokens(all->tokens);
 		all->tree = parser(all->tokens);
-		//print_tree(all->tree);
-		check_fds(all->tree);
+		// print_tree(all->tree);
 		all->ex_tree = semantic_analyzer(all->tree);
-		executer(all->ex_tree);
-		//print_ex_tree(all->ex_tree);
+		status = executer(all->ex_tree);
+		grobal_status(SET, status);
+		// print_ex_tree(all->ex_tree);
 		update_grobal_env();
 		free_all_prop(all);
 	}

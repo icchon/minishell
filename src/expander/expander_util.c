@@ -1,5 +1,17 @@
 #include "minishell.h"
 
+static int	ft_calc_back_chr(char *str, char c)
+{
+	char	*s;
+
+	s = ft_strrchr(str, c);
+	if (s == NULL)
+	{
+		return (-1);
+	}
+	return (s - str);
+}
+
 static void	process_doller(char *str, size_t *i, char **out)
 {
 	size_t	len;
@@ -11,6 +23,8 @@ static void	process_doller(char *str, size_t *i, char **out)
 		key = ft_substr(&str[*i], 0, len);
 		if (ft_isequal(key, "?"))
 			*out = ft_strjoin_safe(*out, ft_itoa(grobal_status(GET)), 1, 1);
+		else if (ft_strlen(key) <= 0)
+			*out = ft_strjoin_safe(*out, "$", 1, 0);
 		else
 			*out = ft_strjoin_safe(*out, ft_get_env(key, grobal_env(GET)), 1,
 					0);
@@ -45,34 +59,66 @@ char	*replace_env_vars(char *str)
 
 static int	is_single_quate(char *str)
 {
+	int	single_left;
+	int	double_left;
+	int	single_right;
+	int	double_right;
+
 	if (ft_strlen(str) <= 1)
 		return (0);
-	return ((str[0] == '\'') && (str[ft_strlen(str) - 1] == '\''));
+	single_left = ft_calc_next_chr(str, '\'');
+	single_right = ft_calc_back_chr(str, '\'');
+	double_left = ft_calc_next_chr(str, '\"');
+	double_right = ft_calc_back_chr(str, '\"');
+	if (single_left < single_right && single_left < double_left
+		&& double_right < single_right)
+		return (1);
+	return (0);
 }
 
 static int	is_double_quate(char *str)
 {
+	int	single_left;
+	int	double_left;
+	int	single_right;
+	int	double_right;
+
 	if (ft_strlen(str) <= 1)
 		return (0);
-	return ((str[0] == '\"') && (str[ft_strlen(str) - 1] == '\"'));
+	single_left = ft_calc_next_chr(str, '\'');
+	single_right = ft_calc_back_chr(str, '\'');
+	double_left = ft_calc_next_chr(str, '\"');
+	double_right = ft_calc_back_chr(str, '\"');
+	// printf("single : (%d, %d), double : (%d, %d)\n", single_left,
+	// single_right,
+	// double_left, double_right);
+	if (double_left < double_right && double_left < single_left
+		&& single_right < double_right)
+		return (1);
+	return (0);
 }
 
-static char	*trim_edge(char *str)
+static char	*trim_quate(char *str)
 {
 	char	*out;
-	size_t	len;
-	size_t	i;
+	int		left;
+	int		right;
+	char	quate;
 
-	len = ft_strlen(str) - 2;
-	if (len < 0)
+	if (ft_strlen(str) < 2)
 		return (NULL);
-	out = (char *)ft_calloc((len + 1), sizeof(char));
-	i = 0;
-	while (i < len)
-	{
-		out[i] = str[i + 1];
-		i++;
-	}
+	if (!(is_double_quate(str) || is_single_quate(str)))
+		return (ft_strdup(str));
+	quate = '\'';
+	if (is_double_quate(str))
+		quate = '"';
+	left = ft_calc_next_chr(str, quate);
+	right = ft_calc_back_chr(str, quate);
+	out = ft_substr(str, 0, left);
+	out = ft_strjoin_safe(out, ft_substr(str, left + 1, (right - left - 1)), 1,
+			1);
+	out = ft_strjoin_safe(out, ft_substr(str, right + 1, (ft_strlen(str) - right
+					- 1)), 1, 1);
 	return (out);
 }
 
@@ -87,11 +133,12 @@ char	*expand_word(char *str)
 	is_double = is_double_quate(str);
 	if (is_single)
 	{
-		out = trim_edge(str);
+		out = trim_quate(str);
 	}
 	else if (is_double)
 	{
-		tmp = trim_edge(str);
+		// printf("double\n");
+		tmp = trim_quate(str);
 		out = replace_env_vars(tmp);
 		free(tmp);
 	}
