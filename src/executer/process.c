@@ -39,7 +39,7 @@ static int	is_executable(char *path)
 
 static int	is_directory(char *path)
 {
-	struct stat	st;
+	static struct stat	st = {0};
 
 	stat(path, &st);
 	return ((st.st_mode & S_IFMT) == S_IFDIR);
