@@ -6,11 +6,11 @@
 /*   By: kaisobe <kaisobe@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 15:23:17 by kaisobe           #+#    #+#             */
-/*   Updated: 2025/02/10 15:41:01 by kaisobe          ###   ########.fr       */
+/*   Updated: 2025/02/11 07:47:09 by kaisobe          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "signals.h"
 
 static void	sig_int_handler(int sig)
 {
@@ -34,11 +34,11 @@ void	set_signal(void)
 	t_sigaction	act_c;
 	t_sigaction	act_d;
 
-	bzero(&act_c, sizeof(t_sigaction));
+	ft_bzero(&act_c, sizeof(t_sigaction));
 	act_c.sa_handler = sig_int_handler;
 	sigemptyset(&act_c.sa_mask);
 	sigaction(SIGINT, &act_c, NULL);
-	bzero(&act_d, sizeof(t_sigaction));
+	ft_bzero(&act_d, sizeof(t_sigaction));
 	act_d.sa_handler = SIG_IGN;
 	sigemptyset(&act_d.sa_mask);
 	sigaction(SIGQUIT, &act_d, NULL);

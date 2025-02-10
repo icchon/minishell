@@ -6,11 +6,11 @@
 /*   By: kaisobe <kaisobe@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 15:20:08 by kaisobe           #+#    #+#             */
-/*   Updated: 2025/02/10 15:24:59 by kaisobe          ###   ########.fr       */
+/*   Updated: 2025/02/11 07:35:48 by kaisobe          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "token.h"
 
 static void	init_lexer_status(int status[ASCII_SIZE])
 {

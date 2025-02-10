@@ -6,11 +6,11 @@
 /*   By: kaisobe <kaisobe@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 15:23:23 by kaisobe           #+#    #+#             */
-/*   Updated: 2025/02/10 15:53:33 by kaisobe          ###   ########.fr       */
+/*   Updated: 2025/02/11 07:27:23 by kaisobe          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "util.h"
 
 void	update_grobal_envlist(void)
 {

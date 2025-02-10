@@ -6,11 +6,11 @@
 /*   By: kaisobe <kaisobe@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 15:19:37 by kaisobe           #+#    #+#             */
-/*   Updated: 2025/02/10 15:19:38 by kaisobe          ###   ########.fr       */
+/*   Updated: 2025/02/11 07:36:39 by kaisobe          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "heredoc.h"
 
 static char	*here_doc_read(t_bufferio *stdin, char *delimited, size_t *line)
 {

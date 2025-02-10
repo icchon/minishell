@@ -6,7 +6,7 @@
 /*   By: kaisobe <kaisobe@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 15:25:10 by kaisobe           #+#    #+#             */
-/*   Updated: 2025/02/10 15:25:59 by kaisobe          ###   ########.fr       */
+/*   Updated: 2025/02/11 07:29:41 by kaisobe          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,6 @@
 # define ENV_H
 
 # include "libft.h"
-# include <stdio.h>
-# include <stdlib.h>
 
 typedef struct s_env
 {

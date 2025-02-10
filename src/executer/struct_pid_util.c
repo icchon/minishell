@@ -6,11 +6,11 @@
 /*   By: kaisobe <kaisobe@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 14:58:52 by kaisobe           #+#    #+#             */
-/*   Updated: 2025/02/10 15:12:28 by kaisobe          ###   ########.fr       */
+/*   Updated: 2025/02/11 07:37:48 by kaisobe          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "exec.h"
 
 t_pids	*new_pids(pid_t pid)
 {
@@ -22,18 +22,18 @@ t_pids	*new_pids(pid_t pid)
 	return (lst);
 }
 
-void	print_pids(t_pids *pids)
-{
-	t_pids	*node;
+// void	print_pids(t_pids *pids)
+// {
+// 	t_pids	*node;
 
-	node = pids;
-	while (node)
-	{
-		dprintf(2, "pid : %d\n", node->pid);
-		node = node->next;
-	}
-	return ;
-}
+// 	node = pids;
+// 	while (node)
+// 	{
+// 		dprintf(2, "pid : %d\n", node->pid);
+// 		node = node->next;
+// 	}
+// 	return ;
+// }
 
 t_pids	*last_pid(t_pids *lst)
 {

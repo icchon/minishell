@@ -6,11 +6,11 @@
 /*   By: kaisobe <kaisobe@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 15:20:13 by kaisobe           #+#    #+#             */
-/*   Updated: 2025/02/10 15:20:33 by kaisobe          ###   ########.fr       */
+/*   Updated: 2025/02/11 07:36:08 by kaisobe          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "token.h"
 
 size_t	size_token(t_token *token)
 {

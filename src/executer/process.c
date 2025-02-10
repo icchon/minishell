@@ -6,11 +6,11 @@
 /*   By: kaisobe <kaisobe@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 14:58:58 by kaisobe           #+#    #+#             */
-/*   Updated: 2025/02/10 15:03:57 by kaisobe          ###   ########.fr       */
+/*   Updated: 2025/02/11 07:42:11 by kaisobe          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "exec.h"
 
 static int	try_command(char *cmd, char **arg, char **env)
 {
@@ -18,7 +18,7 @@ static int	try_command(char *cmd, char **arg, char **env)
 
 	if (is_directory(cmd) && contain_backslash(cmd))
 	{
-		dprintf(2, "bash: %s: Is a directory\n", cmd);
+		print_error(cmd, "Is a directory", 1);
 		return (126);
 	}
 	path = ft_get_absolute_path(cmd, env);
@@ -26,14 +26,14 @@ static int	try_command(char *cmd, char **arg, char **env)
 	{
 		free(path);
 		if (!contain_backslash(cmd))
-			dprintf(2, "%s: command not found\n", cmd);
+			print_error(cmd, "command not found", 0);
 		else
-			dprintf(2, "bash: %s: No such file or directory\n", cmd);
+			print_error(cmd, "No such file or directory", 1);
 		return (127);
 	}
 	if (!is_executable(path))
 	{
-		dprintf(2, "bash: %s: Permission denied\n", path);
+		print_error(path, "Permission denied", 1);
 		return (126);
 	}
 	return (execve(path, arg, env));

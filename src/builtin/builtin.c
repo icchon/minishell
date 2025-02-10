@@ -1,4 +1,4 @@
-#include "minishell.h"
+#include "builtin.h"
 
 int	is_builtin(char *cmd)
 {

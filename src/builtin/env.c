@@ -1,7 +1,4 @@
-#include "minishell.h"
-#include <stdio.h>
-#include <stdlib.h>
-#include <unistd.h>
+#include "builtin.h"
 
 int	builtin_env(t_env *envp)
 {
