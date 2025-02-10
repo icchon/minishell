@@ -30,7 +30,7 @@ static int	valid_pwd(char *pwd)
 		i++;
 	}
 	free(tmp_pwd);
-	ft_2darraydel(component);
+  ft_2darraydel(component);
 	return (1);
 }
 
