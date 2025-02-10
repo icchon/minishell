@@ -6,7 +6,7 @@
 /*   By: kaisobe <kaisobe@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 14:58:27 by kaisobe           #+#    #+#             */
-/*   Updated: 2025/02/10 14:58:29 by kaisobe          ###   ########.fr       */
+/*   Updated: 2025/02/10 19:36:15 by kaisobe          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,6 @@ char	*concat_key_value(const char *key, const char *value)
 	size_t	len;
 
 	len = ft_strlen(key) + ft_strlen(value) + 1;
-	out = xmalloc(sizeof(char) * (len + 1));
 	out = ft_strjoin(key, "=");
 	out = ft_strjoin_safe((char *)out, (char *)value, 1, 0);
 	return (out);
