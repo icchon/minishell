@@ -3,16 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   pwd.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tkitago <tkitago@student.42tokyo.jp>       +#+  +:+       +#+        */
+/*   By: kaisobe <kaisobe@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 20:32:59 by tkitago           #+#    #+#             */
-/*   Updated: 2025/02/10 21:03:37 by tkitago          ###   ########.fr       */
+/*   Updated: 2025/02/11 08:00:48 by kaisobe          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
-#include <error.h>
-#include <stdio.h>
+#include "builtin.h"
 
 static int	valid_pwd_util1(char *pwd)
 {

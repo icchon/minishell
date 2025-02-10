@@ -15,6 +15,7 @@
 
 # include "env.h"
 # include "type.h"
+# include "util.h"
 
 int			builtin_env(t_env *envp);
 int			builtin_pwd(char **envp);

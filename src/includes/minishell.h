@@ -6,7 +6,7 @@
 /*   By: kaisobe <kaisobe@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 15:25:20 by kaisobe           #+#    #+#             */
-/*   Updated: 2025/02/10 15:41:07 by kaisobe          ###   ########.fr       */
+/*   Updated: 2025/02/11 07:28:08 by kaisobe          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,17 +25,6 @@
 # include "token.h"
 # include "type.h"
 # include "util.h"
-
-# define INPUT 0
-# define OUTPUT 1
-# define READ 0
-# define WRITE 1
-# define GET 0
-# define SET 1
-# define CHILD_PID 0
-# define PARENT_PID 1
-# define BUFFER_SIZE 1000
-# define ASCII_SIZE 128
 
 typedef struct s_all
 {

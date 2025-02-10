@@ -6,11 +6,11 @@
 /*   By: kaisobe <kaisobe@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 15:22:16 by kaisobe           #+#    #+#             */
-/*   Updated: 2025/02/10 15:22:17 by kaisobe          ###   ########.fr       */
+/*   Updated: 2025/02/11 07:35:17 by kaisobe          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "ast.h"
 
 static void	handle_token(t_astnode *node, t_token **token)
 {

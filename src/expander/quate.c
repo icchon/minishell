@@ -6,11 +6,11 @@
 /*   By: kaisobe <kaisobe@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 15:11:53 by kaisobe           #+#    #+#             */
-/*   Updated: 2025/02/10 15:11:54 by kaisobe          ###   ########.fr       */
+/*   Updated: 2025/02/11 07:37:05 by kaisobe          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "expander.h"
 
 int	is_single_quate(char *str)
 {
