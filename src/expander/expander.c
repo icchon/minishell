@@ -1,28 +1,41 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   expander.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: kaisobe <kaisobe@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/02/10 15:11:40 by kaisobe           #+#    #+#             */
+/*   Updated: 2025/02/10 15:11:40 by kaisobe          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 
-t_token	*token_variable_split(t_token **token)
+char	*expand_word(char *str)
 {
-	char	*expanded;
-	char	**splited;
-	t_token	*new_tokens;
-	t_token	*new;
-	size_t	i;
+	int		is_single;
+	int		is_double;
+	char	*out;
+	char	*tmp;
 
-	if (!(*token && (*token)->type == TK_VALIABLE))
-		return (NULL);
-	expanded = expand_word((*token)->data);
-	splited = ft_split(expanded, ' ');
-	free(expanded);
-	i = 0;
-	new_tokens = NULL;
-	while (splited && splited[i])
+	is_single = is_single_quate(str);
+	is_double = is_double_quate(str);
+	if (is_single)
 	{
-		new = new_token(TK_WORD, ft_strdup(splited[i]));
-		addback_token(&new_tokens, new);
-		i++;
+		out = trim_quate(str);
 	}
-	ft_2darraydel(splited);
-	return (new_tokens);
+	else if (is_double)
+	{
+		tmp = trim_quate(str);
+		out = replace_env_vars(tmp);
+		free(tmp);
+	}
+	else
+	{
+		out = replace_env_vars(str);
+	}
+	return (out);
 }
 
 void	expand_args(t_astnode *node)
@@ -44,16 +57,13 @@ void	expand_args(t_astnode *node)
 			token = token->next;
 			cut_token(&to_delete, to_delete);
 			addback_tokens(&node->args, new_tokens);
+			continue ;
 		}
-		else
-		{
-			tmp = token->data;
-			token->data = expand_word(tmp);
-			to_add = token;
-			token = token->next;
-			addback_token(&node->args, to_add);
-			free(tmp);
-		}
+		tmp = token->data;
+		token->data = expand_word(tmp);
+		to_add = token;
+		token = token->next;
+		addback_token(&node->args, (free(tmp), to_add));
 	}
 }
 

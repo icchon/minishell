@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   tokenizer.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: kaisobe <kaisobe@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/02/10 15:20:19 by kaisobe           #+#    #+#             */
+/*   Updated: 2025/02/10 15:20:20 by kaisobe          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 
 static void	set_tokens(t_token *current, t_token_type type1, t_token *next,
@@ -62,65 +74,5 @@ void	tokenizer(t_token **token_ptr)
 	}
 	if (current->type == TK_UNDEFINED)
 		set_tokens(current, TK_WORD, NULL, TK_UNDEFINED);
-	return ;
-}
-
-void	print_token(t_token *token)
-{
-	int	type;
-
-	if (!token)
-	{
-		printf("null\n");
-		return ;
-	}
-	printf("data : %s\n", token->data);
-	type = (int)token->type;
-	if (type == TK_WORD)
-		printf("type : TK_WORD\n");
-	else if (type == TK_PIPE)
-		printf("type : TK_PIPE\n");
-	else if (type == TK_HERE_DOC)
-		printf("type : TK_HERE_DOC\n");
-	else if (type == TK_OR)
-		printf("type : TK_OR\n");
-	else if (type == TK_AND)
-		printf("type : TK_AND\n");
-	else if (type == TK_LIMITER)
-		printf("type : TK_LIMITER\n");
-	else if (type == TK_INPUT_FILE)
-		printf("type : TK_INPUT_FILE\n");
-	else if (type == TK_OUTPUT_FILE)
-		printf("type : TK_OUTPUT_FILE\n");
-	else if (type == TK_OUTPUT_FILE_APPEND)
-		printf("type : TK_OUTPUT_FILE_APPEND\n");
-	else if (type == TK_REDIRECT_OUT)
-		printf("type : TK_REDIRECT_OUT\n");
-	else if (type == TK_REDIRECT_OUT_APPEND)
-		printf("type : TK_REDIRECT_OUT_APPEND\n");
-	else if (type == TK_REDIRECT_IN)
-		printf("type : TK_REDIRECT_IN\n");
-	else if (type == TK_UNDEFINED)
-		printf("type == TK_UNDEFINED\n");
-	else if (type == TK_VALIABLE)
-		printf("type == TK_VALIABLE\n");
-	else
-	{
-		printf("type : error\n");
-	}
-}
-
-void	print_tokens(t_token *token)
-{
-	t_token	*node;
-
-	node = token;
-	if (!node)
-		printf("null");
-	while (node)
-	{
-		print_token(node);
-		node = node->next;
-	}
 	return ;
 }

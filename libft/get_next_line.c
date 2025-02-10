@@ -6,7 +6,7 @@
 /*   By: kaisobe <kaisobe@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/25 06:08:59 by icchon            #+#    #+#             */
-/*   Updated: 2025/02/09 16:14:51 by kaisobe          ###   ########.fr       */
+/*   Updated: 2025/02/10 15:33:19 by kaisobe          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,10 @@
 
 char	*get_next_line(int fd)
 {
-	char *line;
-	int bytes_read;
-	char c;
-	int i;
+	char	*line;
+	int		bytes_read;
+	char	c;
+	int		i;
 
 	bytes_read = read(fd, &c, 1);
 	if (bytes_read <= 0)

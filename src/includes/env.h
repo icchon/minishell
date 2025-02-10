@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   env.h                                              :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: kaisobe <kaisobe@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/02/10 15:25:10 by kaisobe           #+#    #+#             */
+/*   Updated: 2025/02/10 15:25:59 by kaisobe          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef ENV_H
 # define ENV_H
 
@@ -14,7 +26,7 @@ typedef struct s_env
 }					t_env;
 
 char				*extract_key(const char *line);
-char	*extract_key_plus(const char *line); // add
+char				*extract_key_plus(const char *line);
 char				*extract_value(const char *line);
 char				*concat_key_value(const char *key, const char *value);
 t_env				*new_env_node(const char *env);

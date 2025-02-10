@@ -6,7 +6,7 @@
 /*   By: kaisobe <kaisobe@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/16 13:11:02 by tkitago           #+#    #+#             */
-/*   Updated: 2025/02/09 16:15:00 by kaisobe          ###   ########.fr       */
+/*   Updated: 2025/02/10 14:45:26 by kaisobe          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -158,5 +158,6 @@ char				**ft_strsdup(char **strs);
 void				*xmalloc(size_t size);
 char				*ft_strtrim_safe(char *s1, char *set);
 char				*get_next_line(int fd);
+int					ft_calc_back_chr(char *str, char c);
 
 #endif

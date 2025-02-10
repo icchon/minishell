@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   minishell.h                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: kaisobe <kaisobe@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/02/10 15:25:20 by kaisobe           #+#    #+#             */
+/*   Updated: 2025/02/10 15:41:07 by kaisobe          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
@@ -24,8 +36,6 @@
 # define PARENT_PID 1
 # define BUFFER_SIZE 1000
 # define ASCII_SIZE 128
-
-extern int			g_signal;
 
 typedef struct s_all
 {

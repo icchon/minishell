@@ -1,34 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strrchr.c                                       :+:      :+:    :+:   */
+/*   path.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kaisobe <kaisobe@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/27 18:20:44 by tkitago           #+#    #+#             */
-/*   Updated: 2025/02/10 15:31:33 by kaisobe          ###   ########.fr       */
+/*   Created: 2025/02/10 15:23:25 by kaisobe           #+#    #+#             */
+/*   Updated: 2025/02/10 15:23:26 by kaisobe          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "util.h"
 
-char	*ft_strrchr(const char *s, int c)
+int	contain_backslash(char *str)
 {
-	int	i;
-
-	i = 0;
-	if (!s)
-		return (NULL);
-	while (s[i] != '\0')
-		i++;
-	if (c == '\0')
-		return ((char *)&s[i]);
-	while (i >= 0)
-	{
-		if (s[i] == (char)c)
-			return ((char *)(s + i));
-		i--;
-	}
-	return (NULL);
+	if (ft_strchr(str, '/'))
+		return (1);
+	return (0);
 }
-//指定された文字cが文字列sの中で最後に現れる場所を探し、その位置のポインタを返す
+
+int	is_executable(char *path)
+{
+	int	res;
+
+	res = access(path, X_OK);
+	return (res == 0);
+}
+
+int	is_directory(char *path)
+{
+	static t_stat	st = {0};
+
+	stat(path, &st);
+	return ((st.st_mode & S_IFMT) == S_IFDIR);
+}
