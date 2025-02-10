@@ -6,7 +6,7 @@
 /*   By: kaisobe <kaisobe@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 15:22:55 by kaisobe           #+#    #+#             */
-/*   Updated: 2025/02/10 15:22:56 by kaisobe          ###   ########.fr       */
+/*   Updated: 2025/02/10 15:57:39 by kaisobe          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@ char	*get_shell_prompt(int exist_nl)
 	char	*prompt;
 	char	*prefix;
 
-	update_grobal_env();
 	prompt = ft_get_env("PWD", grobal_env(GET));
 	prefix = "minishell :\x1b[32m";
 	prompt = ft_strjoin(prefix, prompt);
