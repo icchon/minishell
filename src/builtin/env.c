@@ -7,7 +7,8 @@ int	builtin_env(t_env *envp)
 {
 	while (envp)
 	{
-		ft_putendl_fd(envp->value, STDOUT_FILENO);
+		if (ft_strchr(envp->line, '='))
+			ft_putendl_fd(envp->line, STDOUT_FILENO);
 		envp = envp->next;
 	}
 	return (EXIT_SUCCESS);
