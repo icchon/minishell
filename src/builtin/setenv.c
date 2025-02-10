@@ -30,6 +30,7 @@ int	util_setenv(t_env **env_lst, const char *name, const char *value,
 		int append_flg)
 {
 	t_env	*target;
+	char	*tmp;
 
 	if (!name || !name[0])
 		return (EXIT_FAILURE);
@@ -42,13 +43,15 @@ int	util_setenv(t_env **env_lst, const char *name, const char *value,
 	}
 	else
 	{
+		tmp = target->value;
 		if (!append_flg)
 			target->value = ft_strdup(value);
 		else
-		{
-			target->value = ft_strjoin_safe(target->value, (char *)value, 1, 0);
-		}
+			target->value = ft_strjoin(target->value, (char *)value);
+		free(tmp);
+		tmp = target->line;
 		target->line = concat_key_value(target->key, target->value);
+		free(tmp);
 	}
 	return (EXIT_SUCCESS);
 }

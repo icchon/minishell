@@ -16,7 +16,7 @@ static int	valid_pwd(char *pwd)
 	if (!(component = ft_split(tmp_pwd, '/')))
 	{
 		free(tmp_pwd);
-        ft_2darraydel(component);
+		ft_2darraydel(component);
 		return (0);
 	}
 	while (component[i])
@@ -24,13 +24,13 @@ static int	valid_pwd(char *pwd)
 		if (ft_isequal(component[i], ".") || ft_isequal(component[i], ".."))
 		{
 			free(tmp_pwd);
-            ft_2darraydel(component);
+			ft_2darraydel(component);
 			return (0);
 		}
 		i++;
 	}
 	free(tmp_pwd);
-    ft_2darraydel(component);
+  ft_2darraydel(component);
 	return (1);
 }
 
@@ -43,9 +43,10 @@ int	builtin_pwd(char **envp)
 	{
 		ft_putendl_fd(cwd_env, STDOUT_FILENO);
 	}
-    else{
-        ft_putendl_fd(cwd_env, STDOUT_FILENO);
-    }
+	else
+	{
+		ft_putendl_fd(cwd_env, STDOUT_FILENO);
+	}
 	return (EXIT_SUCCESS);
 }
 // optionなしだと-Lに合わせるっぽい, manとposixで違う

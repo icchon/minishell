@@ -35,7 +35,6 @@ char	*concat_key_value(const char *key, const char *value)
 	size_t	len;
 
 	len = ft_strlen(key) + ft_strlen(value) + 1;
-	// out = xmalloc(sizeof(char) * (len + 1));いらない
 	out = ft_strjoin(key, "=");
 	out = ft_strjoin_safe((char *)out, (char *)value, 1, 0);
 	return (out);

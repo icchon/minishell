@@ -45,7 +45,6 @@ char	*concat_key_value_noequal(const char *key, const char *value)
 	size_t	len;
 
 	len = ft_strlen(key) + ft_strlen(value) + 1;
-	// out = xmalloc(sizeof(char) * len);たぶんいらない
 	out = ft_strjoin_safe((char *)key, (char *)value, 1, 1);
 	return (out);
 }
@@ -60,23 +59,37 @@ static int	append_env_noequal(t_env **env_lst, const char *name,
 	return (EXIT_SUCCESS);
 }
 
-static int	check_export_plus(char *key, char *check_plus, t_env **env_lst)
+static int	check_export_plus(char *line, char *check_plus, t_env **env_lst)
 {
+	char	*key;
+	char	*value;
+
 	if (!ft_isalnum(*(check_plus - 1)))
 	{
-		printf("export: `%s': not a valid identifier\n", key);
+		printf("export: `%s': not a valid identifier\n", line);
 		return (1); // error_flg
 	}
-	if (!find_env(*env_lst, extract_key_plus(key)))
-		append_env(env_lst, extract_key_plus(key), extract_value(key));
+	key = extract_key_plus(line);
+	value = extract_value(line);
+	if (!find_env(*env_lst, key))
+		append_env(env_lst, key, value);
 	else
-		util_setenv(env_lst, extract_key_plus(key), extract_value(key), 1);
+		util_setenv(env_lst, key, value, 1);
+	free(key);
+	free(value);
 	return (0);
 }
 
 static int	check_export_equal(char *line, t_env **env_lst)
 {
-	util_setenv(env_lst, extract_key(line), extract_value(line), 0);
+	char	*key;
+	char	*value;
+
+	key = extract_key(line);
+	value = extract_value(line);
+	util_setenv(env_lst, key, value, 0);
+	free(key);
+	free(value);
 	return (0);
 }
 
