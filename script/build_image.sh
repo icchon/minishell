@@ -1,1 +1,0 @@
-docker image build -t minishell/ubuntu:latest ${PWD}/docker/
