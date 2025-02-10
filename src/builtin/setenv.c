@@ -19,10 +19,12 @@ t_env	*find_env(t_env *env_lst, const char *key)
 int	append_env(t_env **env_lst, const char *name, const char *value)
 {
 	t_env	*new_env;
+	char	*line;
 
-	new_env = new_env_node((const char *)concat_key_value((char *)name,
-				(char *)value));
+	line = concat_key_value(name, value);
+	new_env = new_env_node(line);
 	addback_env(env_lst, new_env);
+	free(line);
 	return (EXIT_SUCCESS);
 }
 
