@@ -56,3 +56,4 @@ minishell
 typescript
 .script_lock
 *.tmp
+*.txt
