@@ -24,6 +24,6 @@ test: $(SCRIPT_LOCK)
 	docker container exec minishell make -C test/googletest test
 
 leak: all
-	valgrind --leak-check=full  --suppressions=ignore_readline.supp ./bin/minishell
+	valgrind --leak-check=full --track-fds=yes --suppressions=ignore_readline.supp ./bin/minishell
 
 .PHONY: test clean re fclean all script_clean

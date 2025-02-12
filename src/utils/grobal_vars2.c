@@ -6,7 +6,7 @@
 /*   By: kaisobe <kaisobe@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 15:23:23 by kaisobe           #+#    #+#             */
-/*   Updated: 2025/02/11 07:27:23 by kaisobe          ###   ########.fr       */
+/*   Updated: 2025/02/12 09:57:45 by kaisobe          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,6 @@ void	free_all_grobal_vars(void)
 	ft_2darraydel(grobal_env(GET));
 	env_lst = grobal_envlist(GET);
 	free_env_list(*env_lst);
-	free(grobal_tmpfile(GET));
+	free_tmpfiles();
 	return ;
 }

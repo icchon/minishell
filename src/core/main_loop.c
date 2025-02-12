@@ -6,7 +6,7 @@
 /*   By: kaisobe <kaisobe@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 15:39:07 by kaisobe           #+#    #+#             */
-/*   Updated: 2025/02/10 16:19:23 by kaisobe          ###   ########.fr       */
+/*   Updated: 2025/02/12 10:14:53 by kaisobe          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,12 +18,7 @@ void	free_all_prop(t_all *all)
 	all->tree = NULL;
 	free_ex_asttree(all->ex_tree);
 	all->ex_tree = NULL;
-	if (grobal_tmpfile(GET))
-	{
-		unlink(grobal_tmpfile(GET));
-		free(grobal_tmpfile(GET));
-		grobal_tmpfile(SET, NULL);
-	}
+	free_tmpfiles();
 	free(all->line);
 	all->line = NULL;
 	free(all->prompt);
@@ -70,17 +65,20 @@ void	shell_loop(void)
 	while (1)
 	{
 		all->prompt = get_shell_prompt(1);
-		all->line = get_readline(all->prompt);
+		all->line = ft_strtrim_safe(get_readline(all->prompt), " \n\t\v\f\r");
 		if (ft_strlen(all->line) > 0)
 			add_history(all->line);
 		if (!all->line)
 		{
-			printf("exit\n");
+			ft_putstr_fd("exit\n", 2);
 			break ;
 		}
 		all->tokens = lexer((char *)all->line);
+		// print_tokens(all->tokens);
 		all->tree = parser(all->tokens);
+		// print_tree(all->tree);
 		all->ex_tree = semantic_analyzer(all->tree);
+		// print_ex_tree(all->ex_tree);
 		status = executer(all->ex_tree);
 		grobal_status(SET, status);
 		update_grobal_env();

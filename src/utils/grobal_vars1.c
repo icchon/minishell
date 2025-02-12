@@ -6,7 +6,7 @@
 /*   By: kaisobe <kaisobe@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 15:23:20 by kaisobe           #+#    #+#             */
-/*   Updated: 2025/02/11 07:27:36 by kaisobe          ###   ########.fr       */
+/*   Updated: 2025/02/12 09:56:26 by kaisobe          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,24 +52,42 @@ t_env	**grobal_envlist(int get_or_set, ...)
 	return (&g_env);
 }
 
-char	*grobal_tmpfile(int get_or_set, ...)
+t_list	**grobal_tmpfile(int get_or_set, ...)
 {
-	va_list		ap;
-	static char	*g_tmpfile = NULL;
-	char		*tmpfile;
+	va_list			ap;
+	static t_list	*g_tmpfiles = NULL;
+	char			*tmpfile;
+	t_list			*node;
 
 	va_start(ap, get_or_set);
 	tmpfile = va_arg(ap, char *);
 	va_end(ap);
 	if (get_or_set == GET)
 	{
-		return (g_tmpfile);
+		return (&g_tmpfiles);
 	}
 	else
 	{
-		g_tmpfile = tmpfile;
+		node = ft_lstnew(tmpfile);
+		ft_lstadd_back(&g_tmpfiles, node);
 	}
-	return (g_tmpfile);
+	return (&g_tmpfiles);
+}
+
+void	free_tmpfiles(void)
+{
+	t_list	**lst;
+	t_list	*node;
+
+	lst = grobal_tmpfile(GET);
+	node = *lst;
+	while (node)
+	{
+		unlink((char *)node->content);
+		node = node->next;
+	}
+	ft_lstclear(lst, free);
+	return ;
 }
 
 t_status	grobal_status(int get_or_set, ...)

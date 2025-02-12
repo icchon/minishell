@@ -6,7 +6,7 @@
 /*   By: kaisobe <kaisobe@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 15:03:33 by kaisobe           #+#    #+#             */
-/*   Updated: 2025/02/11 07:41:56 by kaisobe          ###   ########.fr       */
+/*   Updated: 2025/02/12 07:49:28 by kaisobe          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,18 +45,17 @@ static int	check_existance(char *path)
 {
 	if (access(path, F_OK) == -1)
 	{
-		print_error(path, "No such file or directory", 1);
 		return (0);
 	}
 	return (1);
 }
 
-t_status	check_fds(t_redirect *redirect)
+int	check_fds(t_redirect *redirect)
 {
-	int			res;
-	t_status	status;
+	int	res;
+	int	is_valid_fds;
 
-	status = EXIT_SUCCESS;
+	is_valid_fds = 1;
 	while (redirect)
 	{
 		if (check_existance(redirect->data))
@@ -69,11 +68,16 @@ t_status	check_fds(t_redirect *redirect)
 				res = access(redirect->data, W_OK);
 			if (res == -1)
 			{
+				is_valid_fds = 0;
 				print_error(redirect->data, "Permission denied", 1);
-				status = 126;
 			}
+		}
+		else if (redirect->type == TK_INPUT_FILE)
+		{
+			is_valid_fds = 0;
+			print_error(redirect->data, "No such file or directory", 1);
 		}
 		redirect = redirect->next;
 	}
-	return (status);
+	return (is_valid_fds);
 }
