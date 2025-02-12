@@ -6,7 +6,7 @@
 /*   By: kaisobe <kaisobe@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 14:58:58 by kaisobe           #+#    #+#             */
-/*   Updated: 2025/02/11 07:42:11 by kaisobe          ###   ########.fr       */
+/*   Updated: 2025/02/12 07:34:12 by kaisobe          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,11 +56,8 @@ static void	child_process(int old_pipes[2], int new_pipes[2], t_token *redirect,
 		dup2(new_pipes[WRITE], STDOUT_FILENO);
 		close(new_pipes[WRITE]);
 	}
-	status = check_fds(redirect);
-	if (status != EXIT_SUCCESS)
-	{
+	if (!check_fds(redirect))
 		exit(EXIT_FAILURE);
-	}
 	handle_io(redirect);
 	if (is_builtin(node->args->data))
 		status = builtin(node->arg_strs);

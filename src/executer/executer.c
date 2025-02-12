@@ -6,7 +6,7 @@
 /*   By: kaisobe <kaisobe@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 14:58:48 by kaisobe           #+#    #+#             */
-/*   Updated: 2025/02/11 08:25:11 by kaisobe          ###   ########.fr       */
+/*   Updated: 2025/02/12 08:48:28 by kaisobe          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,16 +31,37 @@ pid_t	execute_command(t_astnode *root, int old_pipes[2], int new_pipes[2])
 t_status	execute_one_builtin(t_astnode *root)
 {
 	t_status	status;
+	int			stdin;
+	int			stdout;
 
 	expander(root);
 	set_arginfo(root);
-	status = check_fds(root->redirects);
-	if (status != EXIT_SUCCESS)
-	{
+	if (!check_fds(root->redirects))
 		return (EXIT_FAILURE);
-	}
-	return (builtin(root->arg_strs));
+	stdin = dup(STDIN_FILENO);
+	stdout = dup(STDOUT_FILENO);
+	handle_io(root->redirects);
+	status = builtin(root->arg_strs);
+	dup2(stdin, STDIN_FILENO);
+	dup2(stdout, STDOUT_FILENO);
+	close(stdin);
+	close(stdout);
+	return (status);
 }
+
+// void	close_pipes(int **pipes)
+// {
+// 	size_t	i;
+
+// 	i = 1;
+// 	while (pipes[i])
+// 	{
+// 		close(pipes[i][READ]);
+// 		close(pipes[i][WRITE]);
+// 		i++;
+// 	}
+// 	return ;
+// }
 
 t_status	execute_fork_commands(t_list *cmds)
 {
@@ -63,9 +84,15 @@ t_status	execute_fork_commands(t_list *cmds)
 			close(pipes[i][READ]);
 			close(pipes[i][WRITE]);
 		}
+		if (get_val(cmds)->is_last_cmd)
+		{
+			close(pipes[i + 1][READ]);
+			close(pipes[i + 1][WRITE]);
+		}
 		cmds = cmds->next;
 		i++;
 	}
+	// close_pipes(pipes);
 	status = waitpids(len, pids);
 	return (ft_2darraydel(pipes), free(pids), status);
 }
@@ -73,18 +100,17 @@ t_status	execute_fork_commands(t_list *cmds)
 t_status	execute_commands(t_list *cmds)
 {
 	t_astnode	*cmd;
-	t_status	status;
 
 	cmd = (t_astnode *)cmds->content;
 	if (ft_lstsize(cmds) == 1 && is_builtin(cmd->args->data))
 	{
-		status = execute_one_builtin(cmd);
-		return (status);
+		return (execute_one_builtin(cmd));
 	}
 	else
 	{
 		return (execute_fork_commands(cmds));
 	}
+	return (execute_fork_commands(cmds));
 }
 
 t_status	executer(t_ex_astnode *root)
