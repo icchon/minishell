@@ -1,18 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putstr_fd.c                                     :+:      :+:    :+:   */
+/*   ft_str.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kaisobe <kaisobe@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/11/05 12:56:57 by tkitago           #+#    #+#             */
-/*   Updated: 2025/02/14 07:57:56 by kaisobe          ###   ########.fr       */
+/*   Created: 2024/11/05 13:01:21 by tkitago           #+#    #+#             */
+/*   Updated: 2025/02/14 08:00:18 by kaisobe          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	ft_putstr_fd(char *s, int fd)
+int	ft_str(int fd, char *str)
 {
-	write(fd, s, ft_strlen(s));
+	int	n;
+
+	if (str == NULL)
+	{
+		ft_putstr_fd("(null)", 1);
+		return (ft_strlen("(null)"));
+	}
+	n = ft_strlen(str);
+	ft_putstr_fd(str, fd);
+	return (n);
 }

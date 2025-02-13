@@ -6,7 +6,7 @@
 /*   By: kaisobe <kaisobe@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/13 15:24:36 by kaisobe           #+#    #+#             */
-/*   Updated: 2025/02/13 15:24:37 by kaisobe          ###   ########.fr       */
+/*   Updated: 2025/02/14 07:23:31 by kaisobe          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ int	is_valid_brackets(char *line)
 	int	cnt;
 	int	i;
 
+	keep_ascii(line, "()");
 	cnt = 0;
 	i = 0;
 	while (line[i])
@@ -33,5 +34,6 @@ int	is_valid_brackets(char *line)
 			return (0);
 		i++;
 	}
+	restore2d_ascii(line);
 	return (cnt == 0);
 }

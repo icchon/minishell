@@ -6,7 +6,7 @@
 /*   By: kaisobe <kaisobe@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/16 13:11:02 by tkitago           #+#    #+#             */
-/*   Updated: 2025/02/13 07:58:34 by kaisobe          ###   ########.fr       */
+/*   Updated: 2025/02/14 08:04:11 by kaisobe          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,6 +128,18 @@ void				ft_lstadd_back(t_list **lst, t_list *newlst);
 t_list				*ft_lstnew(void *content);
 int					ft_lstsize(t_list *lst);
 char				*ft_strstr(const char *haystack, const char *needle);
+int					ft_char(int fd, char c);
+int					ft_format(int fd, int c, va_list args);
+int					ft_hex(int fd, unsigned int i, int f);
+int					ft_int(int fd, int i);
+char				*ft_pointer_base(unsigned long long pointer, int base);
+int					ft_pointer(int fd, unsigned long long pointer);
+int					ft_dprintf(int fd, const char *input, ...);
+int					ft_str_count(int fd, char *c);
+int					ft_str(int fd, char *str);
+char				*ft_tolower_all(char *c);
+int					ft_uint(int fd, unsigned int uint);
+int					ft_unfo_output(int fd, const char *input, va_list args);
 
 // functions added by icchon
 int					ft_calc_next_chr(char *str, char c);

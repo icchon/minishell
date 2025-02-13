@@ -6,7 +6,7 @@
 /*   By: kaisobe <kaisobe@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 15:11:33 by kaisobe           #+#    #+#             */
-/*   Updated: 2025/02/13 15:38:33 by kaisobe          ###   ########.fr       */
+/*   Updated: 2025/02/14 07:19:04 by kaisobe          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,16 +19,25 @@ static void	process_doller(char *str, size_t *i, char **out)
 
 	if (str[*i] == '$')
 	{
-		len = ft_calc_next_str(&str[++(*i)], "\t\n\v\f\r $");
-		key = ft_substr(&str[*i], 0, len);
-		if (ft_isequal(key, "?"))
+		(*i)++;
+		if (str[*i] == '?')
+		{
 			*out = ft_strjoin_safe(*out, ft_itoa(grobal_status(GET)), 1, 1);
-		else if (ft_strlen(key) <= 0)
+			len = 1;
+		}
+		else if (ft_contain(" \t", str[*i]) || !str[*i])
+		{
 			*out = ft_strjoin_safe(*out, "$", 1, 0);
+			len = 0;
+		}
 		else
+		{
+			len = ft_calc_next_str(&str[*i], "\t\n\v\f\r $");
+			key = ft_substr(&str[*i], 0, len);
 			*out = ft_strjoin_safe(*out, ft_get_env(key, grobal_env(GET)), 1,
 					0);
-		free(key);
+			free(key);
+		}
 		(*i) += len;
 	}
 }

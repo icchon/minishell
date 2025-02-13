@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   struct_env_util1.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tkitago <tkitago@student.42tokyo.jp>       +#+  +:+       +#+        */
+/*   By: kaisobe <kaisobe@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 14:58:16 by kaisobe           #+#    #+#             */
-/*   Updated: 2025/02/10 17:58:42 by tkitago          ###   ########.fr       */
+/*   Updated: 2025/02/14 06:52:56 by kaisobe          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,6 @@ t_env	*new_env_node(const char *env)
 	t_env	*node;
 
 	node = xmalloc(sizeof(t_env));
-	if (!node)
-		exit(EXIT_FAILURE);
 	node->line = ft_strdup(env);
 	node->key = extract_key(env);
 	node->value = extract_value(env);

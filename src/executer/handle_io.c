@@ -6,7 +6,7 @@
 /*   By: kaisobe <kaisobe@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 15:03:33 by kaisobe           #+#    #+#             */
-/*   Updated: 2025/02/13 15:58:32 by kaisobe          ###   ########.fr       */
+/*   Updated: 2025/02/14 07:42:23 by kaisobe          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,17 @@ static int	check_access(t_token *redirect)
 	{
 		print_error(redirect->data, "No such file or directory", 1);
 		return (0);
+	}
+	else
+	{
+		res = open(redirect->data, O_WRONLY | O_APPEND | O_CREAT,
+				S_IRGRP | S_IROTH | S_IWUSR | S_IRUSR);
+		if (res == -1)
+		{
+			print_error(redirect->data, "No such file or directory", 1);
+			return (0);
+		}
+		unlink(redirect->data);
 	}
 	return (1);
 }
