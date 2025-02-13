@@ -1,18 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putstr_fd.c                                     :+:      :+:    :+:   */
+/*   ft_dprintf.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kaisobe <kaisobe@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/11/05 12:56:57 by tkitago           #+#    #+#             */
-/*   Updated: 2025/02/14 07:57:56 by kaisobe          ###   ########.fr       */
+/*   Created: 2024/11/05 10:51:02 by tkitago           #+#    #+#             */
+/*   Updated: 2025/02/14 08:08:01 by kaisobe          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	ft_putstr_fd(char *s, int fd)
+int	ft_dprintf(int fd, const char *input, ...)
 {
-	write(fd, s, ft_strlen(s));
+	va_list	args;
+	int		num;
+
+	num = 0;
+	if (!input)
+		return (-1);
+	va_start(args, input);
+	num = ft_unfo_output(fd, input, args);
+	va_end(args);
+	return (num);
 }

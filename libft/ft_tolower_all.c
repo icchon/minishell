@@ -1,18 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putstr_fd.c                                     :+:      :+:    :+:   */
+/*   ft_tolower_all.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kaisobe <kaisobe@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/11/05 12:56:57 by tkitago           #+#    #+#             */
-/*   Updated: 2025/02/14 07:57:56 by kaisobe          ###   ########.fr       */
+/*   Created: 2024/11/05 13:01:26 by tkitago           #+#    #+#             */
+/*   Updated: 2025/02/14 07:58:04 by kaisobe          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	ft_putstr_fd(char *s, int fd)
+char	*ft_tolower_all(char *c)
 {
-	write(fd, s, ft_strlen(s));
+	int	i;
+
+	i = 0;
+	while (c[i])
+	{
+		c[i] = ft_tolower(c[i]);
+		i++;
+	}
+	return (c);
 }
