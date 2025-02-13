@@ -1,22 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parser.c                                           :+:      :+:    :+:   */
+/*   validate_input.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kaisobe <kaisobe@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/02/10 15:21:53 by kaisobe           #+#    #+#             */
-/*   Updated: 2025/02/13 12:36:19 by kaisobe          ###   ########.fr       */
+/*   Created: 2025/02/13 15:22:56 by kaisobe           #+#    #+#             */
+/*   Updated: 2025/02/13 15:22:57 by kaisobe          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ast.h"
+#include "syntax.h"
 
-t_astnode	*parser(t_token *token)
+int	is_valid_input(char *line)
 {
-	t_astnode	*ast_tree;
-
-	ast_tree = parse_or_and(&token);
-	exec_heredoc(ast_tree);
-	return (ast_tree);
+	return (is_quate_closed(line) && is_valid_brackets(line));
 }

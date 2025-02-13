@@ -6,7 +6,7 @@
 /*   By: kaisobe <kaisobe@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 15:19:37 by kaisobe           #+#    #+#             */
-/*   Updated: 2025/02/11 07:36:39 by kaisobe          ###   ########.fr       */
+/*   Updated: 2025/02/13 06:09:49 by kaisobe          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,7 +103,7 @@ void	exec_heredoc(t_astnode *node)
 			input_file = process_heredoc(limiter);
 			grobal_tmpfile(SET, input_file);
 			redirect->data = ft_strdup(input_file);
-			redirect->type = TK_INPUT_FILE;
+			redirect->type = TK_INFILE;
 			free(limiter);
 		}
 		redirect = redirect->next;

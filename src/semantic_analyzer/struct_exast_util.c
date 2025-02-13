@@ -6,7 +6,7 @@
 /*   By: kaisobe <kaisobe@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 15:23:12 by kaisobe           #+#    #+#             */
-/*   Updated: 2025/02/12 07:29:05 by kaisobe          ###   ########.fr       */
+/*   Updated: 2025/02/13 15:26:02 by kaisobe          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,44 +49,44 @@ void	free_ex_asttree(t_ex_astnode *node)
 	free(node);
 }
 
-static void	print_ex_astnode(t_ex_astnode *node, int depth)
-{
-	t_list	*cmd;
-	int		i;
+// static void	print_ex_astnode(t_ex_astnode *node, int depth)
+// {
+// 	t_list	*cmd;
+// 	int		i;
 
-	if (!node)
-		return ;
-	i = 0;
-	while (i++ < depth)
-		dprintf(2, "  ");
-	if (node->type == EX_ASTND_OR)
-		dprintf(2, "OR\n");
-	else if (node->type == EX_ASTND_AND)
-		dprintf(2, "AND\n");
-	else if (node->type == EX_ASTND_PIPETOP)
-	{
-		dprintf(2, "PIPETOP\n");
-		cmd = node->cmds;
-		while (cmd)
-		{
-			i = 0;
-			while (i++ < depth + 1)
-				dprintf(2, "  ");
-			print_cmd((t_astnode *)cmd->content, depth);
-			cmd = cmd->next;
-		}
-	}
-	else
-		dprintf(2, "UNDEFINED\n");
-	print_ex_astnode(node->left, depth + 1);
-	print_ex_astnode(node->right, depth + 1);
-}
+// 	if (!node)
+// 		return ;
+// 	i = 0;
+// 	while (i++ < depth)
+// 		dprintf(2, "  ");
+// 	if (node->type == EX_ASTND_OR)
+// 		dprintf(2, "OR\n");
+// 	else if (node->type == EX_ASTND_AND)
+// 		dprintf(2, "AND\n");
+// 	else if (node->type == EX_ASTND_PIPETOP)
+// 	{
+// 		dprintf(2, "PIPETOP\n");
+// 		cmd = node->cmds;
+// 		while (cmd)
+// 		{
+// 			i = 0;
+// 			while (i++ < depth + 1)
+// 				dprintf(2, "  ");
+// 			print_cmd((t_astnode *)cmd->content, depth);
+// 			cmd = cmd->next;
+// 		}
+// 	}
+// 	else
+// 		dprintf(2, "UNDEFINED\n");
+// 	print_ex_astnode(node->left, depth + 1);
+// 	print_ex_astnode(node->right, depth + 1);
+// }
 
-void	print_ex_tree(t_ex_astnode *root)
-{
-	dprintf(2, "\n[EX TREE] \n");
-	if (!root)
-		dprintf(2, "NULL\n");
-	print_ex_astnode(root, 0);
-	dprintf(2, "\n");
-}
+// void	print_ex_tree(t_ex_astnode *root)
+// {
+// 	dprintf(2, "\n[EX TREE] \n");
+// 	if (!root)
+// 		dprintf(2, "NULL\n");
+// 	print_ex_astnode(root, 0);
+// 	dprintf(2, "\n");
+// }

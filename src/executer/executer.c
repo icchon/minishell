@@ -6,62 +6,26 @@
 /*   By: kaisobe <kaisobe@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 14:58:48 by kaisobe           #+#    #+#             */
-/*   Updated: 2025/02/12 08:48:28 by kaisobe          ###   ########.fr       */
+/*   Updated: 2025/02/13 15:52:45 by kaisobe          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "exec.h"
 
-pid_t	execute_command(t_astnode *root, int old_pipes[2], int new_pipes[2])
+static void	close_pipes(int **pipes, int i, t_list *cmd)
 {
-	t_astnode_type	type;
-	pid_t			pid;
-
-	if (!root)
-		return (-1);
-	type = root->type;
-	if (type != ASTND_CMD)
-		return (-1);
-	expander(root);
-	set_arginfo(root);
-	pid = fork_and_exec_child(root, old_pipes, new_pipes);
-	return (pid);
+	if (!get_val(cmd)->is_first_cmd)
+	{
+		close(pipes[i][READ]);
+		close(pipes[i][WRITE]);
+	}
+	if (get_val(cmd)->is_last_cmd)
+	{
+		close(pipes[i + 1][READ]);
+		close(pipes[i + 1][WRITE]);
+	}
+	return ;
 }
-
-t_status	execute_one_builtin(t_astnode *root)
-{
-	t_status	status;
-	int			stdin;
-	int			stdout;
-
-	expander(root);
-	set_arginfo(root);
-	if (!check_fds(root->redirects))
-		return (EXIT_FAILURE);
-	stdin = dup(STDIN_FILENO);
-	stdout = dup(STDOUT_FILENO);
-	handle_io(root->redirects);
-	status = builtin(root->arg_strs);
-	dup2(stdin, STDIN_FILENO);
-	dup2(stdout, STDOUT_FILENO);
-	close(stdin);
-	close(stdout);
-	return (status);
-}
-
-// void	close_pipes(int **pipes)
-// {
-// 	size_t	i;
-
-// 	i = 1;
-// 	while (pipes[i])
-// 	{
-// 		close(pipes[i][READ]);
-// 		close(pipes[i][WRITE]);
-// 		i++;
-// 	}
-// 	return ;
-// }
 
 t_status	execute_fork_commands(t_list *cmds)
 {
@@ -78,21 +42,11 @@ t_status	execute_fork_commands(t_list *cmds)
 	while (cmds)
 	{
 		pipe(pipes[i + 1]);
-		pids[i] = execute_command(get_val(cmds), pipes[i], pipes[i + 1]);
-		if (!get_val(cmds)->is_first_cmd)
-		{
-			close(pipes[i][READ]);
-			close(pipes[i][WRITE]);
-		}
-		if (get_val(cmds)->is_last_cmd)
-		{
-			close(pipes[i + 1][READ]);
-			close(pipes[i + 1][WRITE]);
-		}
+		pids[i] = execute_simple_command(get_val(cmds), pipes[i], pipes[i + 1]);
+		close_pipes(pipes, i, cmds);
 		cmds = cmds->next;
 		i++;
 	}
-	// close_pipes(pipes);
 	status = waitpids(len, pids);
 	return (ft_2darraydel(pipes), free(pids), status);
 }
@@ -104,7 +58,7 @@ t_status	execute_commands(t_list *cmds)
 	cmd = (t_astnode *)cmds->content;
 	if (ft_lstsize(cmds) == 1 && is_builtin(cmd->args->data))
 	{
-		return (execute_one_builtin(cmd));
+		return (execute_single_builtin(cmd));
 	}
 	else
 	{

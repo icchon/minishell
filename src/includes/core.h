@@ -1,24 +1,38 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   readline.h                                         :+:      :+:    :+:   */
+/*   core.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kaisobe <kaisobe@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/02/10 15:25:24 by kaisobe           #+#    #+#             */
-/*   Updated: 2025/02/13 07:12:30 by kaisobe          ###   ########.fr       */
+/*   Created: 2025/02/13 16:11:58 by kaisobe           #+#    #+#             */
+/*   Updated: 2025/02/13 16:16:10 by kaisobe          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef READLINE_H
-# define READLINE_H
+#ifndef CORE_H
+# define CORE_H
 
-# include "libft.h"
-# include "util.h"
-# include <readline/history.h>
-# include <readline/readline.h>
+# include "ast.h"
+# include "exec.h"
+# include "readline.h"
+# include "syntax.h"
+# include "token.h"
+# include "type.h"
 
-char	*get_shell_prompt(int exist_nl);
-char	*get_readline(char *prompt);
+typedef struct s_all
+{
+	char			*line;
+	char			*prompt;
+	char			**env;
+	t_token			*tokens;
+	t_astnode		*tree;
+	t_ex_astnode	*ex_tree;
+}					t_all;
+
+void				shell_loop(void);
+t_all				*init_all(void);
+void				free_all(t_all *all);
+void				free_all_prop(t_all *all);
 
 #endif

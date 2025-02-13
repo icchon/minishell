@@ -6,7 +6,7 @@
 /*   By: kaisobe <kaisobe@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 15:25:07 by kaisobe           #+#    #+#             */
-/*   Updated: 2025/02/11 07:45:42 by kaisobe          ###   ########.fr       */
+/*   Updated: 2025/02/13 15:28:16 by kaisobe          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ typedef enum e_astnode_type
 	ASTND_OR,
 	ASTND_AND,
 	ASTND_CMD,
+	ASTND_BRA,
 	ASTND_UNDEFINED,
 }						t_astnode_type;
 
@@ -69,5 +70,7 @@ t_ex_astnode			*new_ex_astnode(t_ex_astnode_type type);
 void					free_ex_asttree(t_ex_astnode *node);
 t_astnode				*get_val(t_list *lst);
 void					exec_heredoc(t_astnode *node);
+void					handle_token(t_astnode *node, t_token **token);
+void					create_node_prop(t_astnode *node, t_token **token);
 
 #endif

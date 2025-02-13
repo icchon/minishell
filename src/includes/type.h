@@ -6,7 +6,7 @@
 /*   By: kaisobe <kaisobe@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 15:25:32 by kaisobe           #+#    #+#             */
-/*   Updated: 2025/02/11 07:28:36 by kaisobe          ###   ########.fr       */
+/*   Updated: 2025/02/13 09:06:45 by kaisobe          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,8 @@
 # define CHILD_PID 0
 # define PARENT_PID 1
 # define ASCII_SIZE 128
+
+# define META "<>|()&"
 
 typedef unsigned char	t_status;
 

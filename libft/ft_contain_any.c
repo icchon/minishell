@@ -1,22 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parser.c                                           :+:      :+:    :+:   */
+/*   ft_contain_any.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kaisobe <kaisobe@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/02/10 15:21:53 by kaisobe           #+#    #+#             */
-/*   Updated: 2025/02/13 12:36:19 by kaisobe          ###   ########.fr       */
+/*   Created: 2025/02/13 16:17:35 by kaisobe           #+#    #+#             */
+/*   Updated: 2025/02/13 16:17:36 by kaisobe          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ast.h"
+#include "libft.h"
 
-t_astnode	*parser(t_token *token)
+int	ft_contain_any(const char *str, const char *set)
 {
-	t_astnode	*ast_tree;
+	size_t	i;
 
-	ast_tree = parse_or_and(&token);
-	exec_heredoc(ast_tree);
-	return (ast_tree);
+	i = 0;
+	while (i < ft_strlen(str))
+	{
+		if (ft_contain(set, str[i]))
+		{
+			return (1);
+		}
+		i++;
+	}
+	return (0);
 }

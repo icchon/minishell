@@ -1,22 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parser.c                                           :+:      :+:    :+:   */
+/*   brackets.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kaisobe <kaisobe@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/02/10 15:21:53 by kaisobe           #+#    #+#             */
-/*   Updated: 2025/02/13 12:36:19 by kaisobe          ###   ########.fr       */
+/*   Created: 2025/02/13 15:24:36 by kaisobe           #+#    #+#             */
+/*   Updated: 2025/02/13 15:24:37 by kaisobe          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ast.h"
+#include "util.h"
 
-t_astnode	*parser(t_token *token)
+int	is_valid_brackets(char *line)
 {
-	t_astnode	*ast_tree;
+	int	cnt;
+	int	i;
 
-	ast_tree = parse_or_and(&token);
-	exec_heredoc(ast_tree);
-	return (ast_tree);
+	cnt = 0;
+	i = 0;
+	while (line[i])
+	{
+		if (line[i] == '(')
+		{
+			cnt++;
+		}
+		if (line[i] == ')')
+		{
+			cnt--;
+		}
+		if (cnt < 0)
+			return (0);
+		i++;
+	}
+	return (cnt == 0);
 }

@@ -1,31 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.h                                        :+:      :+:    :+:   */
+/*   syntax.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kaisobe <kaisobe@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/02/10 15:25:20 by kaisobe           #+#    #+#             */
-/*   Updated: 2025/02/13 16:12:22 by kaisobe          ###   ########.fr       */
+/*   Created: 2025/02/13 15:34:27 by kaisobe           #+#    #+#             */
+/*   Updated: 2025/02/13 15:34:27 by kaisobe          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINISHELL_H
-# define MINISHELL_H
+#ifndef SYNTAX_H
+# define SYNTAX_H
 
-# include "ast.h"
-# include "builtin.h"
-# include "core.h"
-# include "env.h"
-# include "exec.h"
-# include "expander.h"
-# include "heredoc.h"
-# include "libft.h"
-# include "readline.h"
-# include "signals.h"
-# include "syntax.h"
 # include "token.h"
 # include "type.h"
 # include "util.h"
+
+typedef int	*(*t_analyze_f)(t_token *token);
+
+int			syntax_analyzer(t_token *tokens);
+int			is_valid_brackets(char *line);
+int			is_valid_input(char *line);
+int			analyze_pipe(t_token *token);
+int			analyze_logical_op(t_token *token);
+int			analyze_heredoc(t_token *token);
+int			analyze_redirect(t_token *token);
+int			analyze_simple_command(t_token *tokens);
 
 #endif
