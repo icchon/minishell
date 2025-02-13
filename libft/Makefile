@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: tkitago <tkitago@student.42tokyo.jp>       +#+  +:+       +#+         #
+#    By: kaisobe <kaisobe@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/16 13:07:01 by tkitago           #+#    #+#              #
-#    Updated: 2025/02/10 20:20:03 by tkitago          ###   ########.fr        #
+#    Updated: 2025/02/13 07:58:51 by kaisobe          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,7 +28,7 @@ SRCS			=	ft_isalnum.c ft_isprint.c ft_memcmp.c  ft_putchar_fd.c ft_split.c ft_at
         			ft_get_expanded_path.c ft_max.c ft_min.c ft_path_exist.c ft_rand_u32.c ft_strjoin_safe.c\
 					ft_get_digit_cnt.c ft_utoa.c ft_chr_to_str.c ft_isequal.c ft_ismatch.c ft_strslen.c\
 					ft_print_strs.c ft_isint.c ft_issign.c ft_strsdup.c ft_strtrim_safe.c\
-					get_next_line.c ft_calc_back_chr.c ft_strstr.c
+					get_next_line.c ft_calc_back_chr.c ft_strstr.c ft_contain_any.c
 OBJS_DIR = ./objs
 
 OBJS			= $(addprefix $(OBJS_DIR)/, $(SRCS:.c=.o))

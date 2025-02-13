@@ -6,7 +6,7 @@
 /*   By: kaisobe <kaisobe@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 15:20:11 by kaisobe           #+#    #+#             */
-/*   Updated: 2025/02/11 07:36:02 by kaisobe          ###   ########.fr       */
+/*   Updated: 2025/02/12 20:12:25 by kaisobe          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ t_token	*new_token(t_token_type type, char *data)
 
 	token = (t_token *)xmalloc(sizeof(t_token));
 	token->type = type;
-	token->data = data;
+	token->data = ft_strdup(data);
 	token->prev = NULL;
 	token->next = NULL;
 	return (token);

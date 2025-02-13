@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tkitago <tkitago@student.42tokyo.jp>       +#+  +:+       +#+        */
+/*   By: kaisobe <kaisobe@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/16 13:11:02 by tkitago           #+#    #+#             */
-/*   Updated: 2025/02/10 20:19:51 by tkitago          ###   ########.fr       */
+/*   Updated: 2025/02/13 07:58:34 by kaisobe          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -132,7 +132,8 @@ char				*ft_strstr(const char *haystack, const char *needle);
 // functions added by icchon
 int					ft_calc_next_chr(char *str, char c);
 int					ft_calc_next_str(char *src, char *set);
-int					ft_contain(char *str, char c);
+int					ft_contain(const char *str, char c);
+int					ft_contain_any(const char *str, const char *set);
 int					ft_create_file(char *filename);
 char				*ft_create_random_file(char *prefix, char *extension);
 uint32_t			ft_generate_seed(void);
