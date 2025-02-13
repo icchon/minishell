@@ -6,7 +6,7 @@
 /*   By: kaisobe <kaisobe@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 15:03:33 by kaisobe           #+#    #+#             */
-/*   Updated: 2025/02/14 07:42:23 by kaisobe          ###   ########.fr       */
+/*   Updated: 2025/02/14 08:49:41 by kaisobe          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,21 @@ static int	check_existance(char *path)
 	return (1);
 }
 
+static int	check_creatable(char *path)
+{
+	int	fd;
+
+	fd = open(path, O_WRONLY | O_APPEND | O_CREAT,
+			S_IRGRP | S_IROTH | S_IWUSR | S_IRUSR);
+	if (fd == -1)
+	{
+		return (0);
+	}
+	close(fd);
+	unlink(path);
+	return (1);
+}
+
 static int	check_access(t_token *redirect)
 {
 	int	res;
@@ -65,25 +80,16 @@ static int	check_access(t_token *redirect)
 			res = access(redirect->data, W_OK);
 		if (res == -1)
 		{
-			print_error(redirect->data, "Permission denied", 1);
+			ft_dprintf(STDERR_FILENO, "bash: %s: Permission denied\n",
+				redirect->data);
 			return (0);
 		}
 	}
-	else if (redirect->type == TK_INFILE)
+	else if (redirect->type == TK_INFILE || !check_creatable(redirect->data))
 	{
-		print_error(redirect->data, "No such file or directory", 1);
+		ft_dprintf(STDERR_FILENO, "bash: %s: No such file or directory\n",
+			redirect->data);
 		return (0);
-	}
-	else
-	{
-		res = open(redirect->data, O_WRONLY | O_APPEND | O_CREAT,
-				S_IRGRP | S_IROTH | S_IWUSR | S_IRUSR);
-		if (res == -1)
-		{
-			print_error(redirect->data, "No such file or directory", 1);
-			return (0);
-		}
-		unlink(redirect->data);
 	}
 	return (1);
 }

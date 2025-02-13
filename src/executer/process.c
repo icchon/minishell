@@ -6,7 +6,7 @@
 /*   By: kaisobe <kaisobe@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 14:58:58 by kaisobe           #+#    #+#             */
-/*   Updated: 2025/02/12 07:34:12 by kaisobe          ###   ########.fr       */
+/*   Updated: 2025/02/14 08:45:21 by kaisobe          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ static int	try_command(char *cmd, char **arg, char **env)
 
 	if (is_directory(cmd) && contain_backslash(cmd))
 	{
-		print_error(cmd, "Is a directory", 1);
+		ft_dprintf(STDERR_FILENO, "bash: %s: Is a directory\n", cmd);
 		return (126);
 	}
 	path = ft_get_absolute_path(cmd, env);
@@ -26,14 +26,15 @@ static int	try_command(char *cmd, char **arg, char **env)
 	{
 		free(path);
 		if (!contain_backslash(cmd))
-			print_error(cmd, "command not found", 0);
+			ft_dprintf(STDERR_FILENO, "%s: command not found\n", cmd);
 		else
-			print_error(cmd, "No such file or directory", 1);
+			ft_dprintf(STDERR_FILENO, "bash: %s: No such file or directory\n",
+				cmd);
 		return (127);
 	}
 	if (!is_executable(path))
 	{
-		print_error(path, "Permission denied", 1);
+		ft_dprintf(STDERR_FILENO, "bash: %s: Permission denied\n", cmd);
 		return (126);
 	}
 	return (execve(path, arg, env));
