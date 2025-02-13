@@ -6,7 +6,7 @@
 /*   By: kaisobe <kaisobe@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 15:11:33 by kaisobe           #+#    #+#             */
-/*   Updated: 2025/02/14 07:19:04 by kaisobe          ###   ########.fr       */
+/*   Updated: 2025/02/14 08:44:46 by kaisobe          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,7 @@ static void	process_doller(char *str, size_t *i, char **out)
 
 	if (str[*i] == '$')
 	{
-		(*i)++;
-		if (str[*i] == '?')
+		if (str[++(*i)] == '?')
 		{
 			*out = ft_strjoin_safe(*out, ft_itoa(grobal_status(GET)), 1, 1);
 			len = 1;

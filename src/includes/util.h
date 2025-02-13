@@ -6,7 +6,7 @@
 /*   By: kaisobe <kaisobe@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 15:25:35 by kaisobe           #+#    #+#             */
-/*   Updated: 2025/02/13 10:16:21 by kaisobe          ###   ########.fr       */
+/*   Updated: 2025/02/14 08:33:40 by kaisobe          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,6 @@ int					is_executable(char *path);
 int					is_directory(char *path);
 void				free_all_grobal_vars(void);
 void				free_tmpfiles(void);
-void				print_error(char *s, char *msg, int bash_flg);
 void				init_quate_status(int status[ASCII_SIZE]);
 void				update_quate_status(int status[ASCII_SIZE],
 						t_quate_status type);
