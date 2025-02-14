@@ -6,11 +6,12 @@
 /*   By: kaisobe <kaisobe@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 15:21:53 by kaisobe           #+#    #+#             */
-/*   Updated: 2025/02/13 12:36:19 by kaisobe          ###   ########.fr       */
+/*   Updated: 2025/02/14 14:42:09 by kaisobe          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ast.h"
+
 
 t_astnode	*parser(t_token *token)
 {

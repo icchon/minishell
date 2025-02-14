@@ -6,7 +6,7 @@
 /*   By: kaisobe <kaisobe@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 15:19:37 by kaisobe           #+#    #+#             */
-/*   Updated: 2025/02/13 06:09:49 by kaisobe          ###   ########.fr       */
+/*   Updated: 2025/02/14 14:51:25 by kaisobe          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,11 @@ void	exec_heredoc(t_astnode *node)
 {
 	t_redirect	*redirect;
 	char		*limiter;
-	char		*input_file;
+	//char		*input_file;
+	char		*heredoc_res;
+	pid_t		pid;
+	int			pp[2];
+	char		buff[GNL_BUFFSIZE];
 
 	if (!node)
 		return ;
@@ -99,11 +103,26 @@ void	exec_heredoc(t_astnode *node)
 		if (redirect->type == TK_LIMITER)
 		{
 			limiter = redirect->data;
-			limiter = ft_strtrim_safe(limiter, "'\"");
-			input_file = process_heredoc(limiter);
-			grobal_tmpfile(SET, input_file);
-			redirect->data = ft_strdup(input_file);
-			redirect->type = TK_INFILE;
+			// limiter = ft_strtrim_safe(limiter, "'\"");
+			// input_file = process_heredoc(limiter);
+			pipe(pp);
+			pid = fork();
+			if (pid == 0)
+			{
+				close(pp[READ]);
+				heredoc_res = here_doc(limiter);
+				printf("%s\n", heredoc_res);
+				exit(EXIT_SUCCESS);
+			}
+			wait(NULL);
+			close(WRITE);
+			read(pp[READ], buff, GNL_BUFFSIZE);
+			printf("recieved : ");
+			printf("%s\n", buff);
+			printf("-----------------\n");
+			// grobal_tmpfile(SET, input_file);
+			// redirect->data = ft_strdup(input_file);
+			// redirect->type = TK_INFILE;
 			free(limiter);
 		}
 		redirect = redirect->next;
