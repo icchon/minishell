@@ -6,7 +6,7 @@
 /*   By: kaisobe <kaisobe@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 15:25:18 by kaisobe           #+#    #+#             */
-/*   Updated: 2025/02/11 07:45:33 by kaisobe          ###   ########.fr       */
+/*   Updated: 2025/02/14 19:10:09 by kaisobe          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,10 @@
 # include "ast.h"
 # include "util.h"
 
+# define HEREDOC_BUFFERSIZE 10000
+
 char	*here_doc(char *delimited);
-void	put_error(size_t line, char *delimited);
-int		check_delimited(t_strgen *strgen, char *str, char *delimited,
-			size_t delimited_len);
+void	child_heredoc(int pp[2], char *limiter);
+void	exec_heredoc(t_astnode *node);
 
 #endif

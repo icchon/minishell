@@ -6,7 +6,7 @@
 /*   By: kaisobe <kaisobe@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 15:25:26 by kaisobe           #+#    #+#             */
-/*   Updated: 2025/02/14 13:35:48 by kaisobe          ###   ########.fr       */
+/*   Updated: 2025/02/14 19:02:44 by kaisobe          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,9 +20,11 @@
 extern int					g_signal;
 
 typedef struct sigaction	t_sigaction;
-void						set_signal(void);
+
 void						sig_int_handler(int sig);
 void						sig_quit_handler(int sig);
 void						sig_handler_while_child(int sig);
+void						set_signal_handlers(__sighandler_t int_handler,
+								__sighandler_t quit_handler);
 
 #endif

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tkitago <tkitago@student.42tokyo.jp>       +#+  +:+       +#+        */
+/*   By: kaisobe <kaisobe@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 20:32:51 by tkitago           #+#    #+#             */
-/*   Updated: 2025/02/14 08:20:43 by tkitago          ###   ########.fr       */
+/*   Updated: 2025/02/14 19:13:20 by kaisobe          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,8 @@ int	check_export_no_equal(char *key, t_env **env_lst)
 {
 	if (valid_export(key))
 	{
-		ft_dprintf(STDERR_FILENO, "export: `%s': not a valid identifier\n", key);
+		ft_dprintf(STDERR_FILENO, "export: `%s': not a valid identifier\n",
+			key);
 		return (1);
 	}
 	if (!find_env(*env_lst, key))
@@ -58,7 +59,8 @@ int	check_export_line(char *line, t_env **env_lst)
 	}
 	else
 	{
-		ft_dprintf(STDERR_FILENO, "export: `%s': not a valid identifier\n", line);
+		ft_dprintf(STDERR_FILENO, "export: `%s': not a valid identifier\n",
+			line);
 		return (1);
 	}
 }
@@ -72,7 +74,8 @@ int	check_export_plus(char *line, char *check_plus, t_env **env_lst)
 	value = extract_value(line);
 	if (!ft_isalnum(*(check_plus - 1)) || valid_export(key))
 	{
-		ft_dprintf(STDERR_FILENO, "export: `%s': not a valid identifier\n", line);
+		ft_dprintf(STDERR_FILENO, "export: `%s': not a valid identifier\n",
+			line);
 		free(key);
 		return (1);
 	}
@@ -94,7 +97,8 @@ int	check_export_equal(char *line, t_env **env_lst)
 	value = extract_value(line);
 	if (valid_export(key))
 	{
-		ft_dprintf(STDERR_FILENO, "export: `%s': not a valid identifier\n", line);
+		ft_dprintf(STDERR_FILENO, "export: `%s': not a valid identifier\n",
+			line);
 		free(key);
 		return (1);
 	}
