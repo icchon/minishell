@@ -6,7 +6,7 @@
 /*   By: kaisobe <kaisobe@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 15:39:07 by kaisobe           #+#    #+#             */
-/*   Updated: 2025/02/13 16:17:04 by kaisobe          ###   ########.fr       */
+/*   Updated: 2025/02/14 08:24:55 by kaisobe          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ static void	main_process(t_all *all)
 	all->tokens = lexer((char *)all->line);
 	if (!syntax_analyzer(all->tokens))
 	{
-		ft_putstr_fd("bash: syntax error\n", STDERR_FILENO);
+		ft_dprintf(STDERR_FILENO, "bash: syntax error\n");
 		grobal_status(SET, 126);
 		return ;
 	}
@@ -49,12 +49,12 @@ void	shell_loop(void)
 		init_loop(all);
 		if (!all->line)
 		{
-			ft_putstr_fd("exit\n", STDERR_FILENO);
+			ft_dprintf(STDERR_FILENO, "exit\n");
 			break ;
 		}
 		if (!is_valid_input(all->line))
 		{
-			printf("bash: syntax error\n");
+			ft_dprintf(STDERR_FILENO, "bash: syntax error\n");
 			grobal_status(SET, 126);
 			continue ;
 		}
