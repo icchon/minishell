@@ -3,14 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   process.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kaisobe <kaisobe@student.42.fr>            +#+  +:+       +#+        */
+/*   By: tkitago <tkitago@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 14:58:58 by kaisobe           #+#    #+#             */
-/*   Updated: 2025/02/12 07:34:12 by kaisobe          ###   ########.fr       */
+/*   Updated: 2025/02/14 09:17:47 by tkitago          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "exec.h"
+
+void		sig_int_handler(int sig);
+void		set_signal_child(void);
 
 static int	try_command(char *cmd, char **arg, char **env)
 {
@@ -73,7 +76,29 @@ pid_t	fork_and_exec_child(t_astnode *node, int old_pipes[2], int new_pipes[2])
 	pid = fork();
 	if (pid == CHILD_PID)
 	{
+		//signal(SIGQUIT, SIG_DFL);
+		//set_signal_child();
 		child_process(old_pipes, new_pipes, node->redirects, node);
+		// kill(pid, SIGABRT);
 	}
+    
 	return (pid);
 }
+
+// void	set_signal_child(void)
+// {
+// 	t_sigaction	act_c_child;
+// 	t_sigaction	act_d_child;
+
+// 	ft_bzero(&act_c_child, sizeof(t_sigaction));
+// 	act_c_child.sa_handler = sig_int_handler;
+// 	sigemptyset(&act_c_child.sa_mask);
+// 	// act_c.sa_flags = SA_RESETHAND;
+// 	sigaction(SIGINT, &act_c_child, NULL);
+// 	ft_bzero(&act_d_child, sizeof(t_sigaction));
+// 	act_d_child.sa_handler = SIG_IGN;
+// 	sigemptyset(&act_d_child.sa_mask);
+// 	// act_d.sa_flags = SA_RESETHAND;
+// 	sigaction(SIGQUIT, &act_d_child, NULL);
+// 	return ;
+// }
