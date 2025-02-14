@@ -6,7 +6,7 @@
 /*   By: kaisobe <kaisobe@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 15:19:37 by kaisobe           #+#    #+#             */
-/*   Updated: 2025/02/14 19:09:10 by kaisobe          ###   ########.fr       */
+/*   Updated: 2025/02/14 22:09:53 by kaisobe          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ static char	*here_doc_read(t_bufferio *stdin, char *delimited, size_t *line)
 {
 	char	*temp;
 
-	ft_putstr_fd("> ", STDOUT_FILENO);
+	ft_putstr_fd("> ", STDERR_FILENO);
 	temp = ft_readline(stdin);
 	if (!temp)
 		put_error(*line, delimited);

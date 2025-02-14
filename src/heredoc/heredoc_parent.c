@@ -6,7 +6,7 @@
 /*   By: kaisobe <kaisobe@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/14 19:04:42 by kaisobe           #+#    #+#             */
-/*   Updated: 2025/02/14 20:01:36 by kaisobe          ###   ########.fr       */
+/*   Updated: 2025/02/14 22:06:51 by kaisobe          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ static char	*get_child_heredoc_file(int pp[2])
 	return (input_file);
 }
 
-static void	create_file_redirection(t_redirect *redirect)
+static int	create_file_redirection(t_redirect *redirect)
 {
 	char	*limiter;
 	int		pp[2];
@@ -41,17 +41,16 @@ static void	create_file_redirection(t_redirect *redirect)
 	if (fork() == 0)
 		child_heredoc(pp, limiter);
 	wait(NULL);
-	close(pp[WRITE]);
 	if (g_signal != 0)
 	{
+		close(pp[WRITE]);
 		close(pp[READ]);
-		return ;
+		return (0);
 	}
-	redirect->data = get_child_heredoc_file(pp);
+	redirect->data = ft_strdup(get_child_heredoc_file(pp));
 	redirect->type = TK_INFILE;
 	free(limiter);
-	close(pp[READ]);
-	return ;
+	return (1);
 }
 
 void	exec_heredoc(t_astnode *node)
@@ -65,7 +64,8 @@ void	exec_heredoc(t_astnode *node)
 	{
 		if (redirect->type == TK_LIMITER)
 		{
-			create_file_redirection(redirect);
+			if (!create_file_redirection(redirect))
+				return ;
 		}
 		redirect = redirect->next;
 	}

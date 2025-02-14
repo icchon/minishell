@@ -6,7 +6,7 @@
 /*   By: kaisobe <kaisobe@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/13 15:01:15 by kaisobe           #+#    #+#             */
-/*   Updated: 2025/02/13 15:01:17 by kaisobe          ###   ########.fr       */
+/*   Updated: 2025/02/14 21:25:08 by kaisobe          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,12 +75,14 @@ static int	get_kth_len_withsep(char const *s, const char *set, int k)
 
 	start_idx = get_kth_idx_withsep(s, set, k);
 	i = 0;
-	while (s[i])
+	while (s[i + start_idx])
 	{
 		if (ft_contain(set, s[i + start_idx]))
 		{
 			if (i == 0)
+			{
 				return (1);
+			}
 			break ;
 		}
 		i++;
