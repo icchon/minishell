@@ -6,7 +6,7 @@
 /*   By: kaisobe <kaisobe@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 15:39:07 by kaisobe           #+#    #+#             */
-/*   Updated: 2025/02/14 20:06:14 by kaisobe          ###   ########.fr       */
+/*   Updated: 2025/02/14 20:21:32 by kaisobe          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@ extern int	g_signal;
 
 static void	init_loop(t_all *all)
 {
+	g_signal = 0;
+	set_signal_handlers(sig_int_handler, SIG_IGN);
 	free_all_prop(all);
 	update_grobal_env();
 	free_all_prop(all);
@@ -24,36 +26,31 @@ static void	init_loop(t_all *all)
 	rl_on_new_line();
 	rl_replace_line("", 0);
 	all->line = ft_strtrim_safe(get_readline(all->prompt), " \n\t");
-	g_signal = 0;
-	set_signal_handlers(sig_int_handler, SIG_IGN);
 	return ;
 }
 
-static void	main_process(t_all *all)
+static int	main_process(t_all *all)
 {
 	if (ft_strlen(all->line) > 0)
 		add_history(all->line);
+	if (g_signal != 0)
+		return (grobal_status(SET, g_signal + 128), 0);
 	all->tokens = lexer((char *)all->line);
 	if (!syntax_analyzer(all->tokens))
-	{
-		ft_dprintf(STDERR_FILENO, "bash: syntax error\n");
-		grobal_status(SET, 126);
-		return ;
-	}
+		return (ft_dprintf(STDERR_FILENO, "bash: syntax error\n"),
+			grobal_status(SET, 126), 0);
 	all->tree = parser(all->tokens);
 	set_signal_handlers(sig_handler_while_child, SIG_IGN);
 	exec_heredoc(all->tree);
 	set_signal_handlers(sig_int_handler, SIG_IGN);
 	all->ex_tree = semantic_analyzer(all->tree);
 	if (g_signal != 0)
-	{
-		grobal_status(SET, g_signal + 128);
-		return ;
-	}
+		return (grobal_status(SET, g_signal + 128), 0);
 	set_signal_handlers(sig_handler_while_child, sig_handler_while_child);
 	grobal_status(SET, executer(all->ex_tree));
 	if (g_signal != 0)
 		grobal_status(SET, g_signal + 128);
+	return (1);
 }
 
 void	shell_loop(void)
