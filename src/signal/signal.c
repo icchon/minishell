@@ -6,7 +6,7 @@
 /*   By: kaisobe <kaisobe@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 15:23:17 by kaisobe           #+#    #+#             */
-/*   Updated: 2025/02/14 19:02:18 by kaisobe          ###   ########.fr       */
+/*   Updated: 2025/02/14 20:17:46 by kaisobe          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,10 @@ void	sig_int_handler(int sig)
 void	set_signal_handlers(__sighandler_t int_handler,
 		__sighandler_t quit_handler)
 {
-	signal(SIGINT, int_handler);
-	signal(SIGQUIT, quit_handler);
+	if (signal(SIGINT, int_handler) == SIG_ERR || signal(SIGQUIT,
+			quit_handler) == SIG_ERR)
+	{
+		perror("signal");
+	}
 	return ;
 }
