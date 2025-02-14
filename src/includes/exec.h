@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kaisobe <kaisobe@student.42.fr>            +#+  +:+       +#+        */
+/*   By: tkitago <tkitago@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 15:25:13 by kaisobe           #+#    #+#             */
-/*   Updated: 2025/02/13 15:52:35 by kaisobe          ###   ########.fr       */
+/*   Updated: 2025/02/13 17:05:58 by tkitago          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 # include "ast.h"
 # include "builtin.h"
 # include "expander.h"
+# include "signals.h"
 # include "type.h"
 
 typedef struct s_pids
