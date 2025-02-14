@@ -6,7 +6,7 @@
 /*   By: kaisobe <kaisobe@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/03 13:57:47 by kaisobe           #+#    #+#             */
-/*   Updated: 2025/01/24 14:10:22 by kaisobe          ###   ########.fr       */
+/*   Updated: 2025/02/15 07:32:51 by kaisobe          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@ char	*ft_get_absolute_path(char *relative_path, char **env)
 	int		i;
 	char	*path;
 
+	if (ft_strlen(relative_path) == 0)
+		return (NULL);
 	expanded_path = ft_get_expanded_path(env);
 	if (!expanded_path)
 	{
