@@ -1,21 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parser.c                                           :+:      :+:    :+:   */
+/*   heredoc_child.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kaisobe <kaisobe@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/02/10 15:21:53 by kaisobe           #+#    #+#             */
-/*   Updated: 2025/02/14 18:31:06 by kaisobe          ###   ########.fr       */
+/*   Created: 2025/02/14 19:08:21 by kaisobe           #+#    #+#             */
+/*   Updated: 2025/02/14 19:09:26 by kaisobe          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ast.h"
+#include "heredoc.h"
 
-t_astnode	*parser(t_token *token)
+void	child_heredoc(int pp[2], char *limiter)
 {
-	t_astnode	*ast_tree;
+	char	*heredoc_res;
 
-	ast_tree = parse_or_and(&token);
-	return (ast_tree);
+	set_signal_handlers(SIG_DFL, SIG_IGN);
+	close(pp[READ]);
+	heredoc_res = here_doc(limiter);
+	dup2(pp[WRITE], STDOUT_FILENO);
+	printf("%s", heredoc_res);
+	close(pp[WRITE]);
+	exit(EXIT_SUCCESS);
 }

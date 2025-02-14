@@ -6,15 +6,15 @@
 /*   By: kaisobe <kaisobe@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 15:25:07 by kaisobe           #+#    #+#             */
-/*   Updated: 2025/02/13 15:28:16 by kaisobe          ###   ########.fr       */
+/*   Updated: 2025/02/14 19:12:03 by kaisobe          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef AST_H
 # define AST_H
 
-# include "heredoc.h"
 # include "libft.h"
+# include "signals.h"
 # include "token.h"
 
 typedef enum e_astnode_type

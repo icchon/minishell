@@ -6,11 +6,44 @@
 /*   By: kaisobe <kaisobe@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 15:19:37 by kaisobe           #+#    #+#             */
-/*   Updated: 2025/02/13 06:09:49 by kaisobe          ###   ########.fr       */
+/*   Updated: 2025/02/14 19:09:10 by kaisobe          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "heredoc.h"
+
+static void	put_error(size_t line, char *delimited)
+{
+	if (line)
+	{
+		ft_putstr_fd("line ", STDERR_FILENO);
+		ft_putnbr_fd(line, STDERR_FILENO);
+		ft_putstr_fd(": ", STDERR_FILENO);
+	}
+	ft_putstr_fd("warning: ", STDERR_FILENO);
+	ft_putstr_fd("here-document at line 0 delimited by end-of-file ",
+		STDERR_FILENO);
+	ft_putstr_fd("(wanted `", STDERR_FILENO);
+	ft_putstr_fd(delimited, STDERR_FILENO);
+	ft_putstr_fd("')\n", STDERR_FILENO);
+}
+
+static int	check_delimited(t_strgen *strgen, char *str, char *delimited,
+		size_t delimited_len)
+{
+	if (!ft_strncmp(str, delimited, delimited_len)
+		&& str[delimited_len] == '\n')
+	{
+		free(str);
+		return (1);
+	}
+	else
+	{
+		ft_strgenstr(strgen, str);
+		free(str);
+		return (0);
+	}
+}
 
 static char	*here_doc_read(t_bufferio *stdin, char *delimited, size_t *line)
 {
@@ -67,47 +100,4 @@ char	*here_doc(char *delimited)
 		perror("here_doc");
 	ft_bufferiodel(stdin, 0);
 	return (ret);
-}
-
-char	*process_heredoc(char *limiter)
-{
-	char	*res;
-	char	*input_file;
-	int		fd;
-
-	res = here_doc(limiter);
-	input_file = ft_create_random_file(".", ".tmp");
-	fd = open(input_file, O_WRONLY | O_APPEND | O_CREAT,
-			S_IRGRP | S_IROTH | S_IWUSR | S_IRUSR);
-	ft_putstr_fd(res, fd);
-	free(res);
-	close(fd);
-	return (input_file);
-}
-
-void	exec_heredoc(t_astnode *node)
-{
-	t_redirect	*redirect;
-	char		*limiter;
-	char		*input_file;
-
-	if (!node)
-		return ;
-	redirect = node->redirects;
-	while (redirect)
-	{
-		if (redirect->type == TK_LIMITER)
-		{
-			limiter = redirect->data;
-			limiter = ft_strtrim_safe(limiter, "'\"");
-			input_file = process_heredoc(limiter);
-			grobal_tmpfile(SET, input_file);
-			redirect->data = ft_strdup(input_file);
-			redirect->type = TK_INFILE;
-			free(limiter);
-		}
-		redirect = redirect->next;
-	}
-	exec_heredoc(node->left);
-	exec_heredoc(node->right);
 }

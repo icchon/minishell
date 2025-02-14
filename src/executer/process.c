@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   process.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tkitago <tkitago@student.42tokyo.jp>       +#+  +:+       +#+        */
+/*   By: kaisobe <kaisobe@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 14:58:58 by kaisobe           #+#    #+#             */
-/*   Updated: 2025/02/14 09:17:47 by tkitago          ###   ########.fr       */
+/*   Updated: 2025/02/14 19:12:58 by kaisobe          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,12 +77,9 @@ pid_t	fork_and_exec_child(t_astnode *node, int old_pipes[2], int new_pipes[2])
 	pid = fork();
 	if (pid == CHILD_PID)
 	{
-		//signal(SIGQUIT, SIG_DFL);
-		//set_signal_child();
+		set_signal_handlers(SIG_DFL, SIG_DFL);
 		child_process(old_pipes, new_pipes, node->redirects, node);
-		// kill(pid, SIGABRT);
 	}
-    
 	return (pid);
 }
 
