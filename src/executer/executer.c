@@ -6,7 +6,7 @@
 /*   By: kaisobe <kaisobe@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 14:58:48 by kaisobe           #+#    #+#             */
-/*   Updated: 2025/02/13 15:52:45 by kaisobe          ###   ########.fr       */
+/*   Updated: 2025/02/15 08:16:04 by kaisobe          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,13 +56,10 @@ t_status	execute_commands(t_list *cmds)
 	t_astnode	*cmd;
 
 	cmd = (t_astnode *)cmds->content;
+	update_grobal_env();
 	if (ft_lstsize(cmds) == 1 && is_builtin(cmd->args->data))
 	{
 		return (execute_single_builtin(cmd));
-	}
-	else
-	{
-		return (execute_fork_commands(cmds));
 	}
 	return (execute_fork_commands(cmds));
 }

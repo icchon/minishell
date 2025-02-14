@@ -6,7 +6,7 @@
 /*   By: kaisobe <kaisobe@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 15:11:33 by kaisobe           #+#    #+#             */
-/*   Updated: 2025/02/14 08:44:46 by kaisobe          ###   ########.fr       */
+/*   Updated: 2025/02/15 08:34:02 by kaisobe          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ static void	process_doller(char *str, size_t *i, char **out)
 		}
 		else
 		{
-			len = ft_calc_next_str(&str[*i], "\t\n\v\f\r $");
+			len = ft_calc_next_str(&str[*i], "\t '$");
 			key = ft_substr(&str[*i], 0, len);
 			*out = ft_strjoin_safe(*out, ft_get_env(key, grobal_env(GET)), 1,
 					0);
@@ -58,7 +58,7 @@ t_token	*token_variable_split(t_token **token)
 	new_tokens = NULL;
 	while (splited && splited[i])
 	{
-		new = new_token(TK_WORD, ft_strdup(splited[i]));
+		new = new_token(TK_WORD, splited[i]);
 		addback_token(&new_tokens, new);
 		i++;
 	}
