@@ -6,7 +6,7 @@
 /*   By: tkitago <tkitago@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 20:32:44 by tkitago           #+#    #+#             */
-/*   Updated: 2025/02/15 09:33:59 by tkitago          ###   ########.fr       */
+/*   Updated: 2025/02/15 09:45:40 by tkitago          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ static int	get_exit_code(char *av)
 
 	if (!ft_islong(av))
 	{
-		printf("exit: %s: numeric argument required\n", av);
+		ft_dprintf(STDERR_FILENO, "exit: %s: numeric argument required\n", av);
 		exit(2);
 	}
 	exit_code = ft_atoi(av);
@@ -41,12 +41,12 @@ int	builtin_exit(int ac, char *av[], int last_status)
 {
 	if (ac == 1)
 	{
-		printf("exit\n");
+		ft_putendl_fd("exit\n", STDERR_FILENO);
 		exit(last_status);
 	}
 	else if (ac == 2)
 	{
-		printf("exit\n");
+		ft_putendl_fd("exit\n", STDERR_FILENO);
 		exit(get_exit_code(av[1]));
 	}
 	else

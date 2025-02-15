@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kaisobe <kaisobe@student.42.fr>            +#+  +:+       +#+        */
+/*   By: tkitago <tkitago@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 20:32:26 by tkitago           #+#    #+#             */
-/*   Updated: 2025/02/11 07:59:34 by kaisobe          ###   ########.fr       */
+/*   Updated: 2025/02/15 09:46:43 by tkitago          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ static int	cd_change_dir(char *path, t_env **env_lst)
 		return (EXIT_FAILURE);
 	if (chdir(path))
 	{
-		printf("cd: %s: No such file or directory\n", path);
+		ft_dprintf(STDERR_FILENO, "cd: %s: No such file or directory\n", path);
 		return (EXIT_FAILURE);
 	}
 	if (!getcwd(new_wd, sizeof(new_wd)))
