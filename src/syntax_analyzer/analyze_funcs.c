@@ -6,7 +6,7 @@
 /*   By: kaisobe <kaisobe@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/13 15:03:03 by kaisobe           #+#    #+#             */
-/*   Updated: 2025/02/15 16:30:26 by kaisobe          ###   ########.fr       */
+/*   Updated: 2025/02/15 17:29:18 by kaisobe          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,11 +57,15 @@ int	analyze_heredoc(t_token *token)
 int	analyze_logical_op(t_token *token)
 {
 	t_token_type	type;
+	t_token_type	next_type;
 
 	type = token->type;
 	if (type == TK_OR || type == TK_AND)
 	{
 		if (!(token->prev && token->next))
+			return (0);
+		next_type = token->next->type;
+		if (!ft_ismatch(next_type, 3, TK_WORD, TK_VAR, TK_BRA_LEFT))
 			return (0);
 	}
 	return (1);
