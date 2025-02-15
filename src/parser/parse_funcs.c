@@ -6,7 +6,7 @@
 /*   By: kaisobe <kaisobe@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/13 15:27:27 by kaisobe           #+#    #+#             */
-/*   Updated: 2025/02/13 15:27:40 by kaisobe          ###   ########.fr       */
+/*   Updated: 2025/02/15 16:19:42 by kaisobe          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,19 +16,27 @@ static t_astnode	*parse_brackets(t_token **token)
 {
 	t_token	*to_delete;
 	t_token	*parts;
+	int		bracket_cnt;
 
+	bracket_cnt = 1;
 	if (!(*token && (*token)->type == TK_BRA_LEFT))
 		return (NULL);
 	to_delete = *token;
 	*token = (*token)->next;
 	parts = *token;
 	cut_token(token, to_delete);
-	while ((*token)->type != TK_BRA_RIGHT)
+	while (1)
 	{
-		*token = (*token)->next;
+		if ((*token)->type == TK_BRA_LEFT)
+			bracket_cnt++;
+		if ((*token)->type == TK_BRA_RIGHT)
+			bracket_cnt--;
+		if (bracket_cnt == 0)
+			break ;
+		(*token) = (*token)->next;
 	}
 	to_delete = *token;
-	*token = (*token)->next;
+	(*token) = (*token)->next;
 	cut_token(token, to_delete);
 	return (parse_or_and(&parts));
 }

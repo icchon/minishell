@@ -6,7 +6,7 @@
 /*   By: kaisobe <kaisobe@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 15:39:07 by kaisobe           #+#    #+#             */
-/*   Updated: 2025/02/15 08:35:17 by kaisobe          ###   ########.fr       */
+/*   Updated: 2025/02/15 17:13:21 by kaisobe          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ static int	main_process(t_all *all)
 	all->tokens = lexer((char *)all->line);
 	if (!syntax_analyzer(all->tokens))
 		return (ft_dprintf(STDERR_FILENO, "bash: syntax error\n"),
-			grobal_status(SET, 126), 0);
+			grobal_status(SET, 126), free_tokens(all->tokens), 0);
 	all->tree = parser(all->tokens);
 	set_signal_handlers(sig_handler_while_child, SIG_IGN);
 	exec_heredoc(all->tree);
