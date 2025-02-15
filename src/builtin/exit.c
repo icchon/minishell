@@ -6,7 +6,7 @@
 /*   By: tkitago <tkitago@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 20:32:44 by tkitago           #+#    #+#             */
-/*   Updated: 2025/02/15 09:45:40 by tkitago          ###   ########.fr       */
+/*   Updated: 2025/02/15 09:56:52 by tkitago          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,12 +41,12 @@ int	builtin_exit(int ac, char *av[], int last_status)
 {
 	if (ac == 1)
 	{
-		ft_putendl_fd("exit\n", STDERR_FILENO);
+		ft_putendl_fd("exit", STDERR_FILENO);
 		exit(last_status);
 	}
 	else if (ac == 2)
 	{
-		ft_putendl_fd("exit\n", STDERR_FILENO);
+		ft_putendl_fd("exit", STDERR_FILENO);
 		exit(get_exit_code(av[1]));
 	}
 	else

@@ -6,7 +6,7 @@
 /*   By: tkitago <tkitago@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 20:32:26 by tkitago           #+#    #+#             */
-/*   Updated: 2025/02/15 09:46:43 by tkitago          ###   ########.fr       */
+/*   Updated: 2025/02/15 09:53:46 by tkitago          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,10 +18,10 @@ static int	go_home(t_env **env_lst)
 	char	old_wd[PATH_MAX];
 	char	new_home_wd[PATH_MAX];
 
-	home = getenv("HOME");
+	home = ft_get_env("HOME", grobal_env(GET));
 	if (!home || !home[0])
 	{
-		ft_putendl_fd("cd: HOME not set\n", STDERR_FILENO);
+		ft_putendl_fd("cd: HOME not set", STDERR_FILENO);
 		return (EXIT_FAILURE);
 	}
 	if (!getcwd(old_wd, sizeof(old_wd)))
