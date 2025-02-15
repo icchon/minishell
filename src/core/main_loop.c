@@ -22,7 +22,10 @@ static void	init_loop(t_all *all)
 	all->prompt = get_shell_prompt(1);
 	rl_on_new_line();
 	rl_replace_line("", 0);
+	g_signal = 0;
 	all->line = ft_strtrim_safe(get_readline(all->prompt), " \n\t");
+	if (g_signal != 0)
+		grobal_status(SET, (g_signal + 128));
 	g_signal = 0;
 	return ;
 }
