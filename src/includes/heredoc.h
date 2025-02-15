@@ -6,7 +6,7 @@
 /*   By: kaisobe <kaisobe@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 15:25:18 by kaisobe           #+#    #+#             */
-/*   Updated: 2025/02/14 19:10:09 by kaisobe          ###   ########.fr       */
+/*   Updated: 2025/02/15 15:09:29 by kaisobe          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define HEREDOC_H
 
 # include "ast.h"
+# include "expander.h"
 # include "util.h"
 
 # define HEREDOC_BUFFERSIZE 10000

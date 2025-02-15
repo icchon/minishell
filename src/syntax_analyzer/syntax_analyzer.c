@@ -6,7 +6,7 @@
 /*   By: kaisobe <kaisobe@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/13 15:22:43 by kaisobe           #+#    #+#             */
-/*   Updated: 2025/02/13 15:59:56 by kaisobe          ###   ########.fr       */
+/*   Updated: 2025/02/15 17:12:33 by kaisobe          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,23 +78,13 @@ int	syntax_analyzer(t_token *tokens)
 	int	res;
 
 	res = analyze_token_simple_func(tokens, (t_analyze_f)analyze_simple_token);
-	if (!res)
-		return (printf("simple token error\n"), 0);
 	res &= analyze_token_simple_func(tokens, (t_analyze_f)analyze_redirect);
-	if (!res)
-		return (printf("redirect error\n"), 0);
 	res &= analyze_token_simple_func(tokens, (t_analyze_f)analyze_heredoc);
-	if (!res)
-		return (printf("heredoc error\n"), 0);
 	res &= analyze_token_simple_func(tokens, (t_analyze_f)analyze_pipe);
-	if (!res)
-		return (printf("pipe error\n"), 0);
 	res &= analyze_token_simple_func(tokens, (t_analyze_f)analyze_logical_op);
-	if (!res)
-		return (printf("logical op error\n"), 0);
 	res &= analyze_simple_command(tokens);
-	if (!res)
-		return (printf("simple command error\n"), 0);
+	res &= analyze_bracket_pairs(tokens);
+	res &= analyze_bracket_connections(tokens);
 	return (res);
 }
 

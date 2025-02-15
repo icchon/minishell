@@ -32,7 +32,7 @@ LEXER_SRCS := $(addprefix lexer/,$(LEXER_FILES))
 READLINE_FILES := readline.c
 READLINE_SRCS := $(addprefix readline/,$(READLINE_FILES))
 
-SYNTAX_ANALYZER_FILES := analyze_funcs.c  brackets.c quate.c syntax_analyzer.c validate_input.c
+SYNTAX_ANALYZER_FILES := analyze_funcs.c  brackets.c quate.c syntax_analyzer.c validate_input.c bracket_analyze_func.c
 SYNTAX_ANALYZER_SRCS := $(addprefix syntax_analyzer/,$(SYNTAX_ANALYZER_FILES))
 
 ENV_FILES := struct_env_util1.c struct_env_util2.c	struct_env_util3.c
