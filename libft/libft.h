@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kaisobe <kaisobe@student.42.fr>            +#+  +:+       +#+        */
+/*   By: tkitago <tkitago@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/16 13:11:02 by tkitago           #+#    #+#             */
-/*   Updated: 2025/02/14 08:04:11 by kaisobe          ###   ########.fr       */
+/*   Updated: 2025/02/15 09:33:25 by tkitago          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -167,6 +167,7 @@ int					ft_ismatch(int x, int argn, ...);
 size_t				ft_strslen(const char **strs);
 void				ft_print_strs(char **strs);
 int					ft_isint(const char *nptr);
+int					ft_islong(const char *nptr);
 int					ft_issign(int c);
 char				**ft_strsdup(char **strs);
 void				*xmalloc(size_t size);

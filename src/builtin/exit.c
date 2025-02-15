@@ -6,7 +6,7 @@
 /*   By: tkitago <tkitago@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 20:32:44 by tkitago           #+#    #+#             */
-/*   Updated: 2025/02/10 21:02:51 by tkitago          ###   ########.fr       */
+/*   Updated: 2025/02/15 09:33:59 by tkitago          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ static int	get_exit_code(char *av)
 	int	exit_code;
 	int	tmp_exit_code;
 
-	if (!ft_isint(av))
+	if (!ft_islong(av))
 	{
 		printf("exit: %s: numeric argument required\n", av);
 		exit(2);
