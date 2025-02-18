@@ -6,7 +6,7 @@
 /*   By: kaisobe <kaisobe@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/13 15:22:43 by kaisobe           #+#    #+#             */
-/*   Updated: 2025/02/15 17:12:33 by kaisobe          ###   ########.fr       */
+/*   Updated: 2025/02/18 13:43:32 by kaisobe          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,35 @@ int	analyze_simple_token(t_token *token)
 	return (res);
 }
 
+static int	analyze_bracket_left_right(t_token *token)
+{
+	if (token->type == TK_BRA_LEFT)
+	{
+		if (token->prev)
+			if (!ft_ismatch(token->prev->type, 4, TK_BRA_LEFT, TK_PIPE, TK_AND,
+					TK_OR))
+				return (0);
+		if (!token->next)
+			return (0);
+		if (ft_ismatch(token->next->type, 5, TK_BRA_LEFT, TK_BRA_RIGHT, TK_PIPE,
+				TK_AND, TK_OR))
+			return (0);
+	}
+	if (token->type == TK_BRA_RIGHT)
+	{
+		if (token->next)
+			if (!ft_ismatch(token->next->type, 4, TK_BRA_LEFT, TK_PIPE, TK_AND,
+					TK_OR))
+				return (0);
+		if (!token->prev)
+			return (0);
+		if (ft_ismatch(token->prev->type, 5, TK_BRA_LEFT, TK_BRA_RIGHT, TK_PIPE,
+				TK_AND, TK_OR))
+			return (0);
+	}
+	return (1);
+}
+
 static int	analyze_token_simple_func(t_token *tokens, t_analyze_f analyze_func)
 {
 	t_token	*token;
@@ -82,6 +111,8 @@ int	syntax_analyzer(t_token *tokens)
 	res &= analyze_token_simple_func(tokens, (t_analyze_f)analyze_heredoc);
 	res &= analyze_token_simple_func(tokens, (t_analyze_f)analyze_pipe);
 	res &= analyze_token_simple_func(tokens, (t_analyze_f)analyze_logical_op);
+	res &= analyze_token_simple_func(tokens,
+			(t_analyze_f)analyze_bracket_left_right);
 	res &= analyze_simple_command(tokens);
 	res &= analyze_bracket_pairs(tokens);
 	res &= analyze_bracket_connections(tokens);
