@@ -6,7 +6,7 @@
 /*   By: kaisobe <kaisobe@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 15:39:07 by kaisobe           #+#    #+#             */
-/*   Updated: 2025/02/15 17:13:21 by kaisobe          ###   ########.fr       */
+/*   Updated: 2025/02/18 13:20:02 by kaisobe          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,6 @@ static void	init_loop(t_all *all)
 
 static int	main_process(t_all *all)
 {
-	if (ft_strlen(all->line) > 0)
-		add_history(all->line);
 	all->tokens = lexer((char *)all->line);
 	if (!syntax_analyzer(all->tokens))
 		return (ft_dprintf(STDERR_FILENO, "bash: syntax error\n"),
@@ -65,6 +63,8 @@ void	shell_loop(void)
 			ft_dprintf(STDERR_FILENO, "exit\n");
 			break ;
 		}
+		if (ft_strlen(all->line) > 0)
+			add_history(all->line);
 		if (!is_valid_input(all->line))
 		{
 			ft_dprintf(STDERR_FILENO, "bash: syntax error\n");

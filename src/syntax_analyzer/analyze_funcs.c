@@ -6,7 +6,7 @@
 /*   By: kaisobe <kaisobe@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/13 15:03:03 by kaisobe           #+#    #+#             */
-/*   Updated: 2025/02/15 16:30:26 by kaisobe          ###   ########.fr       */
+/*   Updated: 2025/02/18 13:16:32 by kaisobe          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,11 +57,19 @@ int	analyze_heredoc(t_token *token)
 int	analyze_logical_op(t_token *token)
 {
 	t_token_type	type;
+	t_token_type	prev_type;
+	t_token_type	next_type;
 
 	type = token->type;
 	if (type == TK_OR || type == TK_AND)
 	{
 		if (!(token->prev && token->next))
+			return (0);
+		prev_type = token->prev->type;
+		next_type = token->next->type;
+		if (ft_ismatch(prev_type, 4, TK_OR, TK_AND, TK_BRA_LEFT, TK_PIPE))
+			return (0);
+		if (ft_ismatch(next_type, 4, TK_OR, TK_AND, TK_BRA_RIGHT, TK_PIPE))
 			return (0);
 	}
 	return (1);
@@ -70,11 +78,19 @@ int	analyze_logical_op(t_token *token)
 int	analyze_pipe(t_token *token)
 {
 	t_token_type	type;
+	t_token_type	prev_type;
+	t_token_type	next_type;
 
 	type = token->type;
 	if (type == TK_PIPE)
 	{
 		if (!(token->prev && token->next))
+			return (0);
+		prev_type = token->prev->type;
+		next_type = token->next->type;
+		if (ft_ismatch(prev_type, 4, TK_OR, TK_AND, TK_BRA_LEFT, TK_PIPE))
+			return (0);
+		if (ft_ismatch(next_type, 4, TK_OR, TK_AND, TK_BRA_RIGHT, TK_PIPE))
 			return (0);
 		token = token->next;
 	}
