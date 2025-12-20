@@ -17,7 +17,7 @@
 # include "type.h"
 # include "util.h"
 
-typedef int	*(*t_analyze_f)(t_token *token);
+typedef int	(*t_analyze_f)(t_token *token);
 
 int			syntax_analyzer(t_token *tokens);
 int			is_valid_brackets(char *line);
