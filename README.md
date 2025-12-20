@@ -11,6 +11,8 @@
 </p>
 <br>
 
+![minishell demo](./demo.gif)
+
 ## Contents
 - [Overview](#overview)
 - [Features](#features)
