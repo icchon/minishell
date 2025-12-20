@@ -52,8 +52,8 @@
 ### Requirements
 - **GNU make** (`3.81` or later)
 - **cc** (`17.7.0` or later)
-- **libreadline**
-- **valgrind**
+- **libreadline-dev**
+- **valgrind** (`3.25.1` or later)
 - **Docker** (`29.1.3` or later)
 
 ### Compilation
