@@ -85,4 +85,4 @@ make leak
 ## License
 [MIT License](LICENSE)
 
-© 2025 icchon
+© 2025 the minishell contributers
