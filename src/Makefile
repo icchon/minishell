@@ -17,7 +17,7 @@ $(BIN_DIR):
 	@mkdir -p $@
 
 $(TARGET): $(OBJS) $(LIBFT_ARCH) $(BIN_DIR)
-	$(CC) $(C_FLAGS) -l readline $(INC_FLAGS) $(OBJS) $(LIBFT_ARCH) -o $@
+	$(CC) $(C_FLAGS) $(INC_FLAGS) $(OBJS) -lreadline $(LIBFT_ARCH) -o $@
 
 $(LIBFT_ARCH):
 	@make -C $(LIBFT_DIR)
