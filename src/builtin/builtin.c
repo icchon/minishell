@@ -33,9 +33,6 @@ int	is_builtin(char *cmd)
 
 t_status	builtin(char *av[])
 {
-	t_env	**env_lst;
-
-	env_lst = grobal_envlist(GET);
 	if (ft_isequal(av[0], "cd"))
 		return (builtin_cd(ft_strslen((const char **)av), av,
 				grobal_envlist(GET)));

@@ -57,3 +57,4 @@ typescript
 .script_lock
 *.tmp
 *.txt
+*.cast
